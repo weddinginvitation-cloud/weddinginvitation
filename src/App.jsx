@@ -15,9 +15,11 @@ const invitationPdfRaw =
 const invitationPdf = /^https?:\/\//i.test(invitationPdfRaw)
   ? invitationPdfRaw
   : `${import.meta.env.BASE_URL}${invitationPdfRaw.replace(/^\/+/, "")}`;
-const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "6207398499";
+const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "+91 6207398499";
 const wishesWhatsappNumber =
-  import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "7992371912";
+  import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
+const whatsappNumberLink = whatsappNumber.replace(/\D/g, "");
+const wishesWhatsappNumberLink = wishesWhatsappNumber.replace(/\D/g, "");
 
 const timeline = [
   {
@@ -276,14 +278,14 @@ function App() {
       ...prev,
     ]);
     const messageForWhatsapp = `Guest Blessing: ${text}`;
-    const wallWhatsappLink = `https://wa.me/${wishesWhatsappNumber}?text=${encodeURIComponent(
+    const wallWhatsappLink = `https://wa.me/${wishesWhatsappNumberLink}?text=${encodeURIComponent(
       messageForWhatsapp
     )}`;
     window.open(wallWhatsappLink, "_blank", "noopener,noreferrer");
     setMessageInput("");
   }
 
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/${whatsappNumberLink}?text=${encodeURIComponent(
     "Graciously Confirm: I would like to confirm my presence for your wedding celebration."
   )}`;
 
@@ -408,7 +410,7 @@ function App() {
             </article>
             <article className="glass-card">
               <h3>Contact Person</h3>
-              <p>Pappu Ji: 123456789</p>
+              <p>Pappu Ji: +91 123456789</p>
             </article>
           </div>
         </section>
