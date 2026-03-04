@@ -633,7 +633,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Developed by Harshit</p>
+        <p></p>
       </footer>
 
       {selectedPhoto ? (
