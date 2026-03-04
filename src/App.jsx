@@ -76,7 +76,7 @@ const gallery = [
     color: "from-mustard to-lotus",
   },
   {
-    title: "Royal Entry",
+    title: "Grand Entry",
     color: "from-maroon to-gold",
   },
   {
@@ -138,9 +138,9 @@ function getWeatherLabel(code) {
 function buildCalendarUrl() {
   const start = "20260427T133000Z";
   const end = "20260427T183000Z";
-  const text = encodeURIComponent("Royal Wedding of Sanu & Soni");
+  const text = encodeURIComponent("Wedding of Sanu & Soni");
   const details = encodeURIComponent(
-    "With blessings of both families, join us for a royal Mithilanchal wedding celebration."
+    "With blessings of both families, join us for a Mithilanchal wedding celebration."
   );
   const location = encodeURIComponent(
     "Madhubani, Bihar, India"
