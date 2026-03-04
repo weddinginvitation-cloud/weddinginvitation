@@ -280,7 +280,7 @@ function App() {
   }
 
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Namaste! I would like to confirm my presence for your wedding celebration."
+    "Graciously Confirm: I would like to confirm my presence for your wedding celebration."
   )}`;
 
   return (
@@ -332,7 +332,7 @@ function App() {
 
             <div className="hero-buttons">
               <a className="btn" href="#rsvp">
-                RSVP Now
+                Accept Now
               </a>
               <a className="btn btn-outline" href={buildCalendarUrl()} target="_blank" rel="noreferrer">
                 Add to Calendar
@@ -443,7 +443,7 @@ function App() {
           {weather.now ? (
             <div className="grid-three">
               <article className="glass-card">
-                <h3>{weather.now.temp}C</h3>
+                <h3>{weather.now.temp}°C</h3>
                 <p>{weather.now.condition}</p>
               </article>
               <article className="glass-card">
@@ -480,7 +480,7 @@ function App() {
               {weather.forecast.map((day) => (
                 <article className="glass-card" key={day.day}>
                   <h3>{day.day}</h3>
-                  <p>{day.temp}C</p>
+                  <p>{day.temp}°C</p>
                   <p>{day.condition}</p>
                 </article>
               ))}
@@ -541,7 +541,7 @@ function App() {
         </section>
 
         <section className="section rsvp" id="rsvp">
-          <h2>RSVP & Blessings</h2>
+          <h2>Confirmation and Blessings</h2>
           <div className="grid-two">
             <form className="gold-card" onSubmit={handleRsvpSubmit}>
               <label>
@@ -585,10 +585,10 @@ function App() {
               </label>
               <div className="form-actions">
                 <button className="btn" type="submit">
-                  Confirm RSVP
+                  Confirm Now
                 </button>
                 <a className="btn btn-outline" href={whatsappLink} target="_blank" rel="noreferrer">
-                  WhatsApp RSVP
+                  WhatsApp Confirm
                 </a>
               </div>
               {rsvpSubmitted ? <p className="notice">Thank you. Your RSVP has been recorded.</p> : null}
