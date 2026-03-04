@@ -292,7 +292,7 @@ function App() {
       </div>
 
       <header className="topbar">
-        <p className="brand">Sanu x Soni</p>
+        <p className="brand">SS Wedding</p>
         <div className="actions">
           <button onClick={() => setDarkMode((v) => !v)} className="chip">
             {darkMode ? "Light Mode" : "Dark Mode"}
