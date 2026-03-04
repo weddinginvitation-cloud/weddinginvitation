@@ -10,7 +10,11 @@ const mapsEmbedUrl =
 const shehnaiSrc =
   import.meta.env.VITE_SHEHNAI_AUDIO_URL ||
   `${import.meta.env.BASE_URL}music/Sehnai_Dhun_Mangal_Dhun_Music_Mithila_Ke_Lok_Baja_Rasan_Chauki_256kbps.webm`;
-const invitationPdf = import.meta.env.VITE_INVITATION_PDF_URL || "";
+const invitationPdfRaw =
+  import.meta.env.VITE_INVITATION_PDF_URL || "invitation.pdf";
+const invitationPdf = /^https?:\/\//i.test(invitationPdfRaw)
+  ? invitationPdfRaw
+  : `${import.meta.env.BASE_URL}${invitationPdfRaw.replace(/^\/+/, "")}`;
 const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "6207398499";
 const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "7992371912";
