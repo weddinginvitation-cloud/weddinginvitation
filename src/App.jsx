@@ -1,7 +1,7 @@
+﻿
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const weddingDate = new Date("2026-04-27T19:00:00+05:30");
-const venueCity = "Madhubani";
 const mapsEmbedUrl =
   import.meta.env.VITE_GOOGLE_MAPS_EMBED_URL ||
   `https://www.google.com/maps?q=${encodeURIComponent(
@@ -21,83 +21,494 @@ const wishesWhatsappNumber =
 const whatsappNumberLink = whatsappNumber.replace(/\D/g, "");
 const wishesWhatsappNumberLink = wishesWhatsappNumber.replace(/\D/g, "");
 
-const timeline = [
-  {
-    title: "First Glance",
-    date: "April 24, 2026",
-    text: "Our first glance in Putai, Darbhanga turned into the beginning of a lifelong poem.",
-  },
-  {
-    title: "Families United",
-    date: "April 24, 2026",
-    text: "In the warmth of elders' blessings, two families found one shared rhythm.",
-  },
-  {
-    title: "The Engagement",
-    date: "April 26, 2026",
-    text: "Ring ceremony with Maithil geet, marigold fragrance, and promises written in smiles.",
-  },
-];
+const localeByLanguage = {
+  en: "en-US",
+  hi: "hi-IN",
+  mai: "hi-IN",
+};
 
-const traditions = [
-  {
-    name: "Madhuparka",
-    icon: "01",
-    text: "A ritual of sacred hospitality where the groom is welcomed with reverence, sweetness, and divine blessing.",
+const translations = {
+  en: {
+    brand: "SS Wedding",
+    language: "Language",
+    languageHindi: "Hindi",
+    languageMaithili: "Maithili",
+    languageEnglish: "English",
+    darkMode: "Dark Mode",
+    lightMode: "Light Mode",
+    playMusic: "Play Music",
+    muteMusic: "Mute Music",
+    musicToggleTitle: "Toggle shehnai music",
+    musicMissingTitle: "Set VITE_SHEHNAI_AUDIO_URL to enable music",
+    together: "Together with their families",
+    couple: "Saurabh & Soni",
+    dateLine: "Monday, April 27, 2026 | Madhubani, Bihar",
+    days: "days",
+    hours: "hours",
+    minutes: "minutes",
+    seconds: "seconds",
+    acceptNow: "Accept Now",
+    addToCalendar: "Add to Calendar",
+    calendarEvent: "Wedding of Saurabh & Soni",
+    calendarDetails:
+      "With blessings of both families, join us for a Mithilanchal wedding celebration.",
+    calendarLocation: "Madhubani, Bihar, India",
+    storyTitle: "Our Story",
+    storySubtitle: "A timeline of moments that led us to forever.",
+    timeline: [
+      {
+        title: "First Glance",
+        date: "April 24, 2026",
+        text: "Our first glance in Putai, Darbhanga turned into the beginning of a lifelong poem.",
+      },
+      {
+        title: "Families United",
+        date: "April 24, 2026",
+        text: "In the warmth of elders' blessings, two families found one shared rhythm.",
+      },
+      {
+        title: "The Engagement",
+        date: "April 26, 2026",
+        text: "Ring ceremony with Maithil geet, marigold fragrance, and promises written in smiles.",
+      },
+    ],
+    shagunTitle: "Shagun Ceremony",
+    dateLabel: "Date",
+    timeLabel: "Time",
+    venueLabel: "Venue",
+    dressCodeLabel: "Dress Code",
+    shagunDate: "April 24, 2026",
+    shagunTime: "6:30 PM onwards",
+    shagunVenue: "Putai, Bihar",
+    shagunDress: "Traditional Festive Gold / Maroon",
+    shagunDescription:
+      "In Mithilanchal tradition, Shagun marks the graceful beginning of sacred wedding rites, where blessings, gifts, and goodwill flow between families.",
+    baraatTitle: "Baraat Experience",
+    departureTitle: "Departure Time",
+    departureValue: "5:00 PM from Putai",
+    routeTitle: "Route Preview",
+    routeValue: "Putai -> Madhubani Town -> Wedding Venue",
+    contactTitle: "Contact Person",
+    contactValue: "to be updated",
+    venueTitle: "Grand Venue",
+    venueName: "mudhubani hotel",
+    venueAddress: "Madhubani, Bihar 847211",
+    openMaps: "Open in Google Maps",
+    nearestRailway: "Nearest Railway Station: Darbhanga Junction (5.8 km)",
+    nearestAirport: "Nearest Airport: Darbhanga Airport (8.1 km)",
+    landmark: "Landmark: to be updated",
+    mapTitle: "Wedding venue map",
+    weatherTitle: "Live Weather & AQI",
+    weatherSubtitle: "Auto-updated for Madhubani",
+    loadingWeather: "Loading weather details...",
+    weatherUnavailable: "Live weather is currently unavailable.",
+    humidity: "Humidity",
+    windSpeed: "Wind Speed",
+    countdownTitle: "Countdown to the Grand Celebration",
+    celebrationArrived: "The sacred hour has arrived. Welcome to the wedding celebration.",
+    traditionsTitle: "Mithilanchal Wedding Traditions",
+    traditions: [
+      {
+        icon: "01",
+        name: "Madhuparka",
+        text: "A ritual of sacred hospitality where the groom is welcomed with reverence, sweetness, and divine blessing.",
+      },
+      {
+        icon: "02",
+        name: "Kanyadaan",
+        text: "The bride's parents offer their daughter with prayerful hearts, marking a deeply emotional and spiritual moment.",
+      },
+      {
+        icon: "03",
+        name: "Panigrahan",
+        text: "The sacred holding of hands, symbolizing mutual trust, responsibility, and companionship for life.",
+      },
+      {
+        icon: "04",
+        name: "Sindoor Daan",
+        text: "The groom adorns the bride with sindoor, honoring marital vows in the presence of family and fire.",
+      },
+      {
+        icon: "05",
+        name: "Kohbar Ritual",
+        text: "In the Kohbar chamber, symbolic Mithila motifs celebrate fertility, harmony, and auspicious beginnings.",
+      },
+      {
+        icon: "06",
+        name: "Maithil Geet",
+        text: "Traditional songs echo blessings, humor, and ancestral wisdom across every ritual moment.",
+      },
+    ],
+    galleryTitle: "Wedding Gallery",
+    gallery: [
+      { title: "Haldi Courtyard", color: "from-mustard to-lotus" },
+      { title: "Grand Entry", color: "from-maroon to-gold" },
+      { title: "Varmala Stage", color: "from-emerald to-gold" },
+      { title: "Kohbar Art", color: "from-lotus to-maroon" },
+      { title: "Sacred Mandap", color: "from-gold to-cream" },
+      { title: "Family Blessings", color: "from-emerald to-mustard" },
+    ],
+    rsvpTitle: "Confirmation and Blessings",
+    fullName: "Full Name",
+    phone: "Phone Number",
+    guests: "Number of Guests",
+    ceremony: "Ceremony",
+    shagunCeremony: "Shagun Ceremony",
+    weddingNight: "Wedding Night",
+    bothCeremonies: "Both Ceremonies",
+    confirmNow: "Confirm Now",
+    whatsappConfirm: "WhatsApp Confirm",
+    rsvpThanks: "Thank you. Your RSVP has been recorded.",
+    downloadPdf: "Download Invitation PDF",
+    enablePdf: "Set VITE_INVITATION_PDF_URL to enable PDF download.",
+    messageWall: "Guest Message Wall",
+    blessingPlaceholder: "Share your blessing...",
+    postMessage: "Post Message",
+    firstBlessing: "Be the first to bless the couple.",
+    guestBlessingPrefix: "Guest Blessing",
+    confirmMessagePrefix: "Graciously Confirm",
+    confirmMessageBody: "I would like to confirm my presence for your wedding celebration.",
+    languageNote: "Language",
+    ceremonyNote: "Ceremonies",
+    notSelected: "Not selected",
+    close: "Close",
+    aqiGood: "Good",
+    aqiModerate: "Moderate",
+    aqiUnhealthy: "Unhealthy",
+    aqiVeryUnhealthy: "Very Unhealthy",
+    aqiHazardous: "Hazardous",
+    weatherClearSky: "Clear Sky",
+    weatherPartlyCloudy: "Partly Cloudy",
+    weatherCloudy: "Cloudy",
+    weatherFog: "Fog",
+    weatherDrizzle: "Drizzle",
+    weatherRain: "Rain",
+    weatherSnow: "Snow",
+    weatherRainShowers: "Rain Showers",
+    weatherThunderstorm: "Thunderstorm",
+    weatherUpdate: "Weather Update",
   },
-  {
-    name: "Kanyadaan",
-    icon: "02",
-    text: "The bride's parents offer their daughter with prayerful hearts, marking a deeply emotional and spiritual moment.",
+  hi: {
+    brand: "एसएस विवाह",
+    language: "भाषा",
+    languageHindi: "हिंदी",
+    languageMaithili: "मैथिली",
+    languageEnglish: "अंग्रेज़ी",
+    darkMode: "डार्क मोड",
+    lightMode: "लाइट मोड",
+    playMusic: "संगीत चलाएं",
+    muteMusic: "संगीत बंद करें",
+    musicToggleTitle: "शहनाई संगीत चालू/बंद करें",
+    musicMissingTitle: "संगीत के लिए VITE_SHEHNAI_AUDIO_URL सेट करें",
+    together: "दोनों परिवारों के साथ",
+    couple: "सौरभ और सोनी",
+    dateLine: "सोमवार, 27 अप्रैल 2026 | मधुबनी, बिहार",
+    days: "दिन",
+    hours: "घंटे",
+    minutes: "मिनट",
+    seconds: "सेकंड",
+    acceptNow: "अभी स्वीकार करें",
+    addToCalendar: "कैलेंडर में जोड़ें",
+    calendarEvent: "सौरभ और सोनी का विवाह",
+    calendarDetails:
+      "दोनों परिवारों के आशीर्वाद के साथ, मिथिलांचल विवाह समारोह में आपका स्वागत है।",
+    calendarLocation: "मधुबनी, बिहार, भारत",
+    storyTitle: "हमारी कहानी",
+    storySubtitle: "वे खूबसूरत पल जिन्होंने हमें हमेशा के लिए जोड़ा।",
+    timeline: [
+      {
+        title: "पहली मुलाकात",
+        date: "24 अप्रैल 2026",
+        text: "पुतई, दरभंगा में पहली झलक ने जीवनभर के साथ की शुरुआत कर दी।",
+      },
+      {
+        title: "परिवारों का मिलन",
+        date: "24 अप्रैल 2026",
+        text: "बड़ों के आशीर्वाद में दो परिवार एक ही सुर में बंध गए।",
+      },
+      {
+        title: "सगाई",
+        date: "26 अप्रैल 2026",
+        text: "मैथिल गीत, गेंदा की खुशबू और मुस्कानों में लिखे वादों के साथ अंगूठी समारोह।",
+      },
+    ],
+    shagunTitle: "शगुन समारोह",
+    dateLabel: "तिथि",
+    timeLabel: "समय",
+    venueLabel: "स्थान",
+    dressCodeLabel: "वेशभूषा",
+    shagunDate: "24 अप्रैल 2026",
+    shagunTime: "शाम 6:30 बजे से",
+    shagunVenue: "पुतई, बिहार",
+    shagunDress: "परंपरागत उत्सवी गोल्ड / मैरून",
+    shagunDescription:
+      "मिथिलांचल परंपरा में शगुन, विवाह संस्कारों की शुभ शुरुआत है, जहां आशीर्वाद, उपहार और अपनापन दोनों परिवारों में बहता है।",
+    baraatTitle: "बारात अनुभव",
+    departureTitle: "प्रस्थान समय",
+    departureValue: "शाम 5:00 बजे, पुतई से",
+    routeTitle: "मार्ग विवरण",
+    routeValue: "पुतई -> मधुबनी टाउन -> विवाह स्थल",
+    contactTitle: "संपर्क व्यक्ति",
+    contactValue: "to be updated",
+    venueTitle: "भव्य स्थल",
+    venueName: "मुधुबनी होटल",
+    venueAddress: "मधुबनी, बिहार 847211",
+    openMaps: "Google Maps में खोलें",
+    nearestRailway: "निकटतम रेलवे स्टेशन: दरभंगा जंक्शन (5.8 किमी)",
+    nearestAirport: "निकटतम हवाई अड्डा: दरभंगा एयरपोर्ट (8.1 किमी)",
+    landmark: "लैंडमार्क: अपडेट होना बाकी",
+    mapTitle: "विवाह स्थल का मानचित्र",
+    weatherTitle: "लाइव मौसम और AQI",
+    weatherSubtitle: "मधुबनी के लिए स्वतः अपडेट",
+    loadingWeather: "मौसम विवरण लोड हो रहा है...",
+    weatherUnavailable: "लाइव मौसम अभी उपलब्ध नहीं है।",
+    humidity: "आर्द्रता",
+    windSpeed: "हवा की रफ्तार",
+    countdownTitle: "भव्य उत्सव की उलटी गिनती",
+    celebrationArrived: "शुभ घड़ी आ गई है। विवाह उत्सव में आपका स्वागत है।",
+    traditionsTitle: "मिथिलांचल विवाह परंपराएं",
+    traditions: [
+      {
+        icon: "01",
+        name: "मधुपर्क",
+        text: "यह सत्कार की पवित्र रस्म है जिसमें वर का आदर, मिठास और मंगल आशीष के साथ स्वागत होता है।",
+      },
+      {
+        icon: "02",
+        name: "कन्यादान",
+        text: "कन्या के माता-पिता प्रार्थना और भावनाओं के साथ अपनी पुत्री का दान करते हैं।",
+      },
+      {
+        icon: "03",
+        name: "पाणिग्रहण",
+        text: "हाथ थामने की यह पवित्र रस्म जीवनभर के विश्वास, जिम्मेदारी और साथ का प्रतीक है।",
+      },
+      {
+        icon: "04",
+        name: "सिंदूर दान",
+        text: "अग्नि और परिवार की उपस्थिति में वर वधू को सिंदूर अर्पित कर वैवाहिक वचन निभाता है।",
+      },
+      {
+        icon: "05",
+        name: "कोहबर रस्म",
+        text: "कोहबर कक्ष में मिथिला चित्रांकन उर्वरता, सामंजस्य और शुभारंभ का प्रतीक है।",
+      },
+      {
+        icon: "06",
+        name: "मैथिल गीत",
+        text: "पारंपरिक गीत हर रस्म में आशीर्वाद, हास्य और पूर्वजों की सीख को जीवंत करते हैं।",
+      },
+    ],
+    galleryTitle: "विवाह गैलरी",
+    gallery: [
+      { title: "हल्दी आंगन", color: "from-mustard to-lotus" },
+      { title: "भव्य प्रवेश", color: "from-maroon to-gold" },
+      { title: "वरमाला मंच", color: "from-emerald to-gold" },
+      { title: "कोहबर कला", color: "from-lotus to-maroon" },
+      { title: "पवित्र मंडप", color: "from-gold to-cream" },
+      { title: "परिवार का आशीर्वाद", color: "from-emerald to-mustard" },
+    ],
+    rsvpTitle: "पुष्टि और आशीर्वाद",
+    fullName: "पूरा नाम",
+    phone: "फोन नंबर",
+    guests: "मेहमानों की संख्या",
+    ceremony: "समारोह",
+    shagunCeremony: "शगुन समारोह",
+    weddingNight: "विवाह रात्रि",
+    bothCeremonies: "दोनों समारोह",
+    confirmNow: "अभी पुष्टि करें",
+    whatsappConfirm: "व्हाट्सऐप पुष्टि",
+    rsvpThanks: "धन्यवाद। आपकी RSVP दर्ज कर ली गई है।",
+    downloadPdf: "निमंत्रण PDF डाउनलोड करें",
+    enablePdf: "PDF डाउनलोड के लिए VITE_INVITATION_PDF_URL सेट करें।",
+    messageWall: "अतिथि संदेश दीवार",
+    blessingPlaceholder: "अपना आशीर्वाद लिखें...",
+    postMessage: "संदेश भेजें",
+    firstBlessing: "सबसे पहले आशीर्वाद दें।",
+    guestBlessingPrefix: "अतिथि आशीर्वाद",
+    confirmMessagePrefix: "कृपया पुष्टि",
+    confirmMessageBody: "मैं आपके विवाह समारोह में अपनी उपस्थिति की पुष्टि करता/करती हूँ।",
+    languageNote: "भाषा",
+    ceremonyNote: "समारोह",
+    notSelected: "चयन नहीं",
+    close: "बंद करें",
+    aqiGood: "अच्छा",
+    aqiModerate: "मध्यम",
+    aqiUnhealthy: "हानिकारक",
+    aqiVeryUnhealthy: "अत्यंत हानिकारक",
+    aqiHazardous: "खतरनाक",
+    weatherClearSky: "साफ आसमान",
+    weatherPartlyCloudy: "आंशिक बादल",
+    weatherCloudy: "बादल छाए",
+    weatherFog: "कोहरा",
+    weatherDrizzle: "फुहार",
+    weatherRain: "बारिश",
+    weatherSnow: "बर्फबारी",
+    weatherRainShowers: "बारिश की बौछार",
+    weatherThunderstorm: "गरज के साथ बारिश",
+    weatherUpdate: "मौसम अपडेट",
   },
-  {
-    name: "Panigrahan",
-    icon: "03",
-    text: "The sacred holding of hands, symbolizing mutual trust, responsibility, and companionship for life.",
+  mai: {
+    brand: "एसएस बियाह",
+    language: "भाषा",
+    languageHindi: "हिंदी",
+    languageMaithili: "मैथिली",
+    languageEnglish: "अंग्रेजी",
+    darkMode: "डार्क मोड",
+    lightMode: "लाइट मोड",
+    playMusic: "संगीत चलाउ",
+    muteMusic: "संगीत बन्न करू",
+    musicToggleTitle: "शहनाई संगीत चालू/बन्न करू",
+    musicMissingTitle: "संगीत लेल VITE_SHEHNAI_AUDIO_URL सेट करू",
+    together: "दूनू परिवारक संग",
+    couple: "सौरभ आ सोनी",
+    dateLine: "सोम, 27 अप्रैल 2026 | मधुबनी, बिहार",
+    days: "दिन",
+    hours: "घंटा",
+    minutes: "मिनट",
+    seconds: "सेकंड",
+    acceptNow: "एखन स्वीकार करू",
+    addToCalendar: "कैलेंडर मे जोड़ू",
+    calendarEvent: "सौरभ आ सोनीक बियाह",
+    calendarDetails:
+      "दूनू परिवारक आशीर्वाद संग मिथिलांचल बियाह उत्सव मे अपनेक स्वागत अछि।",
+    calendarLocation: "मधुबनी, बिहार, भारत",
+    storyTitle: "हमर कहानी",
+    storySubtitle: "ओ सब पल जाहि सँ हमसभ सदा लेल एक भ' गेलहुँ।",
+    timeline: [
+      {
+        title: "पहिल झलक",
+        date: "24 अप्रैल 2026",
+        text: "पुतई, दरभंगा मे पहिल झलक जीवन भरिक साथक शुरुआत बनि गेल।",
+      },
+      {
+        title: "परिवारक मिलन",
+        date: "24 अप्रैल 2026",
+        text: "बड़-बुजुर्गक आशीर्वाद मे दूनू परिवार एके सुर मे बान्हल गेल।",
+      },
+      {
+        title: "सगाई",
+        date: "26 अप्रैल 2026",
+        text: "मैथिल गीत, गेंदा के सुगंध आ मुस्की मे लिखल वादा संग अंगूठी समारोह।",
+      },
+    ],
+    shagunTitle: "शगुन समारोह",
+    dateLabel: "तिथि",
+    timeLabel: "समय",
+    venueLabel: "स्थान",
+    dressCodeLabel: "पोशाक",
+    shagunDate: "24 अप्रैल 2026",
+    shagunTime: "साँझ 6:30 बजे सँ",
+    shagunVenue: "पुतई, बिहार",
+    shagunDress: "पारंपरिक उत्सवी गोल्ड / मैरून",
+    shagunDescription:
+      "मिथिलांचल परंपरा मे शगुन, बियाहक पवित्र विधिक सुग्घर शुरुआत मानल जाइत अछि, जत' आशीर्वाद आ अपनापन दूनू परिवार मे बहेत अछि।",
+    baraatTitle: "बारात अनुभव",
+    departureTitle: "प्रस्थान समय",
+    departureValue: "साँझ 5:00 बजे, पुतई सँ",
+    routeTitle: "मार्ग झलक",
+    routeValue: "पुतई -> मधुबनी टाउन -> बियाह स्थल",
+    contactTitle: "संपर्क व्यक्ति",
+    contactValue: "to be updated",
+    venueTitle: "भव्य स्थल",
+    venueName: "मुधुबनी होटल",
+    venueAddress: "मधुबनी, बिहार 847211",
+    openMaps: "Google Maps मे खोलू",
+    nearestRailway: "नजदीकी रेलवे स्टेशन: दरभंगा जंक्शन (5.8 किमी)",
+    nearestAirport: "नजदीकी एयरपोर्ट: दरभंगा एयरपोर्ट (8.1 किमी)",
+    landmark: "पहचान चिन्ह: अपडेट बाकी अछि",
+    mapTitle: "बियाह स्थल मानचित्र",
+    weatherTitle: "लाइव मौसम आ AQI",
+    weatherSubtitle: "मधुबनी लेल स्वतः अपडेट",
+    loadingWeather: "मौसम विवरण लोड भ' रहल अछि...",
+    weatherUnavailable: "लाइव मौसम एखन उपलब्ध नहि अछि।",
+    humidity: "आर्द्रता",
+    windSpeed: "हवा के रफ्तार",
+    countdownTitle: "भव्य उत्सवक उलटी गिनती",
+    celebrationArrived: "शुभ घड़ी आबि गेल अछि। बियाह उत्सव मे अपनेक स्वागत अछि।",
+    traditionsTitle: "मिथिलांचल बियाह परंपरा",
+    traditions: [
+      {
+        icon: "01",
+        name: "मधुपर्क",
+        text: "ई पवित्र सत्कार रस्म अछि जत' वरक स्वागत आदर, मिठास आ मंगल आशीष संग होइत अछि।",
+      },
+      {
+        icon: "02",
+        name: "कन्यादान",
+        text: "कन्याके माता-पिता प्रार्थना आ भावुक मन सँ कन्या समर्पित करैत छथि।",
+      },
+      {
+        icon: "03",
+        name: "पाणिग्रहण",
+        text: "हाथ पकड़बाक ई पवित्र रस्म जीवन भरिक भरोसा, जिम्मेदारी आ संगक प्रतीक अछि।",
+      },
+      {
+        icon: "04",
+        name: "सिंदूर दान",
+        text: "अग्नि आ परिवारक साक्षी मे वर वधूक संग वैवाहिक वचन निभबैत छथि।",
+      },
+      {
+        icon: "05",
+        name: "कोहबर रस्म",
+        text: "कोहबर कक्षक मिथिला चित्र शुभारंभ, सामंजस्य आ समृद्धिक प्रतीक अछि।",
+      },
+      {
+        icon: "06",
+        name: "मैथिल गीत",
+        text: "पारंपरिक गीत सभ रस्म मे आशीर्वाद, हास्य आ पूर्वजक ज्ञान जीवित रखैत अछि।",
+      },
+    ],
+    galleryTitle: "बियाह गैलरी",
+    gallery: [
+      { title: "हल्दी आंगन", color: "from-mustard to-lotus" },
+      { title: "भव्य प्रवेश", color: "from-maroon to-gold" },
+      { title: "वरमाला मंच", color: "from-emerald to-gold" },
+      { title: "कोहबर कला", color: "from-lotus to-maroon" },
+      { title: "पवित्र मंडप", color: "from-gold to-cream" },
+      { title: "परिवारक आशीर्वाद", color: "from-emerald to-mustard" },
+    ],
+    rsvpTitle: "पुष्टि आ आशीर्वाद",
+    fullName: "पूरा नाम",
+    phone: "फोन नंबर",
+    guests: "मेहमानक संख्या",
+    ceremony: "समारोह",
+    shagunCeremony: "शगुन समारोह",
+    weddingNight: "बियाह राइत",
+    bothCeremonies: "दूनू समारोह",
+    confirmNow: "एखन पुष्टि करू",
+    whatsappConfirm: "व्हाट्सऐप पुष्टि",
+    rsvpThanks: "धन्यवाद। अहाँक RSVP दर्ज भ' गेल।",
+    downloadPdf: "निमंत्रण PDF डाउनलोड करू",
+    enablePdf: "PDF डाउनलोड लेल VITE_INVITATION_PDF_URL सेट करू।",
+    messageWall: "अतिथि संदेश दीवार",
+    blessingPlaceholder: "अपन आशीर्वाद लिखू...",
+    postMessage: "संदेश भेजू",
+    firstBlessing: "सभसँ पहिने आशीर्वाद दिऔ।",
+    guestBlessingPrefix: "अतिथि आशीर्वाद",
+    confirmMessagePrefix: "कृपया पुष्टि",
+    confirmMessageBody: "हम अपन उपस्थितिक पुष्टि करैत छी।",
+    languageNote: "भाषा",
+    ceremonyNote: "समारोह",
+    notSelected: "चयन नहि",
+    close: "बन्द करू",
+    aqiGood: "नीक",
+    aqiModerate: "मध्यम",
+    aqiUnhealthy: "हानिकारक",
+    aqiVeryUnhealthy: "बहुत हानिकारक",
+    aqiHazardous: "खतरनाक",
+    weatherClearSky: "साफ आकाश",
+    weatherPartlyCloudy: "आंशिक बादर",
+    weatherCloudy: "बादरायल",
+    weatherFog: "कोहरा",
+    weatherDrizzle: "फुहार",
+    weatherRain: "बरखा",
+    weatherSnow: "हिमपात",
+    weatherRainShowers: "बरखा के बौछार",
+    weatherThunderstorm: "गरज-बरस",
+    weatherUpdate: "मौसम अपडेट",
   },
-  {
-    name: "Sindoor Daan",
-    icon: "04",
-    text: "The groom adorns the bride with sindoor, honoring marital vows in the presence of family and fire.",
-  },
-  {
-    name: "Kohbar Ritual",
-    icon: "05",
-    text: "In the Kohbar chamber, symbolic Mithila motifs celebrate fertility, harmony, and auspicious beginnings.",
-  },
-  {
-    name: "Maithil Geet",
-    icon: "06",
-    text: "Traditional songs echo blessings, humor, and ancestral wisdom across every ritual moment.",
-  },
-];
-
-const gallery = [
-  {
-    title: "Haldi Courtyard",
-    color: "from-mustard to-lotus",
-  },
-  {
-    title: "Grand Entry",
-    color: "from-maroon to-gold",
-  },
-  {
-    title: "Varmala Stage",
-    color: "from-emerald to-gold",
-  },
-  {
-    title: "Kohbar Art",
-    color: "from-lotus to-maroon",
-  },
-  {
-    title: "Sacred Mandap",
-    color: "from-gold to-cream",
-  },
-  {
-    title: "Family Blessings",
-    color: "from-emerald to-mustard",
-  },
-];
+};
 
 function getTimeParts(targetDate) {
   const now = new Date();
@@ -116,37 +527,33 @@ function getTimeParts(targetDate) {
   };
 }
 
-function getAqiMeta(value) {
-  if (value <= 50) return { label: "Good", color: "#2E8B57" };
-  if (value <= 100) return { label: "Moderate", color: "#E1AD01" };
-  if (value <= 200) return { label: "Unhealthy", color: "#FF6F91" };
-  if (value <= 300) return { label: "Very Unhealthy", color: "#B1476D" };
-  return { label: "Hazardous", color: "#800020" };
+function getAqiMeta(value, t) {
+  if (value <= 50) return { label: t.aqiGood, color: "#2E8B57" };
+  if (value <= 100) return { label: t.aqiModerate, color: "#E1AD01" };
+  if (value <= 200) return { label: t.aqiUnhealthy, color: "#FF6F91" };
+  if (value <= 300) return { label: t.aqiVeryUnhealthy, color: "#B1476D" };
+  return { label: t.aqiHazardous, color: "#800020" };
 }
 
-function getWeatherLabel(code) {
-  if ([0].includes(code)) return "Clear Sky";
-  if ([1, 2].includes(code)) return "Partly Cloudy";
-  if ([3].includes(code)) return "Cloudy";
-  if ([45, 48].includes(code)) return "Fog";
-  if ([51, 53, 55, 56, 57].includes(code)) return "Drizzle";
-  if ([61, 63, 65, 66, 67].includes(code)) return "Rain";
-  if ([71, 73, 75, 77].includes(code)) return "Snow";
-  if ([80, 81, 82].includes(code)) return "Rain Showers";
-  if ([95, 96, 99].includes(code)) return "Thunderstorm";
-  return "Weather Update";
+function getWeatherLabel(code, t) {
+  if ([0].includes(code)) return t.weatherClearSky;
+  if ([1, 2].includes(code)) return t.weatherPartlyCloudy;
+  if ([3].includes(code)) return t.weatherCloudy;
+  if ([45, 48].includes(code)) return t.weatherFog;
+  if ([51, 53, 55, 56, 57].includes(code)) return t.weatherDrizzle;
+  if ([61, 63, 65, 66, 67].includes(code)) return t.weatherRain;
+  if ([71, 73, 75, 77].includes(code)) return t.weatherSnow;
+  if ([80, 81, 82].includes(code)) return t.weatherRainShowers;
+  if ([95, 96, 99].includes(code)) return t.weatherThunderstorm;
+  return t.weatherUpdate;
 }
 
-function buildCalendarUrl() {
+function buildCalendarUrl(t) {
   const start = "20260427T133000Z";
   const end = "20260427T183000Z";
-  const text = encodeURIComponent("Wedding of Saurabh & Soni");
-  const details = encodeURIComponent(
-    "With blessings of both families, join us for a Mithilanchal wedding celebration."
-  );
-  const location = encodeURIComponent(
-    "Madhubani, Bihar, India"
-  );
+  const text = encodeURIComponent(t.calendarEvent);
+  const details = encodeURIComponent(t.calendarDetails);
+  const location = encodeURIComponent(t.calendarLocation);
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`;
 }
 
@@ -154,7 +561,7 @@ const initialRsvp = {
   name: "",
   phone: "",
   attendees: "2",
-  ceremonies: ["Wedding Night"],
+  ceremonies: ["wedding"],
 };
 
 const initialWeather = {
@@ -163,81 +570,6 @@ const initialWeather = {
   now: null,
   forecast: [],
   aqi: null,
-};
-
-const translations = {
-  en: {
-    brand: "SS Wedding",
-    language: "Language",
-    together: "Together with their families",
-    couple: "Saurabh & Soni",
-    dateLine: "Monday, April 27, 2026 | Madhubani, Bihar",
-    acceptNow: "Accept Now",
-    addToCalendar: "Add to Calendar",
-    rsvpTitle: "Confirmation and Blessings",
-    fullName: "Full Name",
-    phone: "Phone Number",
-    guests: "Number of Guests",
-    ceremony: "Ceremony",
-    shagunCeremony: "Shagun Ceremony",
-    weddingNight: "Wedding Night",
-    confirmNow: "Confirm Now",
-    whatsappConfirm: "WhatsApp Confirm",
-    rsvpThanks: "Thank you. Your RSVP has been recorded.",
-    messageWall: "Guest Message Wall",
-    blessingPlaceholder: "Share your blessing...",
-    postMessage: "Post Message",
-    firstBlessing: "Be the first to bless the couple.",
-    footer: "With blessings from both families",
-  },
-  hi: {
-    brand: "एसएस विवाह",
-    language: "भाषा",
-    together: "दोनों परिवारों के साथ",
-    couple: "सौरभ और सोनी",
-    dateLine: "सोमवार, 27 अप्रैल 2026 | मधुबनी, बिहार",
-    acceptNow: "अभी स्वीकार करें",
-    addToCalendar: "कैलेंडर में जोड़ें",
-    rsvpTitle: "पुष्टि और आशीर्वाद",
-    fullName: "पूरा नाम",
-    phone: "फोन नंबर",
-    guests: "मेहमानों की संख्या",
-    ceremony: "समारोह",
-    shagunCeremony: "शगुन समारोह",
-    weddingNight: "विवाह रात्रि",
-    confirmNow: "अभी पुष्टि करें",
-    whatsappConfirm: "व्हाट्सऐप पुष्टि",
-    rsvpThanks: "धन्यवाद। आपकी उपस्थिति दर्ज कर ली गई है।",
-    messageWall: "अतिथि संदेश दीवार",
-    blessingPlaceholder: "अपना आशीर्वाद लिखें...",
-    postMessage: "संदेश भेजें",
-    firstBlessing: "सबसे पहले आशीर्वाद दें।",
-    footer: "दोनों परिवारों की ओर से सादर",
-  },
-  mai: {
-    brand: "एसएस बियाह",
-    language: "भाषा",
-    together: "दूनू परिवारक संग",
-    couple: "सौरभ आ सोनी",
-    dateLine: "सोम, 27 अप्रैल 2026 | मधुबनी, बिहार",
-    acceptNow: "एखन स्वीकार करू",
-    addToCalendar: "कैलेंडर मे जोड़ू",
-    rsvpTitle: "पुष्टि आ आशीर्वाद",
-    fullName: "पूरा नाम",
-    phone: "फोन नंबर",
-    guests: "मेहमानक संख्या",
-    ceremony: "समारोह",
-    shagunCeremony: "शगुन समारोह",
-    weddingNight: "बियाह राइत",
-    confirmNow: "एखन पुष्टि करू",
-    whatsappConfirm: "व्हाट्सऐप पुष्टि",
-    rsvpThanks: "धन्यवाद। अहाँक उपस्थिति दर्ज भ' गेल।",
-    messageWall: "अतिथि संदेश दीवार",
-    blessingPlaceholder: "अपन आशीर्वाद लिखू...",
-    postMessage: "संदेश भेजू",
-    firstBlessing: "सभसँ पहिने आशीर्वाद दिऔ।",
-    footer: "दूनू परिवारक तरफसँ सादर",
-  },
 };
 
 function App() {
@@ -297,9 +629,9 @@ function App() {
         const [w, a] = await Promise.all([weatherRes.json(), aqiRes.json()]);
 
         const forecastDaily = (w.daily?.time || []).slice(0, 3).map((date, i) => ({
-          day: new Date(date).toLocaleDateString("en-US", { weekday: "short" }),
+          day: new Date(date).toLocaleDateString(localeByLanguage[language], { weekday: "short" }),
           temp: Math.round(w.daily.temperature_2m_max?.[i] ?? 0).toString(),
-          condition: getWeatherLabel(w.daily.weather_code?.[i]),
+          condition: getWeatherLabel(w.daily.weather_code?.[i], t),
         }));
 
         const aqiValue = Math.round(a?.current?.us_aqi ?? 80);
@@ -309,7 +641,7 @@ function App() {
           error: "",
           now: {
             temp: Math.round(w.current?.temperature_2m ?? 0).toString(),
-            condition: getWeatherLabel(w.current?.weather_code),
+            condition: getWeatherLabel(w.current?.weather_code, t),
             humidity: Math.round(w.current?.relative_humidity_2m ?? 0).toString(),
             wind: Math.round(w.current?.wind_speed_10m ?? 0).toString(),
           },
@@ -319,7 +651,7 @@ function App() {
       } catch {
         setWeather({
           loading: false,
-          error: "Live weather is currently unavailable.",
+          error: t.weatherUnavailable,
           now: null,
           forecast: [],
           aqi: null,
@@ -328,11 +660,19 @@ function App() {
     }
 
     loadWeather();
-  }, []);
+  }, [language, t]);
 
-  const aqiMeta = useMemo(() => getAqiMeta(weather.aqi || 0), [weather.aqi]);
+  const aqiMeta = useMemo(() => getAqiMeta(weather.aqi || 0, t), [weather.aqi, t]);
+
   const ceremonySelectValue =
-    rsvp.ceremonies.length === 2 ? "Both Ceremonies" : (rsvp.ceremonies[0] || "Wedding Night");
+    rsvp.ceremonies.length === 2 ? "both" : (rsvp.ceremonies[0] || "wedding");
+
+  const selectedCeremonyText =
+    ceremonySelectValue === "both"
+      ? t.bothCeremonies
+      : ceremonySelectValue === "shagun"
+        ? t.shagunCeremony
+        : t.weddingNight;
 
   function handleRsvpSubmit(event) {
     event.preventDefault();
@@ -356,7 +696,7 @@ function App() {
       },
       ...prev,
     ]);
-    const messageForWhatsapp = `Guest Blessing: ${text}`;
+    const messageForWhatsapp = `${t.guestBlessingPrefix}: ${text}`;
     const wallWhatsappLink = `https://wa.me/${wishesWhatsappNumberLink}?text=${encodeURIComponent(
       messageForWhatsapp
     )}`;
@@ -365,10 +705,10 @@ function App() {
   }
 
   const whatsappLink = `https://wa.me/${whatsappNumberLink}?text=${encodeURIComponent(
-    `Graciously Confirm: I would like to confirm my presence for your wedding celebration. Language: ${language.toUpperCase()}. Ceremonies: ${rsvp.ceremonies.join(
-      ", "
-    ) || "Not selected"}`
+    `${t.confirmMessagePrefix}: ${t.confirmMessageBody} ${t.languageNote}: ${language.toUpperCase()}. ${t.ceremonyNote}: ${selectedCeremonyText || t.notSelected}`
   )}`;
+
+  const countdownUnits = [t.days, t.hours, t.minutes, t.seconds];
 
   return (
     <>
@@ -389,25 +729,21 @@ function App() {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
-              <option value="hi">Hindi</option>
-              <option value="mai">Maithili</option>
-              <option value="en">English</option>
+              <option value="hi">{t.languageHindi}</option>
+              <option value="mai">{t.languageMaithili}</option>
+              <option value="en">{t.languageEnglish}</option>
             </select>
           </label>
           <button onClick={() => setDarkMode((v) => !v)} className="chip">
-            {darkMode ? "Light Mode" : "Dark Mode"}
+            {darkMode ? t.lightMode : t.darkMode}
           </button>
           <button
             onClick={() => setAudioOn((v) => !v)}
             className="chip"
             disabled={!shehnaiSrc}
-            title={
-              shehnaiSrc
-                ? "Toggle shehnai music"
-                : "Set VITE_SHEHNAI_AUDIO_URL to enable music"
-            }
+            title={shehnaiSrc ? t.musicToggleTitle : t.musicMissingTitle}
           >
-            {audioOn ? "Mute Music" : "Play Music"}
+            {audioOn ? t.muteMusic : t.playMusic}
           </button>
         </div>
       </header>
@@ -422,10 +758,15 @@ function App() {
             <p className="date-line">{t.dateLine}</p>
 
             <div className="mini-countdown">
-              {["days", "hours", "minutes", "seconds"].map((key) => (
-                <article key={key}>
-                  <strong>{String(countdown[key]).padStart(2, "0")}</strong>
-                  <span>{key}</span>
+              {[
+                countdown.days,
+                countdown.hours,
+                countdown.minutes,
+                countdown.seconds,
+              ].map((value, index) => (
+                <article key={countdownUnits[index]}>
+                  <strong>{String(value).padStart(2, "0")}</strong>
+                  <span>{countdownUnits[index]}</span>
                 </article>
               ))}
             </div>
@@ -434,7 +775,7 @@ function App() {
               <a className="btn" href="#rsvp">
                 {t.acceptNow}
               </a>
-              <a className="btn btn-outline" href={buildCalendarUrl()} target="_blank" rel="noreferrer">
+              <a className="btn btn-outline" href={buildCalendarUrl(t)} target="_blank" rel="noreferrer">
                 {t.addToCalendar}
               </a>
             </div>
@@ -443,10 +784,10 @@ function App() {
         </section>
 
         <section className="section story" id="story">
-          <h2>Our Story</h2>
-          <p className="section-subtitle">A timeline of moments that led us to forever.</p>
+          <h2>{t.storyTitle}</h2>
+          <p className="section-subtitle">{t.storySubtitle}</p>
           <div className="timeline">
-            {timeline.map((item) => (
+            {t.timeline.map((item) => (
               <article key={item.title} className="timeline-card reveal">
                 <p>{item.date}</p>
                 <h3>{item.title}</h3>
@@ -457,35 +798,32 @@ function App() {
         </section>
 
         <section className="section shagun" id="shagun">
-          <h2>Shagun Ceremony</h2>
+          <h2>{t.shagunTitle}</h2>
           <div className="gold-card reveal">
             <dl>
               <div>
-                <dt>Date</dt>
-                <dd>April 24, 2026</dd>
+                <dt>{t.dateLabel}</dt>
+                <dd>{t.shagunDate}</dd>
               </div>
               <div>
-                <dt>Time</dt>
-                <dd>6:30 PM onwards</dd>
+                <dt>{t.timeLabel}</dt>
+                <dd>{t.shagunTime}</dd>
               </div>
               <div>
-                <dt>Venue</dt>
-                <dd>Putai, Bihar</dd>
+                <dt>{t.venueLabel}</dt>
+                <dd>{t.shagunVenue}</dd>
               </div>
               <div>
-                <dt>Dress Code</dt>
-                <dd>Traditional Festive Gold / Maroon</dd>
+                <dt>{t.dressCodeLabel}</dt>
+                <dd>{t.shagunDress}</dd>
               </div>
             </dl>
-            <p>
-              In Mithilanchal tradition, Shagun marks the graceful beginning of sacred wedding rites,
-              where blessings, gifts, and goodwill flow between families.
-            </p>
+            <p>{t.shagunDescription}</p>
           </div>
         </section>
 
         <section className="section baraat" id="baraat">
-          <h2>Baraat Experience</h2>
+          <h2>{t.baraatTitle}</h2>
           <div className="procession reveal" aria-hidden="true">
             <span />
             <span />
@@ -495,40 +833,40 @@ function App() {
           </div>
           <div className="grid-two">
             <article className="glass-card">
-              <h3>Departure Time</h3>
-              <p>5:00 PM from Putai</p>
+              <h3>{t.departureTitle}</h3>
+              <p>{t.departureValue}</p>
             </article>
             <article className="glass-card">
-              <h3>Route Preview</h3>
-              <p>Putai -&gt; Madhubani Town -&gt; Wedding Venue</p>
+              <h3>{t.routeTitle}</h3>
+              <p>{t.routeValue}</p>
             </article>
             <article className="glass-card">
-              <h3>Contact Person</h3>
-              <p>Pappu Ji: 0123456789</p>
+              <h3>{t.contactTitle}</h3>
+              <p>{t.contactValue}</p>
             </article>
           </div>
         </section>
 
         <section className="section venue" id="venue">
-          <h2>Grand Venue</h2>
+          <h2>{t.venueTitle}</h2>
           <div className="venue-grid">
             <article className="gold-card">
-              <h3>mudhubani hotel</h3>
-              <p>Madhubani, Bihar 847211</p>
+              <h3>{t.venueName}</h3>
+              <p>{t.venueAddress}</p>
               <a className="btn" href="https://maps.google.com/?q=mudhubani hotel Madhubani Bihar" target="_blank" rel="noreferrer">
-                Open in Google Maps
+                {t.openMaps}
               </a>
               <ul>
-                <li>Nearest Railway Station: Darbhanga Junction (5.8 km)</li>
-                <li>Nearest Airport: Darbhanga Airport (8.1 km)</li>
-                <li>Landmark: to be updated</li>
+                <li>{t.nearestRailway}</li>
+                <li>{t.nearestAirport}</li>
+                <li>{t.landmark}</li>
               </ul>
             </article>
             <div className="map-frame">
               <iframe
                 src={mapsEmbedUrl}
                 loading="lazy"
-                title="Wedding venue map"
+                title={t.mapTitle}
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
@@ -536,9 +874,9 @@ function App() {
         </section>
 
         <section className="section weather" id="weather">
-          <h2>Live Weather & AQI</h2>
-          <p className="section-subtitle">Auto-updated for {venueCity}</p>
-          {weather.loading ? <p>Loading weather details...</p> : null}
+          <h2>{t.weatherTitle}</h2>
+          <p className="section-subtitle">{t.weatherSubtitle}</p>
+          {weather.loading ? <p>{t.loadingWeather}</p> : null}
           {weather.error ? <p className="notice">{weather.error}</p> : null}
           {weather.now ? (
             <div className="grid-three">
@@ -548,11 +886,11 @@ function App() {
               </article>
               <article className="glass-card">
                 <h3>{weather.now.humidity}%</h3>
-                <p>Humidity</p>
+                <p>{t.humidity}</p>
               </article>
               <article className="glass-card">
                 <h3>{weather.now.wind} km/h</h3>
-                <p>Wind Speed</p>
+                <p>{t.windSpeed}</p>
               </article>
             </div>
           ) : null}
@@ -589,12 +927,17 @@ function App() {
         </section>
 
         <section className="section celebration" id="countdown">
-          <h2>Countdown to the Grand Celebration</h2>
+          <h2>{t.countdownTitle}</h2>
           <div className="big-counter">
-            {["days", "hours", "minutes", "seconds"].map((key) => (
-              <article key={key}>
-                <strong>{String(countdown[key]).padStart(2, "0")}</strong>
-                <span>{key}</span>
+            {[
+              countdown.days,
+              countdown.hours,
+              countdown.minutes,
+              countdown.seconds,
+            ].map((value, index) => (
+              <article key={`big-${countdownUnits[index]}`}>
+                <strong>{String(value).padStart(2, "0")}</strong>
+                <span>{countdownUnits[index]}</span>
               </article>
             ))}
           </div>
@@ -606,15 +949,15 @@ function App() {
                   <span key={i} style={{ "--i": i }} />
                 ))}
               </div>
-              <p>The sacred hour has arrived. Welcome to the wedding celebration.</p>
+              <p>{t.celebrationArrived}</p>
             </div>
           ) : null}
         </section>
 
         <section className="section traditions" id="traditions">
-          <h2>Mithilanchal Wedding Traditions</h2>
+          <h2>{t.traditionsTitle}</h2>
           <div className="ritual-grid">
-            {traditions.map((ritual) => (
+            {t.traditions.map((ritual) => (
               <article key={ritual.name} className="ritual-card reveal">
                 <div className="ritual-icon">{ritual.icon}</div>
                 <h3>{ritual.name}</h3>
@@ -625,9 +968,9 @@ function App() {
         </section>
 
         <section className="section gallery" id="gallery">
-          <h2>Wedding Gallery</h2>
+          <h2>{t.galleryTitle}</h2>
           <div className="gallery-grid">
-            {gallery.map((item) => (
+            {t.gallery.map((item) => (
               <button
                 type="button"
                 key={item.title}
@@ -681,15 +1024,15 @@ function App() {
                     setRsvp((prev) => ({
                       ...prev,
                       ceremonies:
-                        e.target.value === "Both Ceremonies"
-                          ? ["Shagun Ceremony", "Wedding Night"]
+                        e.target.value === "both"
+                          ? ["shagun", "wedding"]
                           : [e.target.value],
                     }))
                   }
                 >
-                  <option value="Shagun Ceremony">{t.shagunCeremony}</option>
-                  <option value="Wedding Night">{t.weddingNight}</option>
-                  <option value="Both Ceremonies">Both Ceremonies</option>
+                  <option value="shagun">{t.shagunCeremony}</option>
+                  <option value="wedding">{t.weddingNight}</option>
+                  <option value="both">{t.bothCeremonies}</option>
                 </select>
               </label>
               <div className="form-actions">
@@ -703,10 +1046,10 @@ function App() {
               {rsvpSubmitted ? <p className="notice">{t.rsvpThanks}</p> : null}
               {invitationPdf ? (
                 <a className="text-link" href={invitationPdf} target="_blank" rel="noreferrer">
-                  Download Invitation PDF
+                  {t.downloadPdf}
                 </a>
               ) : (
-                <p className="notice">Set VITE_INVITATION_PDF_URL to enable PDF download.</p>
+                <p className="notice">{t.enablePdf}</p>
               )}
             </form>
 
@@ -742,7 +1085,7 @@ function App() {
           <div className={`lightbox-content ${selectedPhoto.color}`} onClick={(e) => e.stopPropagation()}>
             <h3>{selectedPhoto.title}</h3>
             <button className="chip" type="button" onClick={() => setSelectedPhoto(null)}>
-              Close
+              {t.close}
             </button>
           </div>
         </div>
