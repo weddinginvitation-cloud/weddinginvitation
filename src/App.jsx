@@ -1,7 +1,7 @@
 ﻿
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const weddingDate = new Date("2026-04-27T19:00:00+05:30");
+const weddingDate = new Date("2026-04-26T19:00:00+05:30");
 const mapsEmbedUrl =
   import.meta.env.VITE_GOOGLE_MAPS_EMBED_URL ||
   `https://www.google.com/maps?q=${encodeURIComponent(
@@ -43,7 +43,7 @@ const translations = {
     musicMissingTitle: "Set VITE_SHEHNAI_AUDIO_URL to enable music",
     together: "Together with their families",
     couple: "Saurabh & Soni",
-    dateLine: "Monday, April 27, 2026 | Madhubani, Bihar",
+    dateLine: "Sunday, April 26, 2026 | Madhubani, Bihar",
     days: "days",
     hours: "hours",
     minutes: "minutes",
@@ -202,7 +202,7 @@ const translations = {
     musicMissingTitle: "संगीत के लिए VITE_SHEHNAI_AUDIO_URL सेट करें",
     together: "दोनों परिवारों के साथ",
     couple: "सौरभ और सोनी",
-    dateLine: "सोमवार, 27 अप्रैल 2026 | मधुबनी, बिहार",
+    dateLine: "रविवार, 26 अप्रैल 2026 | मधुबनी, बिहार",
     days: "दिन",
     hours: "घंटे",
     minutes: "मिनट",
@@ -361,7 +361,7 @@ const translations = {
     musicMissingTitle: "संगीत लेल VITE_SHEHNAI_AUDIO_URL सेट करू",
     together: "दूनू परिवारक संग",
     couple: "सौरभ आ सोनी",
-    dateLine: "सोम, 27 अप्रैल 2026 | मधुबनी, बिहार",
+    dateLine: "रवि, 26 अप्रैल 2026 | मधुबनी, बिहार",
     days: "दिन",
     hours: "घंटा",
     minutes: "मिनट",
@@ -592,8 +592,8 @@ function getWeatherLabel(code, t) {
 }
 
 function buildCalendarUrl(t) {
-  const start = "20260427T133000Z";
-  const end = "20260427T183000Z";
+  const start = "20260426T133000Z";
+  const end = "20260426T183000Z";
   const text = encodeURIComponent(t.calendarEvent);
   const details = encodeURIComponent(t.calendarDetails);
   const location = encodeURIComponent(t.calendarLocation);
