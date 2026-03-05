@@ -513,43 +513,43 @@ const chatbotText = {
     open: "Ask AI",
     title: "Wedding Assistant",
     subtitle: "Instant answers for guests",
-    placeholder: "Ask about venue, timing, RSVP...",
+    placeholder: "Ask about venue, timing, rsvp...",
     send: "Send",
     greeting:
-      "Hi. I can help with venue, timings, RSVP, weather, contact, and language options.",
+      "Hi. I can help with venue, timings, Confirmation, weather, contact, and language options.",
     fallback:
-      "I could not match that. Ask about venue, time, RSVP, dress code, contact, weather, or language.",
+      "I could not match that. Ask about venue, time, Confirmation, dress code, contact, weather, or language.",
     prompts: ["Venue", "Timing", "Confirmation", "Contact"],
-    rsvpHint:
-      "Please fill the RSVP form and click Confirm Now to send your details on WhatsApp.",
+    ConfirmationHint:
+      "Please fill the Confirmation form and click Confirm Now to send your details on WhatsApp.",
   },
   hi: {
     open: "AI पूछें",
     title: "विवाह सहायक",
     subtitle: "मेहमानों के लिए तुरंत जानकारी",
-    placeholder: "स्थान, समय, RSVP के बारे में पूछें...",
+    placeholder: "स्थान, समय, Confirmation के बारे में पूछें...",
     send: "भेजें",
     greeting:
-      "नमस्ते। मैं स्थान, समय, RSVP, मौसम, संपर्क और भाषा विकल्प में मदद कर सकता हूँ।",
+      "नमस्ते। मैं स्थान, समय, Confirmation, मौसम, संपर्क और भाषा विकल्प में मदद कर सकता हूँ।",
     fallback:
-      "मैं इसे समझ नहीं पाया। कृपया स्थान, समय, RSVP, वेशभूषा, संपर्क, मौसम या भाषा के बारे में पूछें।",
+      "मैं इसे समझ नहीं पाया। कृपया स्थान, समय, Confirmation, वेशभूषा, संपर्क, मौसम या भाषा के बारे में पूछें।",
     prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
-    rsvpHint:
-      "कृपया RSVP फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
+    ConfirmationHint:
+      "कृपया Confirmation फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
   },
   mai: {
     open: "AI सऽ पुछू",
     title: "बियाह सहायक",
     subtitle: "मेहमान लेल तुरत जानकारी",
-    placeholder: "स्थान, समय, RSVP बारेमे पुछू...",
+    placeholder: "स्थान, समय, Confirmation बारेमे पुछू...",
     send: "भेजू",
     greeting:
-      "नमस्कार। हम स्थान, समय, RSVP, मौसम, संपर्क आ भाषा विकल्प मे मदद कऽ सकैत छी।",
+      "नमस्कार। हम स्थान, समय, Confirmation, मौसम, संपर्क आ भाषा विकल्प मे मदद कऽ सकैत छी।",
     fallback:
-      "ई प्रश्न नहि बुझायल। कृपया स्थान, समय, RSVP, पोशाक, संपर्क, मौसम वा भाषा पर पुछू।",
+      "ई प्रश्न नहि बुझायल। कृपया स्थान, समय, Confirmation, पोशाक, संपर्क, मौसम वा भाषा पर पुछू।",
     prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
-    rsvpHint:
-      "कृपया RSVP फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
+    ConfirmationHint:
+      "कृपया Confirmation फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
   },
 };
 
@@ -793,8 +793,8 @@ function App() {
     if (has(["time", "date", "when", "कब", "समय", "तिथि"])) {
       return `${t.dateLine}. ${t.shagunTitle}: ${t.shagunDate}, ${t.shagunTime}.`;
     }
-    if (has(["rsvp", "confirm", "attendance", "पुष्टि", "उपस्थिति"])) {
-      return chat.rsvpHint;
+    if (has(["Confirmation", "confirm", "attendance", "पुष्टि", "उपस्थिति"])) {
+      return chat.ConfirmationHint;
     }
     if (has(["dress", "code", "outfit", "पोशाक", "वेशभूषा"])) {
       return `${t.dressCodeLabel}: ${t.shagunDress}`;
@@ -1260,3 +1260,4 @@ function App() {
 }
 
 export default App;
+
