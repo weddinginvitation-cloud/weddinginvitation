@@ -1131,6 +1131,7 @@ function App() {
     selectedPhoto && galleryUploadBaseUrl
       ? galleryUploadBaseUrl
       : selectedFolderLink;
+  const hasUserChatted = chatMessages.some((m) => m.sender === "user");
   const quickSections = [
     { id: "hero", label: t.navHome },
     { id: "story", label: t.navStory },
@@ -1220,6 +1221,41 @@ function App() {
               <a className="btn btn-outline" href={buildCalendarUrl(t)} target="_blank" rel="noreferrer">
                 {t.addToCalendar}
               </a>
+            </div>
+            <div className={`quick-nav-wrap ${quickNavOpen ? "open" : ""}`}>
+              <button
+                type="button"
+                className="quick-nav-toggle"
+                onClick={() => setQuickNavOpen((v) => !v)}
+                aria-label={t.quickNav}
+                title={t.quickNav}
+              >
+                {quickNavOpen ? (
+                  "×"
+                ) : !fishLogoError ? (
+                  <img
+                    className="quick-nav-fish-img"
+                    src={`${import.meta.env.BASE_URL}images/fish-logo.png`}
+                    alt=""
+                    aria-hidden="true"
+                    onError={() => setFishLogoError(true)}
+                  />
+                ) : (
+                  <span className="quick-nav-fish-emoji" aria-hidden="true">🐟</span>
+                )}
+              </button>
+              {quickNavOpen ? (
+                <nav className="quick-nav-panel" aria-label="Quick section links">
+                  <button type="button" onClick={() => jumpToSection("hero")}>
+                    {t.backHome}
+                  </button>
+                  {quickSections.map((item) => (
+                    <button key={item.id} type="button" onClick={() => jumpToSection(item.id)}>
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
+              ) : null}
             </div>
           </div>
           <div className="scroll-indicator" aria-hidden="true" />
@@ -1528,42 +1564,6 @@ function App() {
 
       <footer className="footer" aria-hidden="true" />
 
-      <div className={`quick-nav-wrap ${quickNavOpen ? "open" : ""}`}>
-        <button
-          type="button"
-          className="quick-nav-toggle"
-          onClick={() => setQuickNavOpen((v) => !v)}
-          aria-label={t.quickNav}
-          title={t.quickNav}
-        >
-          {quickNavOpen ? (
-            "×"
-          ) : !fishLogoError ? (
-            <img
-              className="quick-nav-fish-img"
-              src={`${import.meta.env.BASE_URL}images/fish-logo.png`}
-              alt=""
-              aria-hidden="true"
-              onError={() => setFishLogoError(true)}
-            />
-          ) : (
-            <span className="quick-nav-fish-emoji" aria-hidden="true">🐟</span>
-          )}
-        </button>
-        {quickNavOpen ? (
-          <nav className="quick-nav-panel" aria-label="Quick section links">
-            <button type="button" onClick={() => jumpToSection("hero")}>
-              {t.backHome}
-            </button>
-            {quickSections.map((item) => (
-              <button key={item.id} type="button" onClick={() => jumpToSection(item.id)}>
-                {item.label}
-              </button>
-            ))}
-          </nav>
-        ) : null}
-      </div>
-
       <button
         type="button"
         className="chat-fab"
@@ -1605,13 +1605,15 @@ function App() {
               </p>
             ) : null}
           </div>
-          <div className="chat-prompts">
-            {chat.prompts.map((prompt) => (
-              <button key={prompt} type="button" onClick={() => sendChatMessage(prompt)}>
-                {prompt}
-              </button>
-            ))}
-          </div>
+          {!hasUserChatted ? (
+            <div className="chat-prompts">
+              {chat.prompts.map((prompt) => (
+                <button key={prompt} type="button" onClick={() => sendChatMessage(prompt)}>
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          ) : null}
           {chatPending === "language" ? (
             <div className="chat-language-options">
               <button type="button" onClick={() => chooseLanguage("hi")}>
