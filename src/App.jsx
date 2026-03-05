@@ -513,7 +513,7 @@ const chatbotText = {
     open: "Ask AI",
     title: "Wedding Assistant",
     subtitle: "Instant answers for guests",
-    placeholder: "Ask about venue, timing, rsvp...",
+    placeholder: "Ask about venue, timing, confirmation...",
     send: "Send",
     greeting:
       "Hi. I can help with venue, timings, Confirmation, weather, contact, and language options.",
@@ -1204,8 +1204,15 @@ function App() {
         className="chat-fab"
         onClick={() => setChatOpen((v) => !v)}
         aria-label={chat.open}
+        title={chat.open}
       >
-        {chat.open}
+        <img
+          className="chat-guide-img"
+          src={`${import.meta.env.BASE_URL}images/ai%20bot.png`}
+          alt=""
+          aria-hidden="true"
+        />
+        <span className="chat-fab-text">{chat.open}</span>
       </button>
 
       {chatOpen ? (
