@@ -8,7 +8,7 @@
   --emerald: #2e8b57;
   --cream: #fff8e7;
   --ink: #302017;
-  --card: rgba(255, 248, 231, 0.8);
+  --card: rgba(255, 248, 231, 0.94);
   --shadow: 0 20px 45px rgba(70, 25, 20, 0.2);
 }
 
@@ -34,7 +34,7 @@ body {
 body[data-theme="dark"] {
   --cream: #2d0c16;
   --ink: #f2dcc0;
-  --card: rgba(58, 17, 30, 0.76);
+  --card: rgba(58, 17, 30, 0.9);
   background: linear-gradient(140deg, #18060c, #2b0d18 42%, #16060a);
 }
 
@@ -404,12 +404,10 @@ main {
   background:
     linear-gradient(
       165deg,
-      rgba(255, 255, 255, 0.86) 0%,
-      rgba(255, 247, 231, 0.78) 100%
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 247, 231, 0.93) 100%
     );
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border: 1px solid color-mix(in oklab, var(--gold), white 35%);
+  border: 1px solid color-mix(in oklab, var(--gold), white 45%);
   padding: 1rem;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -418,17 +416,17 @@ body[data-theme="dark"] .glass-card {
   background:
     linear-gradient(
       165deg,
-      rgba(98, 28, 46, 0.72) 0%,
-      rgba(70, 18, 34, 0.68) 100%
+      rgba(98, 28, 46, 0.9) 0%,
+      rgba(70, 18, 34, 0.88) 100%
     );
-  border-color: color-mix(in oklab, var(--gold), transparent 52%);
+  border-color: color-mix(in oklab, var(--gold), transparent 40%);
 }
 
 .glass-card:hover,
 .gold-card:hover,
 .ritual-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 30px rgba(54, 18, 16, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(54, 18, 16, 0.15);
 }
 
 .venue-grid {
