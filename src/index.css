@@ -159,6 +159,14 @@ body[data-theme="dark"] .topbar {
   flex: 0 0 14px;
 }
 
+.chip-icon-img {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex: 0 0 16px;
+  object-fit: contain;
+}
+
 .chip-label {
   line-height: 1;
 }
@@ -217,6 +225,12 @@ body:not([data-theme="dark"]) .notify-bell-icon {
   transform-origin: center;
 }
 
+.chip-theme .chip-icon-img.theme-icon {
+  width: 17px;
+  height: 17px;
+  flex-basis: 17px;
+}
+
 .chip-theme .sun-icon {
   animation: sun-glow 2.6s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(255, 220, 131, 0.68));
@@ -225,6 +239,17 @@ body:not([data-theme="dark"]) .notify-bell-icon {
 .chip-theme .moon-icon {
   animation: moon-float 3.2s ease-in-out infinite;
   filter: drop-shadow(0 0 8px rgba(214, 235, 255, 0.52));
+}
+
+.chip-audio .music-icon {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+}
+
+.chip-audio .music-off {
+  opacity: 0.7;
+  filter: grayscale(0.2);
 }
 
 .chip-notify-dot {
@@ -1312,9 +1337,13 @@ body[data-theme="dark"] .quick-nav-toggle {
 
 .chat-input {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: 0.42rem;
   padding: 0.56rem 0.72rem 0.72rem;
+}
+
+.chat-input input {
+  min-width: 0;
 }
 
 .chat-input button {
@@ -1325,6 +1354,18 @@ body[data-theme="dark"] .quick-nav-toggle {
   padding: 0.38rem 0.55rem;
   font-size: 0.8rem;
   cursor: pointer;
+}
+
+.chat-voice-btn {
+  background: color-mix(in oklab, var(--gold), var(--maroon) 30%);
+  color: #4a0f19;
+  font-weight: 700;
+  min-width: 78px;
+}
+
+.chat-voice-btn.is-listening {
+  background: #8b1e35;
+  color: #fff;
 }
 
 body[data-theme="dark"] .chat-widget {
@@ -1369,6 +1410,16 @@ body[data-theme="dark"] .chat-input input {
   background: rgba(255, 240, 206, 0.12);
   color: #f6e5c5;
   border-color: rgba(212, 175, 55, 0.35);
+}
+
+body[data-theme="dark"] .chat-voice-btn {
+  background: rgba(212, 175, 55, 0.88);
+  color: #3e0e1a;
+}
+
+body[data-theme="dark"] .chat-voice-btn.is-listening {
+  background: #c94d66;
+  color: #fff;
 }
 
 body[data-theme="dark"] .chat-input input::placeholder {
@@ -1466,6 +1517,18 @@ body[data-theme="dark"] .chat-input input::placeholder {
     width: 13px;
     height: 13px;
     flex-basis: 13px;
+  }
+
+  .chip-icon-img {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+  }
+
+  .chip-theme .chip-icon-img.theme-icon {
+    width: 15px;
+    height: 15px;
+    flex-basis: 15px;
   }
 
   .notify-bell {

@@ -668,13 +668,13 @@ const chatbotText = {
     open: "Ask Me",
     title: "Wedding Assistant",
     subtitle: "Instant answers for guests",
-    placeholder: "Ask about venue, timing, confirmation...",
+    placeholder: "Ask about venue, timing, gallery, website, confirmation...",
     send: "Send",
     greeting:
-      "Hello. I can assist you with venue details, timings, confirmation, weather, contact, and language options.",
+      "Hello. I can help with venue details, timings, gallery access, confirmation, weather, contact, and language options.",
     fallback:
       "I’m sorry, I don’t have an answer for that. I am currently only trained on the details for Saurabh and Soni’s wedding.\nWould you like to check the venue location or provide your Confirmation for the event?",
-    prompts: ["Venue", "Timing", "Confirmation", "Contact"],
+    prompts: ["Venue", "Timing", "Gallery", "Confirmation", "Contact", "Website"],
     ConfirmationHint:
       "Please fill the Confirmation form and click Confirm Now to send your details on WhatsApp.",
     goToConfirmation: "Go to Confirmation",
@@ -688,18 +688,33 @@ const chatbotText = {
     acknowledged: "Understood. Let me know if you need anything else.",
     terminateAck: "Understood. I am ending this query here. You can start again anytime.",
     askLanguageChoice: "Choose language using the buttons below, or type language name.",
+    galleryInfo:
+      "Our Wedding Gallery is organized as Google Drive folders where you can view and upload photos from different moments like Kohbar and other ceremonies.",
+    galleryAskChoice: "Which photo collection would you like to view? Please choose an option below.",
+    galleryChoiceHint: "Please choose a gallery option using the buttons below.",
+    gallerySelected: "Selected Gallery",
+    openGallerySection: "Open Gallery Section",
+    openGalleryCard: "Open This Gallery Card",
+    openDriveFolder: "Open Google Drive Folder",
+    websiteInfo:
+      "This website is a multilingual digital wedding invitation and guest assistant for Saurabh and Soni's wedding.\nKey features:\n1) Event details for Shagun and Wedding (venue, date, and timings)\n2) Interactive venue map links\n3) Live weather and AQI updates\n4) Google Drive-based gallery collections (view and upload photos)\n5) Confirmation (RSVP) with WhatsApp integration\n6) Guest message wall for blessings\n7) Language support: Hindi, Maithili, and English\n8) Quick chatbot support for venue, timing, gallery, contact, and confirmation",
+    voiceAsk: "Use voice query",
+    voiceStop: "Stop voice",
+    voiceUnsupported: "Voice input is not supported in this browser.",
+    voiceListening: "Listening...",
+    voiceNoSpeech: "I could not hear your voice clearly. Please try again.",
   },
   hi: {
     open: "मुझसे पूछें",
     title: "विवाह सहायक",
     subtitle: "मेहमानों के लिए तुरंत जानकारी",
-    placeholder: "स्थान, समय, पुष्टि के बारे में पूछें...",
+    placeholder: "स्थान, समय, गैलरी, वेबसाइट, पुष्टि के बारे में पूछें...",
     send: "भेजें",
     greeting:
-      "नमस्ते। मैं स्थान, समय, पुष्टि, मौसम, संपर्क और भाषा विकल्प की जानकारी पेशेवर तरीके से दे सकता हूँ।",
+      "नमस्ते। मैं स्थान, समय, गैलरी एक्सेस, पुष्टि, मौसम, संपर्क और भाषा विकल्प की जानकारी स्पष्ट रूप से दे सकता हूँ।",
     fallback:
       "क्षमा करें, मुझे इस बारे में जानकारी नहीं है। अभी मेरा पूरा ध्यान सौरभ और सोनी की शादी की तैयारियों पर है।\nक्या मैं आपकी मदद वेन्यू (Venue) बताने में या आपकी Confirmation (स्वीकृति) दर्ज करने में कर सकता हूँ?",
-    prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
+    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
     goToConfirmation: "पुष्टि पर जाएँ",
@@ -713,18 +728,33 @@ const chatbotText = {
     acknowledged: "ठीक है। यदि आपको और जानकारी चाहिए, तो बताएं।",
     terminateAck: "ठीक है। मैं इस बातचीत को यहीं समाप्त कर रहा हूँ। आप कभी भी फिर से पूछ सकते हैं।",
     askLanguageChoice: "नीचे दिए बटन से भाषा चुनें, या भाषा का नाम लिखें।",
+    galleryInfo:
+      "हमारी विवाह गैलरी Google Drive फ़ोल्डर आधारित है, जहाँ आप कोहबर और अन्य रस्मों की अलग-अलग तस्वीरें देख और अपलोड कर सकते हैं।",
+    galleryAskChoice: "आप कौन-सा फोटो संग्रह देखना चाहेंगे? कृपया नीचे से विकल्प चुनें।",
+    galleryChoiceHint: "कृपया नीचे दिए बटनों से गैलरी विकल्प चुनें।",
+    gallerySelected: "चयनित गैलरी",
+    openGallerySection: "गैलरी सेक्शन खोलें",
+    openGalleryCard: "यह गैलरी कार्ड खोलें",
+    openDriveFolder: "Google Drive फ़ोल्डर खोलें",
+    websiteInfo:
+      "यह वेबसाइट सौरभ और सोनी के विवाह के लिए एक बहुभाषी डिजिटल निमंत्रण और गेस्ट असिस्टेंट है।\nमुख्य सुविधाएँ:\n1) शगुन और विवाह की पूरी जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम और AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखें और अपलोड करें)\n5) WhatsApp इंटीग्रेशन के साथ पुष्टि (RSVP)\n6) आशीर्वाद के लिए गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेज़ी\n8) स्थान, समय, गैलरी, संपर्क और पुष्टि के लिए चैटबॉट सहायता",
+    voiceAsk: "वॉइस से पूछें",
+    voiceStop: "वॉइस रोकें",
+    voiceUnsupported: "इस ब्राउज़र में वॉइस इनपुट उपलब्ध नहीं है।",
+    voiceListening: "सुन रहा हूँ...",
+    voiceNoSpeech: "आपकी आवाज़ स्पष्ट नहीं मिली। कृपया फिर से बोलें।",
   },
   mai: {
     open: "हमसँ पुछू",
     title: "बियाह सहायक",
     subtitle: "मेहमान लेल तुरत जानकारी",
-    placeholder: "स्थान, समय, पुष्टि बारेमे पुछू...",
+    placeholder: "स्थान, समय, गैलरी, वेबसाइट, पुष्टि बारेमे पुछू...",
     send: "भेजू",
     greeting:
-      "नमस्कार। हम स्थान, समय, पुष्टि, मौसम, संपर्क आ भाषा विकल्पक जानकारी स्पष्ट रूप सँ देबामे मदद कऽ सकैत छी।",
+      "नमस्कार। हम स्थान, समय, गैलरी एक्सेस, पुष्टि, मौसम, संपर्क आ भाषा विकल्पक जानकारी साफ रूप सँ देबामे मदद कऽ सकैत छी।",
     fallback:
       "क्षम्य होब, हमरा एहि बारे में नहि पता अछि। हमर काज अछि अहाँ सभ कें सौरभ आ सोनी क विवाहक जानकारी देब।\nकी अहाँ अपन Confirmation (स्वीकृति) देबय चाहब, या कार्यक्रमक समय जानय चाहब?",
-    prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
+    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
     goToConfirmation: "पुष्टि पर जाउ",
@@ -738,6 +768,21 @@ const chatbotText = {
     acknowledged: "ठीक अछि। जँ आओर जानकारी चाही तँ जरूर पुछू।",
     terminateAck: "ठीक अछि। हम एहि बातचीतकेँ एतय समाप्त करैत छी। अहाँ फेर सँ कखनो पुछि सकैत छी।",
     askLanguageChoice: "नीचाँ देल बटन सँ भाषा चुनू, वा भाषाक नाम लिखू।",
+    galleryInfo:
+      "हमर बियाह गैलरी Google Drive folder आधारित अछि, जतय अहाँ कोहबर आ दोसर रस्मक अलग-अलग फोटो देख आ अपलोड क' सकैत छी।",
+    galleryAskChoice: "अहाँ कोन फोटो संग्रह देखय चाहैत छी? कृपया नीचाँ सँ विकल्प चुनू।",
+    galleryChoiceHint: "कृपया नीचाँ देल बटन सँ गैलरी विकल्प चुनू।",
+    gallerySelected: "चयनित गैलरी",
+    openGallerySection: "गैलरी सेक्शन खोलू",
+    openGalleryCard: "ई गैलरी कार्ड खोलू",
+    openDriveFolder: "Google Drive folder खोलू",
+    websiteInfo:
+      "ई वेबसाइट सौरभ आ सोनीक बियाह लेल बहुभाषी डिजिटल निमंत्रण आ गेस्ट सहायक अछि।\nमुख्य सुविधा:\n1) शगुन आ बियाहक पूरा जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम आ AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखू आ अपलोड करू)\n5) WhatsApp संग पुष्टि (RSVP)\n6) आशीर्वाद लेल गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेजी\n8) स्थान, समय, गैलरी, संपर्क आ पुष्टि लेल चैटबॉट सहायता",
+    voiceAsk: "आवाज़ सँ पुछू",
+    voiceStop: "आवाज़ रोकू",
+    voiceUnsupported: "ई ब्राउज़र मे voice input उपलब्ध नहि अछि।",
+    voiceListening: "सुनि रहल छी...",
+    voiceNoSpeech: "अहाँक आवाज स्पष्ट नहि भेटल। कृपया फेर सँ बजू।",
   },
 };
 
@@ -817,6 +862,8 @@ function App() {
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [chatListening, setChatListening] = useState(false);
   const [chatPending, setChatPending] = useState(null);
   const [chatQuickActions, setChatQuickActions] = useState(false);
   const [chatVenueChoice, setChatVenueChoice] = useState(null);
@@ -835,6 +882,8 @@ function App() {
   const [notificationPermission, setNotificationPermission] = useState(getNotificationPermission);
   const audioRef = useRef(null);
   const chatMessagesRef = useRef(null);
+  const speechRecognitionRef = useRef(null);
+  const sendChatMessageRef = useRef(null);
   const t = translations[language];
   const chat = chatbotText[language];
   const isHindi = language === "hi";
@@ -874,6 +923,56 @@ function App() {
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [chatMessages, chatLoading, chatOpen]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setSpeechSupported(false);
+      speechRecognitionRef.current = null;
+      return undefined;
+    }
+
+    setSpeechSupported(true);
+    const recognition = new SpeechRecognition();
+    recognition.lang = language === "en" ? "en-US" : "hi-IN";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setChatListening(true);
+    recognition.onend = () => setChatListening(false);
+    recognition.onerror = () => setChatListening(false);
+    recognition.onresult = (event) => {
+      const spoken = event?.results?.[0]?.[0]?.transcript?.trim();
+      if (!spoken) {
+        setChatMessages((prev) => [
+          ...prev,
+          { id: Date.now() + 1, sender: "bot", text: chat.voiceNoSpeech },
+        ]);
+        return;
+      }
+      if (sendChatMessageRef.current) {
+        sendChatMessageRef.current(spoken);
+      }
+    };
+
+    speechRecognitionRef.current = recognition;
+
+    return () => {
+      recognition.onstart = null;
+      recognition.onend = null;
+      recognition.onerror = null;
+      recognition.onresult = null;
+      try {
+        recognition.stop();
+      } catch {
+        // ignore stop error
+      }
+      if (speechRecognitionRef.current === recognition) {
+        speechRecognitionRef.current = null;
+      }
+    };
+  }, [language, chat.voiceNoSpeech]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -1240,6 +1339,10 @@ function App() {
       return points([`${t.language}: ${t.languageHindi}, ${t.languageMaithili}, ${t.languageEnglish}`]);
     }
 
+    if (has(["website", "site", "feature", "features", "about", "वेबसाइट", "साइट", "फीचर", "सुविधा"])) {
+      return chat.websiteInfo;
+    }
+
     return chat.fallback;
   }
 
@@ -1269,6 +1372,21 @@ function App() {
     return null;
   }
 
+  function getGalleryChoice(raw) {
+    const q = raw.toLowerCase().trim();
+    const numberedChoice = Number(q);
+    if (Number.isInteger(numberedChoice) && numberedChoice >= 1 && numberedChoice <= 5) {
+      const ordered = ["grandEntry", "varmalaStage", "kohbarArt", "sacredMandap", "familyBlessings"];
+      return ordered[numberedChoice - 1];
+    }
+    if (["grand entry", "entry", "भव्य प्रवेश", "प्रवेश"].some((w) => q.includes(w))) return "grandEntry";
+    if (["varmala", "वरमाला", "jaimala", "जयमाला"].some((w) => q.includes(w))) return "varmalaStage";
+    if (["kohbar", "khobar", "कोहबर"].some((w) => q.includes(w))) return "kohbarArt";
+    if (["mandap", "मंडप"].some((w) => q.includes(w))) return "sacredMandap";
+    if (["family", "blessing", "परिवार", "आशीर्वाद"].some((w) => q.includes(w))) return "familyBlessings";
+    return null;
+  }
+
   function sendChatMessage(customText) {
     const text = (customText ?? chatInput).trim();
     if (!text) return;
@@ -1281,6 +1399,7 @@ function App() {
       has(["putai map", "putai location", "शगुन मैप", "शगुन map"]);
     const selectedEvent = getEventChoice(text);
     const selectedLanguage = getLanguageChoice(text);
+    const selectedGallery = getGalleryChoice(text);
     let reply = "";
     let languageToApply = null;
 
@@ -1346,6 +1465,23 @@ function App() {
       } else {
         reply = chat.chooseShagunWedding;
       }
+    } else if (chatPending === "gallery") {
+      if (selectedGallery) {
+        const selectedCard = t.gallery.find((item) => item.key === selectedGallery);
+        const selectedTitle = selectedCard?.title || selectedGallery;
+        const selectedFolder = galleryFolderLinks[selectedGallery];
+        reply = [
+          chat.galleryInfo,
+          `${chat.gallerySelected}: ${selectedTitle}`,
+          `${chat.openGalleryCard}: https://app.local/gallery-card/${selectedGallery}`,
+          selectedFolder ? `${chat.openDriveFolder}: ${selectedFolder}` : "",
+        ]
+          .filter(Boolean)
+          .join("\n");
+        setChatPending(null);
+      } else {
+        reply = chat.galleryChoiceHint;
+      }
     } else if (asksShagunMap) {
       reply = shagunMapLink;
       setChatPending(null);
@@ -1359,6 +1495,20 @@ function App() {
     } else if (has(["date", "तिथि", "दिनांक"])) {
       reply = chat.askTimingType;
       setChatPending("timing");
+    } else if (has(["gallery", "photo", "photos", "album", "कोहबर", "गैलरी", "फोटो", "तस्वीर"])) {
+      const galleryOptions = t.gallery.map((item, index) => `${index + 1}. ${item.title}`).join("\n");
+      reply = [
+        chat.galleryInfo,
+        `${t.navVenue}: https://app.local/section/venue`,
+        `${t.timeLabel}: https://app.local/section/timing`,
+        `${chat.openGallerySection}: https://app.local/section/gallery`,
+        chat.galleryAskChoice,
+        galleryOptions,
+      ].join("\n");
+      setChatPending("gallery");
+    } else if (has(["website", "site", "feature", "features", "about", "वेबसाइट", "साइट", "फीचर", "सुविधा"])) {
+      reply = chat.websiteInfo;
+      setChatPending(null);
     } else if (has(["confirm", "confirmation", "attendance", "पुष्टि", "उपस्थिति"])) {
       reply = chat.tapToOpenConfirmation;
       setChatPending("confirmation");
@@ -1405,7 +1555,7 @@ function App() {
     setChatPending(null);
     setChatVenueChoice(null);
 
-    if (index === 2) {
+    if (index === 3) {
       goToConfirmationSection();
       return;
     }
@@ -1421,7 +1571,18 @@ function App() {
         `${t.shagunTitle}: ${t.shagunDate}, ${t.shagunTime}`,
         chat.weddingTiming,
       ].join("\n");
-    } else if (index === 3) {
+    } else if (index === 2) {
+      const galleryOptions = t.gallery.map((item, itemIndex) => `${itemIndex + 1}. ${item.title}`).join("\n");
+      reply = [
+        chat.galleryInfo,
+        `${t.navVenue}: https://app.local/section/venue`,
+        `${t.timeLabel}: https://app.local/section/timing`,
+        `${chat.openGallerySection}: https://app.local/section/gallery`,
+        chat.galleryAskChoice,
+        galleryOptions,
+      ].join("\n");
+      setChatPending("gallery");
+    } else if (index === 4) {
       reply = `${t.contactTitle}: ${t.contactValue}`;
     } else {
       sendChatMessage(prompt);
@@ -1441,6 +1602,10 @@ function App() {
     }, responseDelayMs);
   }
 
+  useEffect(() => {
+    sendChatMessageRef.current = sendChatMessage;
+  });
+
   function chooseLanguage(code) {
     setLanguage(code);
     setChatPending(null);
@@ -1458,6 +1623,40 @@ function App() {
     window.location.hash = "rsvp";
   }
 
+  function handleVoiceQuery() {
+    if (!speechSupported) {
+      setChatMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, sender: "bot", text: chat.voiceUnsupported },
+      ]);
+      return;
+    }
+    if (chatLoading) return;
+    const recognition = speechRecognitionRef.current;
+    if (!recognition) return;
+    if (chatListening) {
+      try {
+        recognition.stop();
+      } catch {
+        // ignore stop error
+      }
+      return;
+    }
+    try {
+      recognition.start();
+    } catch {
+      // ignore start error on rapid clicks
+    }
+  }
+
+  function openGalleryCardByKey(key) {
+    const selected = t.gallery.find((item) => item.key === key);
+    jumpToSection("gallery");
+    if (selected) {
+      setSelectedPhoto(selected);
+    }
+  }
+
   function renderChatText(text) {
     return text.split("\n").map((line, lineIndex) => {
       const parts = line.split(urlRegex);
@@ -1471,19 +1670,32 @@ function App() {
             let label = part;
             let isMapsLink = false;
 
-            try {
-              const u = new URL(part);
-              const host = u.hostname.toLowerCase();
-              isMapsLink =
-                host === "maps.google.com" ||
-                host.endsWith(".maps.google.com") ||
-                (host.includes("google.") && u.pathname.toLowerCase().includes("/maps"));
-              if (isMapsLink) {
-                label = t.openMaps;
+              try {
+                const u = new URL(part);
+                const host = u.hostname.toLowerCase();
+                const path = u.pathname.replace(/^\/+/, "");
+                isMapsLink =
+                  host === "maps.google.com" ||
+                  host.endsWith(".maps.google.com") ||
+                  (host.includes("google.") && u.pathname.toLowerCase().includes("/maps"));
+                if (isMapsLink) {
+                  label = t.openMaps;
+                } else if (host === "app.local") {
+                  if (path.startsWith("section/")) {
+                    const sectionKey = path.split("/")[1];
+                    if (sectionKey === "venue") label = t.navVenue;
+                    if (sectionKey === "timing") label = t.timeLabel;
+                    if (sectionKey === "gallery") label = t.navGallery;
+                    if (sectionKey === "rsvp") label = t.rsvpTitle;
+                  } else if (path.startsWith("gallery-card/")) {
+                    const galleryKey = path.split("/")[1];
+                    const galleryItem = t.gallery.find((item) => item.key === galleryKey);
+                    label = galleryItem ? galleryItem.title : t.galleryTitle;
+                  }
+                }
+              } catch {
+                // ignore URL parse error and keep raw label
               }
-            } catch {
-              // ignore URL parse error and keep raw label
-            }
 
             return (
               <a
@@ -1504,6 +1716,21 @@ function App() {
                         setLanguage(code);
                         setChatPending(null);
                         setChatVenueChoice(null);
+                      }
+                    } else if (u.hostname === "app.local") {
+                      e.preventDefault();
+                      const path = u.pathname.replace(/^\/+/, "");
+                      if (path === "section/venue") {
+                        jumpToSection("venue");
+                      } else if (path === "section/timing") {
+                        jumpToSection("shagun");
+                      } else if (path === "section/gallery") {
+                        jumpToSection("gallery");
+                      } else if (path === "section/rsvp") {
+                        goToConfirmationSection();
+                      } else if (path.startsWith("gallery-card/")) {
+                        const key = path.split("/")[1];
+                        openGalleryCardByKey(key);
                       }
                     }
                   } catch {
@@ -1611,23 +1838,19 @@ function App() {
           </label>
           <button onClick={() => setDarkMode((v) => !v)} className="chip chip-icon-btn chip-theme">
             {!darkMode ? (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg theme-icon sun-icon" aria-hidden="true">
-                <path
-                  d="M12 4.25a.75.75 0 0 1 .75.75v1.2a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm0 13.6a.75.75 0 0 1 .75.75v1.4a.75.75 0 0 1-1.5 0v-1.4a.75.75 0 0 1 .75-.75ZM6.2 11.25a.75.75 0 0 1 0 1.5H4.8a.75.75 0 0 1 0-1.5h1.4Zm13 0a.75.75 0 0 1 0 1.5h-1.4a.75.75 0 0 1 0-1.5h1.4ZM7.78 7.78a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06Zm6.52 6.52a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06ZM16.22 7.78a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 1 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0Zm-6.52 6.52a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 0 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                  fill="currentColor"
-                />
-              </svg>
+              <img
+                src={`${import.meta.env.BASE_URL}images/sun_6064515.png`}
+                alt=""
+                aria-hidden="true"
+                className="chip-icon-img theme-icon sun-icon"
+              />
             ) : (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg theme-icon moon-icon" aria-hidden="true">
-                <path
-                  d="M15.2 3.55a.75.75 0 0 1 .43 1.34A7.4 7.4 0 1 0 19.1 14a.75.75 0 1 1 1.44.43 8.9 8.9 0 1 1-5.76-10.8.75.75 0 0 1 .42-.08Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M17.85 6.15c.11-.34.6-.34.71 0l.2.66a.85.85 0 0 0 .57.57l.66.2c.34.11.34.6 0 .71l-.66.2a.85.85 0 0 0-.57.57l-.2.66c-.11.34-.6.34-.71 0l-.2-.66a.85.85 0 0 0-.57-.57l-.66-.2c-.34-.11-.34-.6 0-.71l.66-.2a.85.85 0 0 0 .57-.57l.2-.66Z"
-                  fill="currentColor"
-                />
-              </svg>
+              <img
+                src={`${import.meta.env.BASE_URL}images/moon_5365362.png`}
+                alt=""
+                aria-hidden="true"
+                className="chip-icon-img theme-icon moon-icon"
+              />
             )}
             <span className="chip-label">{darkMode ? t.lightMode : t.darkMode}</span>
           </button>
@@ -1637,25 +1860,12 @@ function App() {
             disabled={!shehnaiSrc}
             title={shehnaiSrc ? t.musicToggleTitle : t.musicMissingTitle}
           >
-            {audioOn ? (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
-                <path
-                  d="M17.25 4.75a.75.75 0 0 0-.75.75v7.6a3.2 3.2 0 1 0 1.5 2.7V9.2l2.45-.7a.75.75 0 1 0-.4-1.45L18 7.6V5.5a.75.75 0 0 0-.75-.75Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M10.55 4.77a.75.75 0 0 0-.8.14L5.1 9.2a1.2 1.2 0 0 0-.39.88v3.84A2.95 2.95 0 1 0 6.2 16.5v-6.1l3.6-3.33a.75.75 0 0 0 .24-.8.75.75 0 0 0-.49-.5Z"
-                  fill="currentColor"
-                />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
-                <path
-                  d="M16.75 4.75a.75.75 0 0 0-.75.75v7.6a3.2 3.2 0 1 0 1.5 2.7V9.12l2.5-.72a.75.75 0 1 0-.42-1.44L17.5 7.56V5.5a.75.75 0 0 0-.75-.75Z"
-                  fill="currentColor"
-                />
-              </svg>
-            )}
+            <img
+              src={`${import.meta.env.BASE_URL}images/itunes_1384029.png`}
+              alt=""
+              aria-hidden="true"
+              className={`chip-icon-img music-icon ${audioOn ? "music-on" : "music-off"}`}
+            />
             <span className="chip-label">{audioOn ? t.muteMusic : t.playMusic}</span>
           </button>
           <button
@@ -2090,7 +2300,7 @@ function App() {
                 <button
                   key={prompt}
                   type="button"
-                  onClick={() => (idx === 2 ? goToConfirmationSection() : sendChatMessage(prompt))}
+                  onClick={() => (idx === 3 ? goToConfirmationSection() : sendChatMessage(prompt))}
                 >
                   {prompt}
                 </button>
@@ -2143,6 +2353,15 @@ function App() {
               </button>
             </div>
           ) : null}
+          {chatPending === "gallery" ? (
+            <div className="chat-venue-options">
+              {t.gallery.map((item) => (
+                <button key={item.key} type="button" onClick={() => sendChatMessage(item.title)}>
+                  {item.title}
+                </button>
+              ))}
+            </div>
+          ) : null}
           {chatPending === "confirmation" ? (
             <div className="chat-confirm-action">
               <button type="button" onClick={goToConfirmationSection}>
@@ -2162,6 +2381,15 @@ function App() {
               onChange={(e) => setChatInput(e.target.value)}
               placeholder={chat.placeholder}
             />
+            <button
+              type="button"
+              className={`chat-voice-btn ${chatListening ? "is-listening" : ""}`}
+              onClick={handleVoiceQuery}
+              title={chatListening ? chat.voiceStop : chat.voiceAsk}
+              aria-label={chatListening ? chat.voiceStop : chat.voiceAsk}
+            >
+              {chatListening ? chat.voiceListening : chat.voiceAsk}
+            </button>
             <button type="submit">{chat.send}</button>
           </form>
         </section>
