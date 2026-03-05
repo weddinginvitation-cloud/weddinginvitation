@@ -1400,6 +1400,47 @@ function App() {
     setChatInput("");
   }
 
+  function handleFallbackQuickAction(index, prompt) {
+    setChatQuickActions(false);
+    setChatPending(null);
+    setChatVenueChoice(null);
+
+    if (index === 2) {
+      goToConfirmationSection();
+      return;
+    }
+
+    let reply = "";
+    if (index === 0) {
+      reply = [
+        `${t.venueTitle}: ${t.venueName}, ${t.venueAddress}`,
+        weddingMapLink,
+      ].join("\n");
+    } else if (index === 1) {
+      reply = [
+        `${t.shagunTitle}: ${t.shagunDate}, ${t.shagunTime}`,
+        chat.weddingTiming,
+      ].join("\n");
+    } else if (index === 3) {
+      reply = `${t.contactTitle}: ${t.contactValue}`;
+    } else {
+      sendChatMessage(prompt);
+      return;
+    }
+
+    const userMessage = { id: Date.now(), sender: "user", text: prompt };
+    setChatMessages((prev) => [...prev, userMessage]);
+    setChatLoading(true);
+    const responseDelayMs = 900 + Math.floor(Math.random() * 500);
+    setTimeout(() => {
+      setChatMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, sender: "bot", text: reply },
+      ]);
+      setChatLoading(false);
+    }, responseDelayMs);
+  }
+
   function chooseLanguage(code) {
     setLanguage(code);
     setChatPending(null);
@@ -1569,17 +1610,21 @@ function App() {
             </select>
           </label>
           <button onClick={() => setDarkMode((v) => !v)} className="chip chip-icon-btn chip-theme">
-            {darkMode ? (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+            {!darkMode ? (
+              <svg viewBox="0 0 24 24" className="chip-icon-svg theme-icon sun-icon" aria-hidden="true">
                 <path
                   d="M12 4.25a.75.75 0 0 1 .75.75v1.2a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm0 13.6a.75.75 0 0 1 .75.75v1.4a.75.75 0 0 1-1.5 0v-1.4a.75.75 0 0 1 .75-.75ZM6.2 11.25a.75.75 0 0 1 0 1.5H4.8a.75.75 0 0 1 0-1.5h1.4Zm13 0a.75.75 0 0 1 0 1.5h-1.4a.75.75 0 0 1 0-1.5h1.4ZM7.78 7.78a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06Zm6.52 6.52a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06ZM16.22 7.78a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 1 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0Zm-6.52 6.52a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 0 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
                   fill="currentColor"
                 />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="chip-icon-svg theme-icon moon-icon" aria-hidden="true">
                 <path
-                  d="M14.7 3.5a.75.75 0 0 1 .5 1.33 7.5 7.5 0 1 0 3.97 8.7.75.75 0 0 1 1.44.43A9 9 0 1 1 13.9 3.62a.75.75 0 0 1 .8-.12Z"
+                  d="M15.2 3.55a.75.75 0 0 1 .43 1.34A7.4 7.4 0 1 0 19.1 14a.75.75 0 1 1 1.44.43 8.9 8.9 0 1 1-5.76-10.8.75.75 0 0 1 .42-.08Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M17.85 6.15c.11-.34.6-.34.71 0l.2.66a.85.85 0 0 0 .57.57l.66.2c.34.11.34.6 0 .71l-.66.2a.85.85 0 0 0-.57.57l-.2.66c-.11.34-.6.34-.71 0l-.2-.66a.85.85 0 0 0-.57-.57l-.66-.2c-.34-.11-.34-.6 0-.71l.66-.2a.85.85 0 0 0 .57-.57l.2-.66Z"
                   fill="currentColor"
                 />
               </svg>
@@ -2041,8 +2086,12 @@ function App() {
           </div>
           {!hasUserChatted ? (
             <div className="chat-prompts">
-              {chat.prompts.map((prompt) => (
-                <button key={prompt} type="button" onClick={() => sendChatMessage(prompt)}>
+              {chat.prompts.map((prompt, idx) => (
+                <button
+                  key={prompt}
+                  type="button"
+                  onClick={() => (idx === 2 ? goToConfirmationSection() : sendChatMessage(prompt))}
+                >
                   {prompt}
                 </button>
               ))}
@@ -2050,8 +2099,12 @@ function App() {
           ) : null}
           {chatQuickActions ? (
             <div className="chat-prompts">
-              {chat.prompts.map((prompt) => (
-                <button key={`quick-${prompt}`} type="button" onClick={() => sendChatMessage(prompt)}>
+              {chat.prompts.map((prompt, idx) => (
+                <button
+                  key={`quick-${prompt}`}
+                  type="button"
+                  onClick={() => handleFallbackQuickAction(idx, prompt)}
+                >
                   {prompt}
                 </button>
               ))}
