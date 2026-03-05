@@ -532,8 +532,7 @@ const chatbotText = {
     weddingTiming: "Wedding: Sunday, April 26, 2026, 7:00 PM onwards",
     askLocationLink: "Do you want the location link? Reply yes or no.",
     yesNoHint: "Please reply with yes or no.",
-    askLanguageChoice:
-      "Choose language link:\n- Hindi: https://lang.local/hi\n- English: https://lang.local/en\n- Maithili: https://lang.local/mai\n- Or type language name.",
+    askLanguageChoice: "Choose language using the buttons below, or type language name.",
   },
   hi: {
     open: "मुझसे पूछें",
@@ -554,8 +553,7 @@ const chatbotText = {
     weddingTiming: "विवाह: रविवार, 26 अप्रैल 2026, शाम 7:00 बजे से",
     askLocationLink: "क्या आप स्थान लिंक चाहते हैं? हाँ या ना लिखें।",
     yesNoHint: "कृपया हाँ या ना में जवाब दें।",
-    askLanguageChoice:
-      "भाषा लिंक चुनें:\n- हिंदी: https://lang.local/hi\n- अंग्रेज़ी: https://lang.local/en\n- मैथिली: https://lang.local/mai\n- या भाषा का नाम लिखें।",
+    askLanguageChoice: "नीचे दिए बटन से भाषा चुनें, या भाषा का नाम लिखें।",
   },
   mai: {
     open: "हमसँ पुछू",
@@ -576,8 +574,7 @@ const chatbotText = {
     weddingTiming: "बियाह: रवि, 26 अप्रैल 2026, साँझ 7:00 बजे सँ",
     askLocationLink: "की अहाँ स्थान लिंक चाहैत छी? हँ वा नहि लिखू।",
     yesNoHint: "कृपया हँ वा नहि मे जवाब दिऔ।",
-    askLanguageChoice:
-      "भाषा लिंक चुनू:\n- हिंदी: https://lang.local/hi\n- अंग्रेजी: https://lang.local/en\n- मैथिली: https://lang.local/mai\n- वा भाषाक नाम लिखू।",
+    askLanguageChoice: "नीचाँ देल बटन सँ भाषा चुनू, वा भाषाक नाम लिखू।",
   },
 };
 
@@ -1000,6 +997,12 @@ function App() {
       setChatLoading(false);
     }, 650);
     setChatInput("");
+  }
+
+  function chooseLanguage(code) {
+    setLanguage(code);
+    setChatPending(null);
+    setChatVenueChoice(null);
   }
 
   function renderChatText(text) {
@@ -1467,6 +1470,19 @@ function App() {
               </button>
             ))}
           </div>
+          {chatPending === "language" ? (
+            <div className="chat-language-options">
+              <button type="button" onClick={() => chooseLanguage("hi")}>
+                {t.languageHindi}
+              </button>
+              <button type="button" onClick={() => chooseLanguage("en")}>
+                {t.languageEnglish}
+              </button>
+              <button type="button" onClick={() => chooseLanguage("mai")}>
+                {t.languageMaithili}
+              </button>
+            </div>
+          ) : null}
           <form
             className="chat-input"
             onSubmit={(e) => {

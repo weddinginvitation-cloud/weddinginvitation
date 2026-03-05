@@ -830,6 +830,22 @@ body[data-theme="dark"] .message-wall li {
   cursor: pointer;
 }
 
+.chat-language-options {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 0.72rem 0.6rem;
+}
+
+.chat-language-options button {
+  flex: 1;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 42%);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--cream), transparent 10%);
+  padding: 0.34rem 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
 .chat-input {
   display: grid;
   grid-template-columns: 1fr auto;
