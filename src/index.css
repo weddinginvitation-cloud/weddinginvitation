@@ -78,6 +78,7 @@ body[data-theme="dark"] {
   background: color-mix(in oklab, var(--cream), transparent 26%);
   backdrop-filter: none;
   border-bottom: 1px solid color-mix(in oklab, var(--gold), transparent 70%);
+  --topbar-control-color: #fff;
 }
 
 body[data-theme="dark"] .topbar {
@@ -98,7 +99,9 @@ body[data-theme="dark"] .topbar {
   gap: 0.5rem;
   align-items: center;
   overflow-x: auto;
+  overflow-y: visible;
   scrollbar-width: none;
+  padding-block: 0.15rem;
 }
 
 .actions::-webkit-scrollbar {
@@ -109,19 +112,19 @@ body[data-theme="dark"] .topbar {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  padding: 0.35rem 0.58rem;
+  padding: 0.45rem 0.58rem;
   min-width: 88px;
-  height: 34px;
+  height: 36px;
   box-sizing: border-box;
 }
 
 .language-select {
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--topbar-control-color);
   font: inherit;
   font-size: 0.8rem;
-  line-height: 1;
+  line-height: 1.2;
   padding: 0;
   min-width: 0;
   width: 100%;
@@ -130,13 +133,18 @@ body[data-theme="dark"] .topbar {
   text-align: center;
 }
 
+body:not([data-theme="dark"]) .chip-theme-text,
+body:not([data-theme="dark"]) .chip-audio-text {
+  color: var(--topbar-control-color);
+}
+
 .language-select option {
   color: #2a0f11;
 }
 
 .chip,
 .btn {
-  height: 34px;
+  height: 36px;
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--gold), transparent 50%);
   background: color-mix(in oklab, var(--maroon), transparent 12%);
@@ -149,7 +157,7 @@ body[data-theme="dark"] .topbar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  line-height: 1.15;
   vertical-align: middle;
 }
 
@@ -278,44 +286,129 @@ body:not([data-theme="dark"]) .notify-bell-icon {
   animation: notify-pulse 1.8s ease-in-out infinite;
 }
 
-.chip-alerts {
-  position: relative;
-  width: 34px;
-  min-width: 34px;
-  padding: 0;
-}
-
-.chip-alerts.is-active {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 10px rgba(255, 255, 255, 0.35);
-}
-
-.chip-bell-icon {
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-
 .chip-home,
 .chip-theme-text,
 .chip-audio-text {
   min-width: 76px;
-  height: 34px;
+  height: 36px;
   padding: 0.34rem 0.62rem;
   white-space: nowrap;
 }
 
-.chip-theme-text {
+.topbar-plain-btn {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.32rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+  line-height: 1.15;
+}
+
+.topbar-plain-btn:hover {
+  transform: translateY(-1px);
+}
+
+.topbar-plain-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chip-theme-text,
+.chip-audio-text {
   gap: 0.24rem;
 }
 
 .chip-theme-text.is-dark {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.24),
-    0 0 12px rgba(214, 235, 255, 0.5);
+  filter: drop-shadow(0 0 10px rgba(214, 235, 255, 0.55));
 }
 
-.mode-moon {
-  line-height: 1;
+.topbar-chip-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  object-fit: contain;
+  flex: 0 0 18px;
+}
+
+.sun-mode-icon {
+  animation: sun-glow 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 7px rgba(255, 220, 131, 0.7));
+}
+
+.moon-mode-icon {
+  animation: moon-float 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(214, 235, 255, 0.62));
+}
+
+.music-mode-icon {
+  animation: music-sway 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.48));
+}
+
+.music-mode-icon.is-off {
+  opacity: 0.72;
+}
+
+.topbar-notify-btn {
+  position: relative;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.topbar-notify-btn::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  filter: blur(7px);
+}
+
+.topbar-notify-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+.chip-bell-icon {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  display: block;
+  color: #fff;
+  filter:
+    drop-shadow(0 0 14px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+}
+
+.topbar-notify-btn.is-active .chip-bell-icon {
+  filter:
+    drop-shadow(0 0 18px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.92));
+}
+
+body[data-theme="dark"] .topbar-notify-btn::before {
+  background: rgba(214, 235, 255, 0.2);
+  filter: blur(6px);
+}
+
+body[data-theme="dark"] .chip-bell-icon {
+  filter:
+    drop-shadow(0 0 10px rgba(214, 235, 255, 0.7))
+    drop-shadow(0 0 3px rgba(214, 235, 255, 0.6));
 }
 
 .flower-drop-layer {
@@ -1585,7 +1678,7 @@ body[data-theme="dark"] .chat-input input::placeholder {
   }
 
   .chip {
-    height: 28px;
+    height: 32px;
     padding: 0.3rem 0.46rem;
     font-size: 0.72rem;
   }
@@ -1594,26 +1687,32 @@ body[data-theme="dark"] .chat-input input::placeholder {
   .chip-theme-text,
   .chip-audio-text {
     min-width: 62px;
-    height: 28px;
+    height: 32px;
     padding: 0.26rem 0.42rem;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
   }
 
   .language-chip {
     min-width: 76px;
-    height: 28px;
+    height: 32px;
     padding: 0.2rem 0.45rem;
   }
 
-  .chip-alerts {
-    width: 28px;
-    min-width: 28px;
-    height: 28px;
+  .topbar-notify-btn {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
   }
 
   .chip-bell-icon {
-    width: 14px;
-    height: 14px;
+    width: 19px;
+    height: 19px;
+  }
+
+  .topbar-chip-icon {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
   }
 
   .chip-icon-btn {
@@ -1930,6 +2029,16 @@ body[data-theme="dark"] .chat-input input::placeholder {
   50% {
     transform: translateY(-1px) scale(1.06);
     opacity: 1;
+  }
+}
+
+@keyframes music-sway {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1px) rotate(5deg);
   }
 }
 

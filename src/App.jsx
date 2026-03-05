@@ -10,7 +10,10 @@ const mapsEmbedUrl =
 const shehnaiSrc =
   import.meta.env.VITE_SHEHNAI_AUDIO_URL ||
   `${import.meta.env.BASE_URL}music/Sehnai_Dhun_Mangal_Dhun_Music_Mithila_Ke_Lok_Baja_Rasan_Chauki_256kbps.webm`;
-const flowerImageSrc = `${import.meta.env.BASE_URL}images/images-removebg-preview.png`;
+const sunIconSrc = `${import.meta.env.BASE_URL}images/sun.svg`;
+const moonIconSrc = `${import.meta.env.BASE_URL}images/moon.svg`;
+const musicIconSrc = `${import.meta.env.BASE_URL}images/music.svg`;
+const flowerImageSrc = `${import.meta.env.BASE_URL}images/flower.png`;
 const invitationPdfRaw =
   import.meta.env.VITE_INVITATION_PDF_URL || "invitation.pdf";
 const invitationPdf = /^https?:\/\//i.test(invitationPdfRaw)
@@ -1867,21 +1870,27 @@ function App() {
               <option value="en">{t.languageEnglish}</option>
             </select>
           </label>
-          <button onClick={() => setDarkMode((v) => !v)} className={`chip chip-theme-text ${darkMode ? "is-dark" : ""}`}>
-            {darkMode ? <span className="mode-moon" aria-hidden="true">🌙</span> : null}
+          <button onClick={() => setDarkMode((v) => !v)} className={`topbar-plain-btn chip-theme-text ${darkMode ? "is-dark" : ""}`}>
+            <img
+              src={darkMode ? moonIconSrc : sunIconSrc}
+              alt=""
+              aria-hidden="true"
+              className={`topbar-chip-icon ${darkMode ? "moon-mode-icon" : "sun-mode-icon"}`}
+            />
             <span>{darkMode ? t.lightMode : t.darkMode}</span>
           </button>
           <button
             onClick={() => setAudioOn((v) => !v)}
-            className="chip chip-audio-text"
+            className="topbar-plain-btn chip-audio-text"
             disabled={!shehnaiSrc}
             title={shehnaiSrc ? t.musicToggleTitle : t.musicMissingTitle}
           >
+            <img src={musicIconSrc} alt="" aria-hidden="true" className={`topbar-chip-icon music-mode-icon ${audioOn ? "is-on" : "is-off"}`} />
             {audioOn ? t.muteMusic : t.playMusic}
           </button>
           <button
             type="button"
-            className={`chip chip-alerts ${notificationPermission === "granted" ? "is-active" : ""}`}
+            className={`topbar-notify-btn ${notificationPermission === "granted" ? "is-active" : ""}`}
             onClick={handleEnableBrowserAlerts}
             aria-label={t.updatesEnableBrowser}
             title={t.updatesEnableBrowser}
