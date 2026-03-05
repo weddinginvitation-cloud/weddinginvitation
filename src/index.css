@@ -145,11 +145,23 @@ body[data-theme="dark"] .actions {
 
 body:not([data-theme="dark"]) .language-select {
   color: #fff;
+  background:
+    linear-gradient(135deg, rgba(146, 40, 48, 0.9), rgba(112, 29, 38, 0.88)),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 2px,
+      rgba(255, 255, 255, 0) 2px,
+      rgba(255, 255, 255, 0) 6px
+    );
+  border-radius: 8px;
+  padding: 0.2rem 0.4rem;
 }
 
 body:not([data-theme="dark"]) .language-chip {
-  background: color-mix(in oklab, var(--maroon), transparent 16%);
-  border-color: color-mix(in oklab, var(--gold), transparent 46%);
+  background: linear-gradient(135deg, #a92f35, var(--maroon));
+  border-color: color-mix(in oklab, var(--gold), transparent 42%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 body:not([data-theme="dark"]) .chip-theme-text,
