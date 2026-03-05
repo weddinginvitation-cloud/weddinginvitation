@@ -583,7 +583,7 @@ const chatbotText = {
     tapToOpenConfirmation: "Tap the button below to open Confirmation section.",
     askVenueType: "Which venue do you want: Shagun or Wedding?",
     askTimingType: "Which timing do you want: Shagun or Wedding?",
-    chooseShagunWedding: "Please type Shagun or Wedding.",
+    chooseShagunWedding: "Please choose using the buttons below.",
     weddingTiming: "Wedding: Sunday, April 26, 2026, 7:00 PM onwards",
     askLocationLink: "Do you want the location link? Reply yes or no.",
     yesNoHint: "Please reply with yes or no.",
@@ -606,7 +606,7 @@ const chatbotText = {
     tapToOpenConfirmation: "पुष्टि सेक्शन खोलने के लिए नीचे बटन दबाएँ।",
     askVenueType: "आप कौन सा स्थान जानना चाहते हैं: शगुन या विवाह?",
     askTimingType: "आप कौन सा समय जानना चाहते हैं: शगुन या विवाह?",
-    chooseShagunWedding: "कृपया शगुन या विवाह लिखें।",
+    chooseShagunWedding: "कृपया नीचे दिए बटन से चुनें।",
     weddingTiming: "विवाह: रविवार, 26 अप्रैल 2026, शाम 7:00 बजे से",
     askLocationLink: "क्या आप स्थान लिंक चाहते हैं? हाँ या ना लिखें।",
     yesNoHint: "कृपया हाँ या ना में जवाब दें।",
@@ -629,7 +629,7 @@ const chatbotText = {
     tapToOpenConfirmation: "पुष्टि सेक्शन खोलबाक लेल नीचाँ बटन दबाउ।",
     askVenueType: "अहाँ ककर स्थान चाहैत छी: शगुन कि बियाह?",
     askTimingType: "अहाँ ककर समय चाहैत छी: शगुन कि बियाह?",
-    chooseShagunWedding: "कृपया शगुन वा बियाह लिखू।",
+    chooseShagunWedding: "कृपया नीचाँ देल बटन सँ चुनू।",
     weddingTiming: "बियाह: रवि, 26 अप्रैल 2026, साँझ 7:00 बजे सँ",
     askLocationLink: "की अहाँ स्थान लिंक चाहैत छी? हँ वा नहि लिखू।",
     yesNoHint: "कृपया हँ वा नहि मे जवाब दिऔ।",
@@ -716,6 +716,7 @@ function App() {
   const [chatPending, setChatPending] = useState(null);
   const [chatVenueChoice, setChatVenueChoice] = useState(null);
   const [quickNavOpen, setQuickNavOpen] = useState(false);
+  const [showHomeShortcut, setShowHomeShortcut] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const audioRef = useRef(null);
   const t = translations[language];
@@ -749,6 +750,15 @@ function App() {
     setChatPending(null);
     setChatVenueChoice(null);
   }, [chat]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowHomeShortcut(window.scrollY > 280);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -1155,14 +1165,10 @@ function App() {
       : selectedFolderLink;
   const hasUserChatted = chatMessages.some((m) => m.sender === "user");
   const quickSections = [
-    { id: "hero", label: t.navHome },
     { id: "story", label: t.navStory },
     { id: "shagun", label: t.navShagun },
     { id: "baraat", label: t.navBaraat },
     { id: "venue", label: t.navVenue },
-    { id: "weather", label: t.navWeather },
-    { id: "countdown", label: t.navCountdown },
-    { id: "traditions", label: t.navTraditions },
     { id: "gallery", label: t.navGallery },
     { id: "rsvp", label: t.navConfirmation },
   ];
@@ -1186,6 +1192,11 @@ function App() {
       <header className="topbar">
         <p className="brand">{t.brand}</p>
         <div className="actions">
+          {showHomeShortcut ? (
+            <button type="button" className="chip chip-home" onClick={() => jumpToSection("hero")}>
+              {t.navHome}
+            </button>
+          ) : null}
           <label className="chip language-chip" htmlFor="language-select">
             <span>{t.language}</span>
             <select
