@@ -640,6 +640,7 @@ function App() {
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [chatLoading, setChatLoading] = useState(false);
   const [chatPending, setChatPending] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const audioRef = useRef(null);
@@ -667,6 +668,7 @@ function App() {
       },
     ]);
     setChatInput("");
+    setChatLoading(false);
     setChatPending(null);
   }, [chat]);
 
@@ -872,6 +874,7 @@ function App() {
   function sendChatMessage(customText) {
     const text = (customText ?? chatInput).trim();
     if (!text) return;
+    if (chatLoading) return;
     const q = text.toLowerCase();
     const has = (words) => words.some((w) => q.includes(w));
     const selectedEvent = getEventChoice(text);
@@ -911,11 +914,16 @@ function App() {
       setChatPending(null);
     }
 
-    setChatMessages((prev) => [
-      ...prev,
-      { id: Date.now(), sender: "user", text },
-      { id: Date.now() + 1, sender: "bot", text: reply },
-    ]);
+    const userMessage = { id: Date.now(), sender: "user", text };
+    setChatMessages((prev) => [...prev, userMessage]);
+    setChatLoading(true);
+    setTimeout(() => {
+      setChatMessages((prev) => [
+        ...prev,
+        { id: Date.now() + 1, sender: "bot", text: reply },
+      ]);
+      setChatLoading(false);
+    }, 650);
     setChatInput("");
   }
 
@@ -1328,6 +1336,13 @@ function App() {
                 {item.text}
               </p>
             ))}
+            {chatLoading ? (
+              <p className="chat-bot chat-typing" aria-label="Bot is typing">
+                <span />
+                <span />
+                <span />
+              </p>
+            ) : null}
           </div>
           <div className="chat-prompts">
             {chat.prompts.map((prompt) => (
