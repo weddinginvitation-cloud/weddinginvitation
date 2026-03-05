@@ -686,6 +686,7 @@ const chatbotText = {
     askLocationLink: "Do you want the location link? Reply yes or no.",
     yesNoHint: "Please reply with yes or no.",
     acknowledged: "Understood. Let me know if you need anything else.",
+    terminateAck: "Understood. I am ending this query here. You can start again anytime.",
     askLanguageChoice: "Choose language using the buttons below, or type language name.",
   },
   hi: {
@@ -710,6 +711,7 @@ const chatbotText = {
     askLocationLink: "क्या आप स्थान लिंक चाहते हैं? हाँ या ना लिखें।",
     yesNoHint: "कृपया हाँ या ना में जवाब दें।",
     acknowledged: "ठीक है। यदि आपको और जानकारी चाहिए, तो बताएं।",
+    terminateAck: "ठीक है। मैं इस बातचीत को यहीं समाप्त कर रहा हूँ। आप कभी भी फिर से पूछ सकते हैं।",
     askLanguageChoice: "नीचे दिए बटन से भाषा चुनें, या भाषा का नाम लिखें।",
   },
   mai: {
@@ -734,6 +736,7 @@ const chatbotText = {
     askLocationLink: "की अहाँ स्थान लिंक चाहैत छी? हँ वा नहि लिखू।",
     yesNoHint: "कृपया हँ वा नहि मे जवाब दिऔ।",
     acknowledged: "ठीक अछि। जँ आओर जानकारी चाही तँ जरूर पुछू।",
+    terminateAck: "ठीक अछि। हम एहि बातचीतकेँ एतय समाप्त करैत छी। अहाँ फेर सँ कखनो पुछि सकैत छी।",
     askLanguageChoice: "नीचाँ देल बटन सँ भाषा चुनू, वा भाषाक नाम लिखू।",
   },
 };
@@ -1279,18 +1282,34 @@ function App() {
     const selectedEvent = getEventChoice(text);
     const selectedLanguage = getLanguageChoice(text);
     let reply = "";
+    let languageToApply = null;
 
-    if (chatPending === "confirmation") {
+    if (chatPending === "fallbackDecision") {
+      const yesNo = getYesNoChoice(text);
+      if (yesNo === "yes") {
+        reply = [
+          `${t.venueTitle}: ${t.venueName}, ${t.venueAddress}`,
+          `${t.shagunTitle}: ${t.shagunDate}, ${t.shagunTime}`,
+          `${chat.weddingTiming}`,
+        ].join("\n");
+        setChatPending(null);
+      } else if (yesNo === "no") {
+        reply = chat.terminateAck;
+        setChatPending(null);
+      } else {
+        reply = chat.yesNoHint;
+      }
+    } else if (chatPending === "confirmation") {
       reply = chat.tapToOpenConfirmation;
     } else if (chatPending === "language") {
       if (selectedLanguage) {
-        setLanguage(selectedLanguage);
+        languageToApply = selectedLanguage;
+        reply = chat.acknowledged;
         setChatPending(null);
         setChatVenueChoice(null);
-        setChatInput("");
-        return;
+      } else {
+        reply = chat.askLanguageChoice;
       }
-      reply = chat.askLanguageChoice;
     } else if (chatPending === "venue") {
       if (selectedEvent === "shagun") {
         reply = `${t.shagunTitle}: ${t.shagunVenue}\n${chat.askLocationLink}`;
@@ -1347,14 +1366,17 @@ function App() {
       reply = chat.askLanguageChoice;
       setChatPending("language");
     } else if (selectedLanguage) {
-      setLanguage(selectedLanguage);
+      languageToApply = selectedLanguage;
+      reply = chat.acknowledged;
       setChatPending(null);
       setChatVenueChoice(null);
-      setChatInput("");
-      return;
     } else {
       reply = getBotReply(text);
       setChatPending(null);
+    }
+
+    if (reply === chat.fallback) {
+      setChatPending("fallbackDecision");
     }
 
     const userMessage = { id: Date.now(), sender: "user", text };
@@ -1369,6 +1391,11 @@ function App() {
       ]);
       setChatQuickActions(shouldShowQuickActions);
       setChatLoading(false);
+      if (languageToApply) {
+        setTimeout(() => {
+          setLanguage(languageToApply);
+        }, 220);
+      }
     }, responseDelayMs);
     setChatInput("");
   }
@@ -1518,8 +1545,9 @@ function App() {
         <p className="brand">{t.brand}</p>
         <div className="actions">
           {showHomeShortcut ? (
-            <button type="button" className="chip chip-home" onClick={() => jumpToSection("hero")}>
-              {t.navHome}
+            <button type="button" className="chip chip-home chip-icon-btn" onClick={() => jumpToSection("hero")}>
+              <span className="chip-glyph" aria-hidden="true">⌂</span>
+              <span className="chip-label">{t.navHome}</span>
             </button>
           ) : null}
           <label className="chip language-chip" htmlFor="language-select">
@@ -1535,16 +1563,18 @@ function App() {
               <option value="en">{t.languageEnglish}</option>
             </select>
           </label>
-          <button onClick={() => setDarkMode((v) => !v)} className="chip">
-            {darkMode ? t.lightMode : t.darkMode}
+          <button onClick={() => setDarkMode((v) => !v)} className="chip chip-icon-btn chip-theme">
+            <span className="chip-glyph" aria-hidden="true">{darkMode ? "☀" : "☾"}</span>
+            <span className="chip-label">{darkMode ? t.lightMode : t.darkMode}</span>
           </button>
           <button
             onClick={() => setAudioOn((v) => !v)}
-            className="chip"
+            className="chip chip-icon-btn chip-audio"
             disabled={!shehnaiSrc}
             title={shehnaiSrc ? t.musicToggleTitle : t.musicMissingTitle}
           >
-            {audioOn ? t.muteMusic : t.playMusic}
+            <span className="chip-glyph" aria-hidden="true">{audioOn ? "♪" : "♫"}</span>
+            <span className="chip-label">{audioOn ? t.muteMusic : t.playMusic}</span>
           </button>
           <button
             type="button"
