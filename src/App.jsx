@@ -676,6 +676,7 @@ function App() {
   const [chatLoading, setChatLoading] = useState(false);
   const [chatPending, setChatPending] = useState(null);
   const [chatVenueChoice, setChatVenueChoice] = useState(null);
+  const [quickNavOpen, setQuickNavOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const audioRef = useRef(null);
   const t = translations[language];
@@ -1093,6 +1094,26 @@ function App() {
     selectedPhoto && galleryUploadBaseUrl
       ? galleryUploadBaseUrl
       : selectedFolderLink;
+  const quickSections = [
+    { id: "hero", label: "Home" },
+    { id: "story", label: "Story" },
+    { id: "shagun", label: "Shagun" },
+    { id: "baraat", label: "Baraat" },
+    { id: "venue", label: "Venue" },
+    { id: "weather", label: "Weather" },
+    { id: "countdown", label: "Countdown" },
+    { id: "traditions", label: "Traditions" },
+    { id: "gallery", label: "Gallery" },
+    { id: "rsvp", label: "Confirmation" },
+  ];
+
+  function jumpToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setQuickNavOpen(false);
+    }
+  }
 
   return (
     <>
@@ -1469,6 +1490,27 @@ function App() {
       </main>
 
       <footer className="footer" aria-hidden="true" />
+
+      <div className={`quick-nav-wrap ${quickNavOpen ? "open" : ""}`}>
+        <button
+          type="button"
+          className="quick-nav-toggle"
+          onClick={() => setQuickNavOpen((v) => !v)}
+          aria-label="Quick navigation"
+          title="Quick navigation"
+        >
+          {quickNavOpen ? "×" : "{"}
+        </button>
+        {quickNavOpen ? (
+          <nav className="quick-nav-panel" aria-label="Quick section links">
+            {quickSections.map((item) => (
+              <button key={item.id} type="button" onClick={() => jumpToSection(item.id)}>
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        ) : null}
+      </div>
 
       <button
         type="button"
