@@ -218,6 +218,7 @@ main {
   position: relative;
   z-index: 1;
   max-width: 800px;
+  width: min(100%, 800px);
   animation: fade-up 1s ease 0.2s both;
 }
 
@@ -695,6 +696,27 @@ body[data-theme="dark"] .message-wall li {
   .chip {
     padding: 0.32rem 0.55rem;
     font-size: 0.74rem;
+  }
+
+  .mini-countdown,
+  .big-counter {
+    gap: 0.45rem;
+  }
+
+  .mini-countdown article,
+  .big-counter article {
+    min-width: 0;
+    padding: 0.72rem 0.35rem;
+  }
+
+  .mini-countdown span,
+  .big-counter span {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .language-chip {
