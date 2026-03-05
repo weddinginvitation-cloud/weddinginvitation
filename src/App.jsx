@@ -205,7 +205,7 @@ const translations = {
     musicToggleTitle: "शहनाई संगीत चालू/बंद करें",
     musicMissingTitle: "संगीत के लिए VITE_SHEHNAI_AUDIO_URL सेट करें",
     together: "दोनों परिवारों के साथ",
-    couple: "सौरभ और सोनी",
+    couple: "दोनों परिवारों के साथ",
     dateLine: "रविवार, 26 अप्रैल 2026 | मधुबनी, बिहार",
     days: "दिन",
     hours: "घंटे",
