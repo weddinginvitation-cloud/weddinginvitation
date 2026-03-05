@@ -12,7 +12,7 @@ const shehnaiSrc =
   `${import.meta.env.BASE_URL}music/Sehnai_Dhun_Mangal_Dhun_Music_Mithila_Ke_Lok_Baja_Rasan_Chauki_256kbps.webm`;
 const sunIconSrc = `${import.meta.env.BASE_URL}images/sun.svg`;
 const moonIconSrc = `${import.meta.env.BASE_URL}images/moon.svg`;
-const musicIconSrc = `${import.meta.env.BASE_URL}images/music.svg`;
+const musicIconSrc = `${import.meta.env.BASE_URL}images/music.png`;
 const flowerImageSrc = `${import.meta.env.BASE_URL}images/flower.png`;
 const invitationPdfRaw =
   import.meta.env.VITE_INVITATION_PDF_URL || "invitation.pdf";
@@ -1859,6 +1859,7 @@ function App() {
             </button>
           ) : null}
           <label className="chip language-chip" htmlFor="language-select">
+            {language !== "en" ? <span>{t.language}</span> : null}
             <select
               className="language-select"
               id="language-select"
