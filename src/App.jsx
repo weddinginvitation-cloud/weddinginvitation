@@ -16,6 +16,7 @@ const invitationPdf = /^https?:\/\//i.test(invitationPdfRaw)
   ? invitationPdfRaw
   : `${import.meta.env.BASE_URL}${invitationPdfRaw.replace(/^\/+/, "")}`;
 const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "+91 6207398499";
+const confirmRsvpWhatsapp = "916207398499";
 const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
 const whatsappNumberLink = whatsappNumber.replace(/\D/g, "");
@@ -141,7 +142,6 @@ const translations = {
     ],
     galleryTitle: "Wedding Gallery",
     gallery: [
-      { title: "Haldi Courtyard", color: "from-mustard to-lotus" },
       { title: "Grand Entry", color: "from-maroon to-gold" },
       { title: "Varmala Stage", color: "from-emerald to-gold" },
       { title: "Kohbar Art", color: "from-lotus to-maroon" },
@@ -301,7 +301,6 @@ const translations = {
     ],
     galleryTitle: "विवाह गैलरी",
     gallery: [
-      { title: "हल्दी आंगन", color: "from-mustard to-lotus" },
       { title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { title: "वरमाला मंच", color: "from-emerald to-gold" },
       { title: "कोहबर कला", color: "from-lotus to-maroon" },
@@ -461,7 +460,6 @@ const translations = {
     ],
     galleryTitle: "बियाह गैलरी",
     gallery: [
-      { title: "हल्दी आंगन", color: "from-mustard to-lotus" },
       { title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { title: "वरमाला मंच", color: "from-emerald to-gold" },
       { title: "कोहबर कला", color: "from-lotus to-maroon" },
@@ -680,6 +678,27 @@ function App() {
     if (!rsvp.name.trim() || !rsvp.phone.trim() || !rsvp.ceremonies.length) {
       return;
     }
+
+    const selectedCeremonies = rsvp.ceremonies
+      .map((item) => {
+        if (item === "shagun") return t.shagunCeremony;
+        if (item === "wedding") return t.weddingNight;
+        return item;
+      })
+      .join(", ");
+    const submitMessage = [
+      `${t.confirmMessagePrefix}: ${t.confirmMessageBody}`,
+      `${t.fullName}: ${rsvp.name}`,
+      `${t.phone}: ${rsvp.phone}`,
+      `${t.guests}: ${rsvp.attendees}`,
+      `${t.ceremony}: ${selectedCeremonies || t.notSelected}`,
+      `${t.languageNote}: ${language.toUpperCase()}`,
+    ].join("\n");
+    window.open(
+      `https://wa.me/${confirmRsvpWhatsapp}?text=${encodeURIComponent(submitMessage)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
     setRsvpSubmitted(true);
     setRsvp(initialRsvp);
