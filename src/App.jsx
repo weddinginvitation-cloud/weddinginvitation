@@ -81,7 +81,7 @@ const translations = {
     shagunDate: "April 24, 2026",
     shagunTime: "6:30 PM onwards",
     shagunVenue: "Putai, Bihar",
-    shagunDress: "Traditional Festive Gold / Maroon",
+    shagunDress: "to be updated",
     shagunDescription:
       "In Mithilanchal tradition, Shagun marks the graceful beginning of sacred wedding rites, where blessings, gifts, and goodwill flow between families.",
     baraatTitle: "Baraat Experience",
@@ -240,7 +240,7 @@ const translations = {
     shagunDate: "24 अप्रैल 2026",
     shagunTime: "शाम 6:30 बजे से",
     shagunVenue: "पुतई, बिहार",
-    shagunDress: "परंपरागत उत्सवी गोल्ड / मैरून",
+    shagunDress: "अपडेट होना बाकी",
     shagunDescription:
       "मिथिलांचल परंपरा में शगुन, विवाह संस्कारों की शुभ शुरुआत है, जहां आशीर्वाद, उपहार और अपनापन दोनों परिवारों में बहता है।",
     baraatTitle: "बारात अनुभव",
@@ -399,7 +399,7 @@ const translations = {
     shagunDate: "24 अप्रैल 2026",
     shagunTime: "साँझ 6:30 बजे सँ",
     shagunVenue: "पुतई, बिहार",
-    shagunDress: "पारंपरिक उत्सवी गोल्ड / मैरून",
+    shagunDress: "अपडेट बाकी अछि",
     shagunDescription:
       "मिथिलांचल परंपरा मे शगुन, बियाहक पवित्र विधिक सुग्घर शुरुआत मानल जाइत अछि, जत' आशीर्वाद आ अपनापन दूनू परिवार मे बहेत अछि।",
     baraatTitle: "बारात अनुभव",
@@ -508,6 +508,51 @@ const translations = {
   },
 };
 
+const chatbotText = {
+  en: {
+    open: "Ask AI",
+    title: "Wedding Assistant",
+    subtitle: "Instant answers for guests",
+    placeholder: "Ask about venue, timing, RSVP...",
+    send: "Send",
+    greeting:
+      "Hi. I can help with venue, timings, RSVP, weather, contact, and language options.",
+    fallback:
+      "I could not match that. Ask about venue, time, RSVP, dress code, contact, weather, or language.",
+    prompts: ["Venue", "Timing", "Confirmation", "Contact"],
+    rsvpHint:
+      "Please fill the RSVP form and click Confirm Now to send your details on WhatsApp.",
+  },
+  hi: {
+    open: "AI पूछें",
+    title: "विवाह सहायक",
+    subtitle: "मेहमानों के लिए तुरंत जानकारी",
+    placeholder: "स्थान, समय, RSVP के बारे में पूछें...",
+    send: "भेजें",
+    greeting:
+      "नमस्ते। मैं स्थान, समय, RSVP, मौसम, संपर्क और भाषा विकल्प में मदद कर सकता हूँ।",
+    fallback:
+      "मैं इसे समझ नहीं पाया। कृपया स्थान, समय, RSVP, वेशभूषा, संपर्क, मौसम या भाषा के बारे में पूछें।",
+    prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
+    rsvpHint:
+      "कृपया RSVP फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
+  },
+  mai: {
+    open: "AI सऽ पुछू",
+    title: "बियाह सहायक",
+    subtitle: "मेहमान लेल तुरत जानकारी",
+    placeholder: "स्थान, समय, RSVP बारेमे पुछू...",
+    send: "भेजू",
+    greeting:
+      "नमस्कार। हम स्थान, समय, RSVP, मौसम, संपर्क आ भाषा विकल्प मे मदद कऽ सकैत छी।",
+    fallback:
+      "ई प्रश्न नहि बुझायल। कृपया स्थान, समय, RSVP, पोशाक, संपर्क, मौसम वा भाषा पर पुछू।",
+    prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
+    rsvpHint:
+      "कृपया RSVP फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
+  },
+};
+
 function getTimeParts(targetDate) {
   const now = new Date();
   const diff = targetDate.getTime() - now.getTime();
@@ -580,9 +625,13 @@ function App() {
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const audioRef = useRef(null);
   const t = translations[language];
+  const chat = chatbotText[language];
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -595,6 +644,17 @@ function App() {
   useEffect(() => {
     document.body.dataset.theme = darkMode ? "dark" : "light";
   }, [darkMode]);
+
+  useEffect(() => {
+    setChatMessages([
+      {
+        id: Date.now(),
+        sender: "bot",
+        text: chat.greeting,
+      },
+    ]);
+    setChatInput("");
+  }, [chat]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -721,6 +781,46 @@ function App() {
     )}`;
     window.open(wallWhatsappLink, "_blank", "noopener,noreferrer");
     setMessageInput("");
+  }
+
+  function getBotReply(raw) {
+    const q = raw.toLowerCase();
+    const has = (words) => words.some((w) => q.includes(w));
+
+    if (has(["venue", "location", "map", "स्थान", "ठाम"])) {
+      return `${t.venueTitle}: ${t.venueName}, ${t.venueAddress}. ${t.openMaps}.`;
+    }
+    if (has(["time", "date", "when", "कब", "समय", "तिथि"])) {
+      return `${t.dateLine}. ${t.shagunTitle}: ${t.shagunDate}, ${t.shagunTime}.`;
+    }
+    if (has(["rsvp", "confirm", "attendance", "पुष्टि", "उपस्थिति"])) {
+      return chat.rsvpHint;
+    }
+    if (has(["dress", "code", "outfit", "पोशाक", "वेशभूषा"])) {
+      return `${t.dressCodeLabel}: ${t.shagunDress}`;
+    }
+    if (has(["contact", "phone", "number", "संपर्क"])) {
+      return `${t.contactTitle}: ${t.contactValue}`;
+    }
+    if (has(["weather", "aqi", "मौसम"])) {
+      return `${t.weatherTitle}. ${t.weatherSubtitle}.`;
+    }
+    if (has(["language", "hindi", "english", "maithili", "भाषा"])) {
+      return `${t.language}: ${t.languageHindi}, ${t.languageMaithili}, ${t.languageEnglish}.`;
+    }
+    return chat.fallback;
+  }
+
+  function sendChatMessage(customText) {
+    const text = (customText ?? chatInput).trim();
+    if (!text) return;
+    const reply = getBotReply(text);
+    setChatMessages((prev) => [
+      ...prev,
+      { id: Date.now(), sender: "user", text },
+      { id: Date.now() + 1, sender: "bot", text: reply },
+    ]);
+    setChatInput("");
   }
 
   const whatsappLink = `https://wa.me/${whatsappNumberLink}?text=${encodeURIComponent(
@@ -1098,6 +1198,52 @@ function App() {
       </main>
 
       <footer className="footer" aria-hidden="true" />
+
+      <button
+        type="button"
+        className="chat-fab"
+        onClick={() => setChatOpen((v) => !v)}
+        aria-label={chat.open}
+      >
+        {chat.open}
+      </button>
+
+      {chatOpen ? (
+        <section className="chat-widget" aria-live="polite">
+          <header>
+            <strong>{chat.title}</strong>
+            <span>{chat.subtitle}</span>
+          </header>
+          <div className="chat-messages">
+            {chatMessages.map((item) => (
+              <p key={item.id} className={item.sender === "user" ? "chat-user" : "chat-bot"}>
+                {item.text}
+              </p>
+            ))}
+          </div>
+          <div className="chat-prompts">
+            {chat.prompts.map((prompt) => (
+              <button key={prompt} type="button" onClick={() => sendChatMessage(prompt)}>
+                {prompt}
+              </button>
+            ))}
+          </div>
+          <form
+            className="chat-input"
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendChatMessage();
+            }}
+          >
+            <input
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              placeholder={chat.placeholder}
+            />
+            <button type="submit">{chat.send}</button>
+          </form>
+        </section>
+      ) : null}
 
       {selectedPhoto ? (
         <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setSelectedPhoto(null)}>
