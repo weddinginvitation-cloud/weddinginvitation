@@ -78,7 +78,7 @@ body[data-theme="dark"] {
   background: color-mix(in oklab, var(--cream), transparent 26%);
   backdrop-filter: none;
   border-bottom: 1px solid color-mix(in oklab, var(--gold), transparent 70%);
-  --topbar-control-color: #f8e6bf;
+  --topbar-control-color: #651025;
 }
 
 body[data-theme="dark"] .topbar {
