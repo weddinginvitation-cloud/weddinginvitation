@@ -711,31 +711,27 @@ body[data-theme="dark"] .message-wall li {
 }
 
 .quick-nav-toggle {
-  border: 1px solid color-mix(in oklab, var(--gold), transparent 26%);
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 30%);
   min-width: 118px;
   min-height: 38px;
   padding: 0.34rem 0.8rem;
   border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--cream), white 18%),
-    color-mix(in oklab, var(--cream), var(--gold) 8%)
-  );
-  color: color-mix(in oklab, var(--maroon), black 10%);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #a92f35, var(--maroon));
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1.1;
-  text-transform: uppercase;
-  font-family: "Cormorant Garamond", serif;
-  box-shadow: 0 5px 14px rgba(128, 0, 32, 0.14);
+  box-shadow: 0 8px 18px rgba(128, 0, 32, 0.24);
   cursor: pointer;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .quick-nav-toggle:hover {
-  box-shadow: 0 8px 18px rgba(128, 0, 32, 0.2);
-  border-color: color-mix(in oklab, var(--gold), transparent 12%);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(128, 0, 32, 0.3);
+  border-color: color-mix(in oklab, var(--gold), transparent 18%);
 }
 
 .quick-nav-panel {
@@ -773,6 +769,11 @@ body[data-theme="dark"] .message-wall li {
   font-size: 0.68rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.pdf-link {
+  display: inline-flex;
+  margin-top: 0.35rem;
 }
 
 .chat-fab {
@@ -1203,7 +1204,7 @@ body[data-theme="dark"] .message-wall li {
     min-width: 110px;
     min-height: 34px;
     padding: 0.3rem 0.68rem;
-    font-size: 0.74rem;
+    font-size: 0.78rem;
   }
 
   .quick-nav-panel {

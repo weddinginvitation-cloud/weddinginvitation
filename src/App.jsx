@@ -202,7 +202,7 @@ const translations = {
     weatherThunderstorm: "Thunderstorm",
     weatherUpdate: "Weather Update",
     quickNav: "Quick Jump",
-    moreInfo: "More Info",
+    moreInfo: "More Information",
     backHome: "Back to Home",
     navHome: "Home",
     navStory: "Story",
@@ -376,7 +376,7 @@ const translations = {
     weatherThunderstorm: "गरज के साथ बारिश",
     weatherUpdate: "मौसम अपडेट",
     quickNav: "त्वरित नेविगेशन",
-    moreInfo: "और जानकारी",
+    moreInfo: "अधिक जानकारी",
     backHome: "होम पर जाएँ",
     navHome: "होम",
     navStory: "कहानी",
@@ -550,7 +550,7 @@ const translations = {
     weatherThunderstorm: "गरज-बरस",
     weatherUpdate: "मौसम अपडेट",
     quickNav: "फटाफट नेविगेशन",
-    moreInfo: "आओर जानकारी",
+    moreInfo: "अधिक जानकारी",
     backHome: "होम पर जाउ",
     navHome: "होम",
     navStory: "कहानी",
@@ -1181,6 +1181,11 @@ function App() {
     }
   }
 
+  function handlePdfClick(e) {
+    e.preventDefault();
+    window.alert("TBD");
+  }
+
   return (
     <>
       <audio ref={audioRef} loop src={shehnaiSrc} preload="none" />
@@ -1549,13 +1554,9 @@ function App() {
                 </a>
               </div>
               {rsvpSubmitted ? <p className="notice">{t.rsvpThanks}</p> : null}
-              {invitationPdf ? (
-                <a className="text-link" href={invitationPdf} target="_blank" rel="noreferrer">
-                  {t.downloadPdf}
-                </a>
-              ) : (
-                <p className="notice">{t.enablePdf}</p>
-              )}
+              <a className="btn btn-outline pdf-link" href={invitationPdf || "#"} onClick={handlePdfClick}>
+                {t.downloadPdf}
+              </a>
             </form>
 
             <article className="gold-card message-wall">
