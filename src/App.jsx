@@ -1546,7 +1546,12 @@ function App() {
         <div className="actions">
           {showHomeShortcut ? (
             <button type="button" className="chip chip-home chip-icon-btn" onClick={() => jumpToSection("hero")}>
-              <span className="chip-glyph" aria-hidden="true">⌂</span>
+              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+                <path
+                  d="M12 4.7 4.7 11a.75.75 0 1 0 .98 1.12l.82-.72V18a1 1 0 0 0 1 1h3.4a.75.75 0 0 0 .75-.75V14h1.7v4.25a.75.75 0 0 0 .75.75h3.4a1 1 0 0 0 1-1v-6.6l.82.72A.75.75 0 1 0 19.3 11L12 4.7Z"
+                  fill="currentColor"
+                />
+              </svg>
               <span className="chip-label">{t.navHome}</span>
             </button>
           ) : null}
@@ -1564,7 +1569,21 @@ function App() {
             </select>
           </label>
           <button onClick={() => setDarkMode((v) => !v)} className="chip chip-icon-btn chip-theme">
-            <span className="chip-glyph" aria-hidden="true">{darkMode ? "☀" : "☾"}</span>
+            {darkMode ? (
+              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+                <path
+                  d="M12 4.25a.75.75 0 0 1 .75.75v1.2a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm0 13.6a.75.75 0 0 1 .75.75v1.4a.75.75 0 0 1-1.5 0v-1.4a.75.75 0 0 1 .75-.75ZM6.2 11.25a.75.75 0 0 1 0 1.5H4.8a.75.75 0 0 1 0-1.5h1.4Zm13 0a.75.75 0 0 1 0 1.5h-1.4a.75.75 0 0 1 0-1.5h1.4ZM7.78 7.78a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06Zm6.52 6.52a.75.75 0 0 1 1.06 0l.86.86a.75.75 0 0 1-1.06 1.06l-.86-.86a.75.75 0 0 1 0-1.06ZM16.22 7.78a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 1 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0Zm-6.52 6.52a.75.75 0 0 1 0 1.06l-.86.86a.75.75 0 0 1-1.06-1.06l.86-.86a.75.75 0 0 1 1.06 0ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+                <path
+                  d="M14.7 3.5a.75.75 0 0 1 .5 1.33 7.5 7.5 0 1 0 3.97 8.7.75.75 0 0 1 1.44.43A9 9 0 1 1 13.9 3.62a.75.75 0 0 1 .8-.12Z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
             <span className="chip-label">{darkMode ? t.lightMode : t.darkMode}</span>
           </button>
           <button
@@ -1573,7 +1592,25 @@ function App() {
             disabled={!shehnaiSrc}
             title={shehnaiSrc ? t.musicToggleTitle : t.musicMissingTitle}
           >
-            <span className="chip-glyph" aria-hidden="true">{audioOn ? "♪" : "♫"}</span>
+            {audioOn ? (
+              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+                <path
+                  d="M17.25 4.75a.75.75 0 0 0-.75.75v7.6a3.2 3.2 0 1 0 1.5 2.7V9.2l2.45-.7a.75.75 0 1 0-.4-1.45L18 7.6V5.5a.75.75 0 0 0-.75-.75Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M10.55 4.77a.75.75 0 0 0-.8.14L5.1 9.2a1.2 1.2 0 0 0-.39.88v3.84A2.95 2.95 0 1 0 6.2 16.5v-6.1l3.6-3.33a.75.75 0 0 0 .24-.8.75.75 0 0 0-.49-.5Z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="chip-icon-svg" aria-hidden="true">
+                <path
+                  d="M16.75 4.75a.75.75 0 0 0-.75.75v7.6a3.2 3.2 0 1 0 1.5 2.7V9.12l2.5-.72a.75.75 0 1 0-.42-1.44L17.5 7.56V5.5a.75.75 0 0 0-.75-.75Z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
             <span className="chip-label">{audioOn ? t.muteMusic : t.playMusic}</span>
           </button>
           <button

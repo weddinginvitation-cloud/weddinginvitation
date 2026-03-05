@@ -152,9 +152,11 @@ body[data-theme="dark"] .topbar {
   gap: 0.32rem;
 }
 
-.chip-glyph {
-  line-height: 1;
-  font-size: 0.86rem;
+.chip-icon-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  flex: 0 0 14px;
 }
 
 .chip-label {
@@ -182,8 +184,8 @@ body[data-theme="dark"] .topbar {
 }
 
 .notify-bell-icon {
-  width: clamp(18px, 2.2vw, 24px);
-  height: clamp(18px, 2.2vw, 24px);
+  width: 14px;
+  height: 14px;
   display: block;
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
 }
@@ -1446,8 +1448,10 @@ body[data-theme="dark"] .chat-input input::placeholder {
     display: none;
   }
 
-  .chip-glyph {
-    font-size: 0.82rem;
+  .chip-icon-svg {
+    width: 13px;
+    height: 13px;
+    flex-basis: 13px;
   }
 
   .notify-bell {
@@ -1457,8 +1461,8 @@ body[data-theme="dark"] .chat-input input::placeholder {
   }
 
   .notify-bell-icon {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     filter:
       drop-shadow(0 0 5px rgba(255, 255, 255, 0.75))
       drop-shadow(0 0 1px rgba(42, 15, 17, 0.7));
