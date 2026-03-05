@@ -19,6 +19,8 @@ const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "+91 6207398499";
 const confirmRsvpWhatsapp = "916207398499";
 const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
+const weddingMapLink = "https://maps.google.com/?q=Madhubani%20Bihar";
+const shagunMapLink = "https://maps.google.com/?q=Putai%20Bihar";
 const whatsappNumberLink = whatsappNumber.replace(/\D/g, "");
 const wishesWhatsappNumberLink = wishesWhatsappNumber.replace(/\D/g, "");
 
@@ -526,6 +528,8 @@ const chatbotText = {
     askTimingType: "Which timing do you want: Shagun or Wedding?",
     chooseShagunWedding: "Please type Shagun or Wedding.",
     weddingTiming: "Wedding: Sunday, April 26, 2026, 7:00 PM onwards",
+    askLocationLink: "Do you want the location link? Reply yes or no.",
+    yesNoHint: "Please reply with yes or no.",
   },
   hi: {
     open: "मुझसे पूछें",
@@ -544,6 +548,8 @@ const chatbotText = {
     askTimingType: "आप कौन सा समय जानना चाहते हैं: शगुन या विवाह?",
     chooseShagunWedding: "कृपया शगुन या विवाह लिखें।",
     weddingTiming: "विवाह: रविवार, 26 अप्रैल 2026, शाम 7:00 बजे से",
+    askLocationLink: "क्या आप स्थान लिंक चाहते हैं? हाँ या ना लिखें।",
+    yesNoHint: "कृपया हाँ या ना में जवाब दें।",
   },
   mai: {
     open: "हमसँ पुछू",
@@ -562,6 +568,8 @@ const chatbotText = {
     askTimingType: "अहाँ ककर समय चाहैत छी: शगुन कि बियाह?",
     chooseShagunWedding: "कृपया शगुन वा बियाह लिखू।",
     weddingTiming: "बियाह: रवि, 26 अप्रैल 2026, साँझ 7:00 बजे सँ",
+    askLocationLink: "की अहाँ स्थान लिंक चाहैत छी? हँ वा नहि लिखू।",
+    yesNoHint: "कृपया हँ वा नहि मे जवाब दिऔ।",
   },
 };
 
@@ -642,6 +650,7 @@ function App() {
   const [chatMessages, setChatMessages] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
   const [chatPending, setChatPending] = useState(null);
+  const [chatVenueChoice, setChatVenueChoice] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const audioRef = useRef(null);
   const t = translations[language];
@@ -670,6 +679,7 @@ function App() {
     setChatInput("");
     setChatLoading(false);
     setChatPending(null);
+    setChatVenueChoice(null);
   }, [chat]);
 
   useEffect(() => {
@@ -871,6 +881,17 @@ function App() {
     return null;
   }
 
+  function getYesNoChoice(raw) {
+    const q = raw.toLowerCase();
+    if (["yes", "y", "haan", "ha", "हाँ", "हां", "हँ", "हँँ", "हो"].some((w) => q.includes(w))) {
+      return "yes";
+    }
+    if (["no", "n", "nah", "ना", "नहि", "नहीं"].some((w) => q.includes(w))) {
+      return "no";
+    }
+    return null;
+  }
+
   function sendChatMessage(customText) {
     const text = (customText ?? chatInput).trim();
     if (!text) return;
@@ -882,13 +903,29 @@ function App() {
 
     if (chatPending === "venue") {
       if (selectedEvent === "shagun") {
-        reply = `- ${t.shagunTitle}: ${t.shagunVenue}`;
-        setChatPending(null);
+        reply = `- ${t.shagunTitle}: ${t.shagunVenue}\n- ${chat.askLocationLink}`;
+        setChatPending("locationLink");
+        setChatVenueChoice("shagun");
       } else if (selectedEvent === "wedding") {
-        reply = `- ${t.venueTitle}: ${t.venueName}, ${t.venueAddress}`;
-        setChatPending(null);
+        reply = `- ${t.venueTitle}: ${t.venueName}, ${t.venueAddress}\n- ${chat.askLocationLink}`;
+        setChatPending("locationLink");
+        setChatVenueChoice("wedding");
       } else {
         reply = `- ${chat.chooseShagunWedding}`;
+      }
+    } else if (chatPending === "locationLink") {
+      const yesNo = getYesNoChoice(text);
+      if (yesNo === "yes") {
+        const link = chatVenueChoice === "shagun" ? shagunMapLink : weddingMapLink;
+        reply = `- ${t.openMaps}: ${link}`;
+        setChatPending(null);
+        setChatVenueChoice(null);
+      } else if (yesNo === "no") {
+        reply = `- OK`;
+        setChatPending(null);
+        setChatVenueChoice(null);
+      } else {
+        reply = `- ${chat.yesNoHint}`;
       }
     } else if (chatPending === "timing") {
       if (selectedEvent === "shagun") {
