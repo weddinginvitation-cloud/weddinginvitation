@@ -76,8 +76,12 @@ body[data-theme="dark"] {
   gap: 0.45rem;
   padding: 0.9rem 1rem;
   background: color-mix(in oklab, var(--cream), transparent 26%);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
   border-bottom: 1px solid color-mix(in oklab, var(--gold), transparent 70%);
+}
+
+body[data-theme="dark"] .topbar {
+  backdrop-filter: blur(8px);
 }
 
 .brand {
@@ -147,6 +151,26 @@ body[data-theme="dark"] {
   width: 17px;
   height: 17px;
   display: block;
+}
+
+.chip-notify {
+  position: relative;
+}
+
+.chip-notify.is-active {
+  border-color: color-mix(in oklab, var(--gold), transparent 18%);
+  box-shadow: 0 0 0 1px rgba(255, 230, 173, 0.4);
+}
+
+.chip-notify-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 0 1px rgba(255, 248, 231, 0.95);
 }
 
 .btn {
@@ -1097,26 +1121,33 @@ body[data-theme="dark"] .quick-nav-toggle {
 }
 
 .chat-link-btn {
-  display: inline-grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   margin-top: 0.16rem;
   border: 1px solid color-mix(in oklab, var(--gold), transparent 12%);
-  border-radius: 10px;
-  width: 34px;
-  height: 34px;
-  padding: 0;
+  border-radius: 999px;
+  min-height: 32px;
+  padding: 0.24rem 0.55rem;
   background: color-mix(in oklab, var(--cream), white 14%);
   color: #651025;
   text-decoration: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   box-shadow:
     0 0 0 1px rgba(255, 240, 196, 0.35),
     0 0 18px rgba(212, 175, 55, 0.35);
 }
 
 .chat-link-icon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   display: block;
+}
+
+.chat-link-text {
+  line-height: 1;
 }
 
 .chat-typing {

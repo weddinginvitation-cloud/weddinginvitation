@@ -43,9 +43,32 @@ const localeByLanguage = {
 
 const urlRegex = /(https?:\/\/[^\s]+)/gi;
 
+function getNotificationPermission() {
+  if (typeof window === "undefined" || !("Notification" in window)) {
+    return "unsupported";
+  }
+  return Notification.permission;
+}
+
+function shouldNotifyForTopics(headline, details, topics) {
+  const selected = Array.isArray(topics) ? topics : [];
+  if (!selected.length) return true;
+
+  const text = `${headline || ""} ${details || ""}`.toLowerCase();
+  const venueHit = /venue|location|स्थल|स्थान|ठाम/.test(text);
+  const timingHit = /time|timing|schedule|समय|तिथि|दिनांक/.test(text);
+  const functionHit = /function|ritual|event|baraat|shagun|विधि|कार्यक्रम|समारोह|बियाह/.test(text);
+
+  if (selected.includes("venue") && venueHit) return true;
+  if (selected.includes("timing") && timingHit) return true;
+  if (selected.includes("general") && functionHit) return true;
+  if (selected.includes("general")) return true;
+  return false;
+}
+
 const translations = {
   en: {
-    brand: "SS Wedding",
+    brand: "Our Wedding Journal",
     language: "Lang",
     languageHindi: "Hindi",
     languageMaithili: "Maithili",
@@ -243,7 +266,7 @@ const translations = {
     updatesBrowserFallback: "New details are available on the invitation page.",
   },
   hi: {
-    brand: "एसएस विवाह",
+    brand: "Our Wedding Journal",
     language: "भाषा",
     languageHindi: "हिंदी",
     languageMaithili: "मैथिली",
@@ -441,7 +464,7 @@ const translations = {
     updatesBrowserFallback: "नए अपडेट देखने के लिए पेज खोलें।",
   },
   mai: {
-    brand: "एसएस बियाह",
+    brand: "Our Wedding Journal",
     language: "भाषा",
     languageHindi: "हिंदी",
     languageMaithili: "मैथिली",
@@ -802,6 +825,7 @@ function App() {
   const [latestUpdate, setLatestUpdate] = useState(null);
   const [updatesStatus, setUpdatesStatus] = useState("");
   const [hasFreshUpdate, setHasFreshUpdate] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState(getNotificationPermission);
   const audioRef = useRef(null);
   const t = translations[language];
   const chat = chatbotText[language];
@@ -880,6 +904,10 @@ function App() {
   }, [updatePrefs]);
 
   useEffect(() => {
+    setNotificationPermission(getNotificationPermission());
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     let timerId;
 
@@ -900,26 +928,31 @@ function App() {
         if (cancelled) return;
 
         const version = String(data?.version || data?.updatedAt || "").trim();
+        const updatedAt = String(data?.updatedAt || "").trim();
         const headline = String(data?.headline || "").trim();
+        const details = String(data?.details || "").trim();
         setLatestUpdate({
           version,
           headline,
-          details: String(data?.details || "").trim(),
+          details,
         });
 
-        if (!version) return;
+        const signature = [version, updatedAt, headline, details].join("|").trim();
+        if (!signature) return;
 
         const seenVersion = localStorage.getItem(updatesSeenVersionStorageKey);
         if (!seenVersion) {
-          localStorage.setItem(updatesSeenVersionStorageKey, version);
+          localStorage.setItem(updatesSeenVersionStorageKey, signature);
           return;
         }
 
-        if (seenVersion !== version) {
+        if (seenVersion !== signature) {
           setHasFreshUpdate(true);
           setUpdatesStatus(t.updatesFreshNotice);
-          notifyInBrowser(headline);
-          localStorage.setItem(updatesSeenVersionStorageKey, version);
+          if (shouldNotifyForTopics(headline, details, updatePrefs.topics)) {
+            notifyInBrowser(headline || details);
+          }
+          localStorage.setItem(updatesSeenVersionStorageKey, signature);
         }
       } catch {
         if (!cancelled) {
@@ -935,7 +968,7 @@ function App() {
       cancelled = true;
       clearInterval(timerId);
     };
-  }, [t, updatePrefs.browser]);
+  }, [t, updatePrefs.browser, updatePrefs.topics]);
 
   useEffect(() => {
     async function loadWeather() {
@@ -1073,20 +1106,60 @@ function App() {
   }
 
   async function handleEnableBrowserAlerts() {
+    const latestHeadline = latestUpdate?.headline || latestUpdate?.details || t.updatesBrowserFallback;
+    const showLatestUpdateNow = () => {
+      if ("Notification" in window && Notification.permission === "granted" && updatePrefs.browser) {
+        new Notification(t.updatesBrowserTitle, {
+          body: latestHeadline,
+        });
+      } else {
+        window.alert(latestHeadline);
+      }
+      setHasFreshUpdate(false);
+    };
+
+    if (hasFreshUpdate && latestUpdate) {
+      showLatestUpdateNow();
+      return;
+    }
+
     if (!("Notification" in window)) {
       setUpdatesStatus(t.updatesBrowserUnsupported);
+      setNotificationPermission("unsupported");
+      if (latestUpdate) {
+        window.alert(latestHeadline);
+      }
+      return;
+    }
+
+    if (Notification.permission === "granted") {
+      setUpdatePrefs((prev) => ({ ...prev, browser: true }));
+      setNotificationPermission("granted");
+      setHasFreshUpdate(false);
+      new Notification(t.updatesBrowserTitle, {
+        body: latestUpdate ? latestHeadline : t.updatesBrowserGranted,
+      });
       return;
     }
 
     const permission = await Notification.requestPermission();
+    setNotificationPermission(permission);
     if (permission === "granted") {
       setUpdatePrefs((prev) => ({ ...prev, browser: true }));
       setUpdatesStatus(t.updatesBrowserGranted);
+      setHasFreshUpdate(false);
+      new Notification(t.updatesBrowserTitle, {
+        body: latestUpdate ? latestHeadline : t.updatesBrowserGranted,
+      });
       return;
     }
 
     setUpdatePrefs((prev) => ({ ...prev, browser: false }));
     setUpdatesStatus(t.updatesBrowserDenied);
+    if (latestUpdate) {
+      window.alert(latestHeadline);
+      setHasFreshUpdate(false);
+    }
   }
 
   function handleSaveUpdatePrefs(event) {
@@ -1384,12 +1457,15 @@ function App() {
                 }}
               >
                 {isMapsLink ? (
-                  <svg viewBox="0 0 24 24" className="chat-link-icon" aria-hidden="true">
-                    <path
-                      d="M12 2a7 7 0 0 0-7 7c0 4.8 5.4 11.8 6.1 12.7a1.1 1.1 0 0 0 1.8 0C13.6 20.8 19 13.8 19 9a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  <>
+                    <svg viewBox="0 0 24 24" className="chat-link-icon" aria-hidden="true">
+                      <path
+                        d="M12 2a7 7 0 0 0-7 7c0 4.8 5.4 11.8 6.1 12.7a1.1 1.1 0 0 0 1.8 0C13.6 20.8 19 13.8 19 9a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span className="chat-link-text">{t.clickToOpen}</span>
+                  </>
                 ) : (
                   label
                 )}
@@ -1485,7 +1561,7 @@ function App() {
           </button>
           <button
             type="button"
-            className="chip chip-icon chip-notify"
+            className={`chip chip-icon chip-notify ${notificationPermission === "granted" ? "is-active" : ""}`}
             onClick={handleEnableBrowserAlerts}
             aria-label={t.updatesEnableBrowser}
             title={t.updatesEnableBrowser}
@@ -1496,6 +1572,7 @@ function App() {
                 fill="currentColor"
               />
             </svg>
+            {hasFreshUpdate ? <span className="chip-notify-dot" aria-hidden="true" /> : null}
           </button>
         </div>
       </header>
