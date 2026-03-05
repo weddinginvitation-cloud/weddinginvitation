@@ -19,6 +19,7 @@ const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "+91 6207398499";
 const confirmRsvpWhatsapp = "916207398499";
 const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
+const updatesFeedUrl = `${import.meta.env.BASE_URL}update-feed.json`;
 const weddingMapLink = "https://maps.google.com/?q=Madhubani%20Bihar";
 const shagunMapLink = "https://maps.google.com/?q=Putai%20Bihar";
 const galleryFolderLinks = {
@@ -31,6 +32,8 @@ const galleryFolderLinks = {
 const galleryUploadBaseUrl = import.meta.env.VITE_GALLERY_UPLOAD_URL || "";
 const whatsappNumberLink = whatsappNumber.replace(/\D/g, "");
 const wishesWhatsappNumberLink = wishesWhatsappNumber.replace(/\D/g, "");
+const updatesPrefStorageKey = "ss-updates-pref";
+const updatesSeenVersionStorageKey = "ss-updates-seen-version";
 
 const localeByLanguage = {
   en: "en-US",
@@ -215,6 +218,29 @@ const translations = {
     navTraditions: "Traditions",
     navGallery: "Gallery",
     navConfirmation: "Confirmation",
+    updatesTitle: "Event Update Concierge",
+    updatesSubtitle: "Get instant alerts for venue, timings, and important details.",
+    updatesPhoneLabel: "Contact Number",
+    updatesTopicsLabel: "What to notify",
+    updatesTopicVenue: "Venue updates",
+    updatesTopicTiming: "Timing updates",
+    updatesTopicGeneral: "General announcements",
+    updatesChannelLabel: "Delivery channels",
+    updatesChannelBrowser: "Browser notification",
+    updatesChannelWhatsapp: "WhatsApp update",
+    updatesEnableBrowser: "Enable Browser Alerts",
+    updatesSave: "Save Preferences",
+    updatesWhatsappCTA: "Subscribe on WhatsApp",
+    updatesLatestLabel: "Latest update",
+    updatesNoFeed: "No update feed published yet.",
+    updatesBrowserGranted: "Browser alerts enabled.",
+    updatesBrowserDenied: "Browser notification permission was blocked.",
+    updatesBrowserUnsupported: "This browser does not support notifications.",
+    updatesSaved: "Update preferences saved.",
+    updatesWhatsappSent: "WhatsApp subscription draft opened.",
+    updatesFreshNotice: "A new wedding detail has been published.",
+    updatesBrowserTitle: "Wedding details updated",
+    updatesBrowserFallback: "New details are available on the invitation page.",
   },
   hi: {
     brand: "एसएस विवाह",
@@ -390,6 +416,29 @@ const translations = {
     navTraditions: "परंपराएं",
     navGallery: "गैलरी",
     navConfirmation: "पुष्टि",
+    updatesTitle: "इवेंट अपडेट कंसीयर्ज",
+    updatesSubtitle: "स्थान, समय और जरूरी जानकारी के तुरंत अपडेट पाएँ।",
+    updatesPhoneLabel: "संपर्क नंबर",
+    updatesTopicsLabel: "किस बारे में अपडेट चाहिए",
+    updatesTopicVenue: "स्थान अपडेट",
+    updatesTopicTiming: "समय अपडेट",
+    updatesTopicGeneral: "सामान्य घोषणाएँ",
+    updatesChannelLabel: "डिलीवरी चैनल",
+    updatesChannelBrowser: "ब्राउज़र नोटिफिकेशन",
+    updatesChannelWhatsapp: "व्हाट्सऐप अपडेट",
+    updatesEnableBrowser: "ब्राउज़र अलर्ट चालू करें",
+    updatesSave: "पसंद सेव करें",
+    updatesWhatsappCTA: "व्हाट्सऐप पर सब्सक्राइब करें",
+    updatesLatestLabel: "नवीनतम अपडेट",
+    updatesNoFeed: "अभी कोई अपडेट फीड प्रकाशित नहीं है।",
+    updatesBrowserGranted: "ब्राउज़र अलर्ट चालू हो गया।",
+    updatesBrowserDenied: "ब्राउज़र नोटिफिकेशन अनुमति नहीं मिली।",
+    updatesBrowserUnsupported: "यह ब्राउज़र नोटिफिकेशन सपोर्ट नहीं करता।",
+    updatesSaved: "अपडेट पसंद सेव हो गई।",
+    updatesWhatsappSent: "व्हाट्सऐप सदस्यता ड्राफ्ट खोल दिया गया।",
+    updatesFreshNotice: "विवाह से जुड़ी नई जानकारी अपडेट हुई है।",
+    updatesBrowserTitle: "विवाह जानकारी अपडेट",
+    updatesBrowserFallback: "नए अपडेट देखने के लिए पेज खोलें।",
   },
   mai: {
     brand: "एसएस बियाह",
@@ -565,6 +614,29 @@ const translations = {
     navTraditions: "परंपरा",
     navGallery: "गैलरी",
     navConfirmation: "पुष्टि",
+    updatesTitle: "इवेंट अपडेट कंसीयर्ज",
+    updatesSubtitle: "स्थान, समय आ जरूरी जानकारीक तुरंत अपडेट पाउ।",
+    updatesPhoneLabel: "संपर्क नंबर",
+    updatesTopicsLabel: "की बातक अपडेट चाही",
+    updatesTopicVenue: "स्थान अपडेट",
+    updatesTopicTiming: "समय अपडेट",
+    updatesTopicGeneral: "सामान्य सूचना",
+    updatesChannelLabel: "डिलीवरी चैनल",
+    updatesChannelBrowser: "ब्राउज़र नोटिफिकेशन",
+    updatesChannelWhatsapp: "व्हाट्सऐप अपडेट",
+    updatesEnableBrowser: "ब्राउज़र अलर्ट चालू करू",
+    updatesSave: "पसंद सेव करू",
+    updatesWhatsappCTA: "व्हाट्सऐप पर सब्सक्राइब करू",
+    updatesLatestLabel: "नवीनतम अपडेट",
+    updatesNoFeed: "एखन धरि कोनो अपडेट फीड प्रकाशित नहि अछि।",
+    updatesBrowserGranted: "ब्राउज़र अलर्ट चालू भ' गेल।",
+    updatesBrowserDenied: "ब्राउज़र नोटिफिकेशन अनुमति नहि भेटल।",
+    updatesBrowserUnsupported: "ई ब्राउज़र नोटिफिकेशन सपोर्ट नहि करैत अछि।",
+    updatesSaved: "अपडेट पसंद सेव भ' गेल।",
+    updatesWhatsappSent: "व्हाट्सऐप सदस्यता ड्राफ्ट खोलल गेल।",
+    updatesFreshNotice: "बियाह स' जुड़ल नवीन जानकारी अपडेट भेल अछि।",
+    updatesBrowserTitle: "बियाह जानकारी अपडेट",
+    updatesBrowserFallback: "नवीन अपडेट देखबाक लेल पेज खोलू।",
   },
 };
 
@@ -721,6 +793,15 @@ function App() {
   const [quickNavOpen, setQuickNavOpen] = useState(false);
   const [showHomeShortcut, setShowHomeShortcut] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [updatePrefs, setUpdatePrefs] = useState({
+    phone: "",
+    browser: false,
+    whatsapp: true,
+    topics: ["venue", "timing", "general"],
+  });
+  const [latestUpdate, setLatestUpdate] = useState(null);
+  const [updatesStatus, setUpdatesStatus] = useState("");
+  const [hasFreshUpdate, setHasFreshUpdate] = useState(false);
   const audioRef = useRef(null);
   const t = translations[language];
   const chat = chatbotText[language];
@@ -776,6 +857,85 @@ function App() {
 
     audioRef.current.pause();
   }, [audioOn]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(updatesPrefStorageKey);
+      if (!stored) return;
+      const parsed = JSON.parse(stored);
+      setUpdatePrefs((prev) => ({
+        ...prev,
+        ...parsed,
+        topics: Array.isArray(parsed.topics) && parsed.topics.length
+          ? parsed.topics
+          : prev.topics,
+      }));
+    } catch {
+      // ignore parse errors for invalid legacy values
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(updatesPrefStorageKey, JSON.stringify(updatePrefs));
+  }, [updatePrefs]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let timerId;
+
+    const notifyInBrowser = (headline) => {
+      if (!updatePrefs.browser) return;
+      if (!("Notification" in window)) return;
+      if (Notification.permission !== "granted") return;
+      new Notification(t.updatesBrowserTitle, {
+        body: headline || t.updatesBrowserFallback,
+      });
+    };
+
+    const loadUpdatesFeed = async () => {
+      try {
+        const res = await fetch(`${updatesFeedUrl}?t=${Date.now()}`, { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled) return;
+
+        const version = String(data?.version || data?.updatedAt || "").trim();
+        const headline = String(data?.headline || "").trim();
+        setLatestUpdate({
+          version,
+          headline,
+          details: String(data?.details || "").trim(),
+        });
+
+        if (!version) return;
+
+        const seenVersion = localStorage.getItem(updatesSeenVersionStorageKey);
+        if (!seenVersion) {
+          localStorage.setItem(updatesSeenVersionStorageKey, version);
+          return;
+        }
+
+        if (seenVersion !== version) {
+          setHasFreshUpdate(true);
+          setUpdatesStatus(t.updatesFreshNotice);
+          notifyInBrowser(headline);
+          localStorage.setItem(updatesSeenVersionStorageKey, version);
+        }
+      } catch {
+        if (!cancelled) {
+          setLatestUpdate(null);
+        }
+      }
+    };
+
+    loadUpdatesFeed();
+    timerId = window.setInterval(loadUpdatesFeed, 120000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(timerId);
+    };
+  }, [t, updatePrefs.browser]);
 
   useEffect(() => {
     async function loadWeather() {
@@ -839,6 +999,14 @@ function App() {
         ? t.shagunCeremony
         : t.weddingNight;
 
+  const selectedUpdateTopics = updatePrefs.topics
+    .map((topic) => {
+      if (topic === "venue") return t.updatesTopicVenue;
+      if (topic === "timing") return t.updatesTopicTiming;
+      return t.updatesTopicGeneral;
+    })
+    .join(", ");
+
   function handleRsvpSubmit(event) {
     event.preventDefault();
 
@@ -893,10 +1061,64 @@ function App() {
     }, 180);
   }
 
+  function toggleUpdateTopic(topic) {
+    setUpdatePrefs((prev) => {
+      const exists = prev.topics.includes(topic);
+      if (exists && prev.topics.length === 1) return prev;
+      return {
+        ...prev,
+        topics: exists ? prev.topics.filter((item) => item !== topic) : [...prev.topics, topic],
+      };
+    });
+  }
+
+  async function handleEnableBrowserAlerts() {
+    if (!("Notification" in window)) {
+      setUpdatesStatus(t.updatesBrowserUnsupported);
+      return;
+    }
+
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      setUpdatePrefs((prev) => ({ ...prev, browser: true }));
+      setUpdatesStatus(t.updatesBrowserGranted);
+      return;
+    }
+
+    setUpdatePrefs((prev) => ({ ...prev, browser: false }));
+    setUpdatesStatus(t.updatesBrowserDenied);
+  }
+
+  function handleSaveUpdatePrefs(event) {
+    event.preventDefault();
+    setUpdatesStatus(t.updatesSaved);
+    setHasFreshUpdate(false);
+  }
+
+  function handleWhatsappUpdates() {
+    const updateMessage = [
+      `Wedding update subscription`,
+      `${t.phone}: ${updatePrefs.phone || t.notSelected}`,
+      `${t.updatesTopicsLabel}: ${selectedUpdateTopics || t.notSelected}`,
+      `${t.languageNote}: ${language.toUpperCase()}`,
+      `Please send new updates for venue, timings, and announcements.`,
+    ].join("\n");
+
+    window.open(
+      `https://wa.me/${whatsappNumberLink}?text=${encodeURIComponent(updateMessage)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setUpdatesStatus(t.updatesWhatsappSent);
+  }
+
   function getBotReply(raw) {
     const q = raw.toLowerCase();
     const has = (words) => words.some((w) => q.includes(w));
     const points = (items) => items.map((item) => `- ${item}`).join("\n");
+    const asksShagunMap =
+      (has(["shagun", "शगुन", "पुतई", "putai"]) && has(["location", "map", "venue", "स्थान", "ठाम"])) ||
+      has(["putai map", "putai location", "शगुन मैप", "शगुन map"]);
 
     if (has(["weather", "aqi", "temperature", "temp", "tempreature", "मौसम", "तापमान"])) {
       if (weather.loading) {
@@ -921,6 +1143,10 @@ function App() {
         aqiLine,
         forecastLine,
       ]);
+    }
+
+    if (asksShagunMap) {
+      return points([`${t.shagunTitle}: ${t.shagunVenue}`, `${t.openMaps}: ${shagunMapLink}`]);
     }
 
     if (has(["venue", "location", "map", "स्थान", "ठाम"])) {
@@ -990,6 +1216,9 @@ function App() {
     if (chatLoading) return;
     const q = text.toLowerCase();
     const has = (words) => words.some((w) => q.includes(w));
+    const asksShagunMap =
+      (has(["shagun", "शगुन", "पुतई", "putai"]) && has(["location", "map", "venue", "स्थान", "ठाम"])) ||
+      has(["putai map", "putai location", "शगुन मैप", "शगुन map"]);
     const selectedEvent = getEventChoice(text);
     const selectedLanguage = getLanguageChoice(text);
     let reply = "";
@@ -1041,6 +1270,10 @@ function App() {
       } else {
         reply = `- ${chat.chooseShagunWedding}`;
       }
+    } else if (asksShagunMap) {
+      reply = `- ${t.shagunTitle}: ${t.shagunVenue}\n- ${t.openMaps}: ${shagunMapLink}`;
+      setChatPending(null);
+      setChatVenueChoice("shagun");
     } else if (has(["venue", "location", "map", "स्थान", "ठाम"])) {
       reply = `- ${chat.askVenueType}`;
       setChatPending("venue");
@@ -1175,6 +1408,7 @@ function App() {
     { id: "shagun", label: t.navShagun },
     { id: "baraat", label: t.navBaraat },
     { id: "venue", label: t.navVenue },
+    { id: "weather", label: t.navWeather },
     { id: "gallery", label: t.navGallery },
   ];
 
@@ -1594,6 +1828,94 @@ function App() {
               </ul>
             </article>
           </div>
+          <article className="gold-card updates-card reveal">
+            <div className="updates-headline">
+              <h3>{t.updatesTitle}</h3>
+              {hasFreshUpdate ? <span className="updates-pill">New</span> : null}
+            </div>
+            <p className="section-subtitle updates-subtitle">{t.updatesSubtitle}</p>
+            <form className="updates-form" onSubmit={handleSaveUpdatePrefs}>
+              <label>
+                {t.updatesPhoneLabel}
+                <input
+                  pattern="[0-9+ ]{8,}"
+                  value={updatePrefs.phone}
+                  onChange={(e) => setUpdatePrefs((prev) => ({ ...prev, phone: e.target.value }))}
+                />
+              </label>
+              <fieldset className="updates-fieldset">
+                <legend>{t.updatesTopicsLabel}</legend>
+                <label className="updates-option">
+                  <input
+                    type="checkbox"
+                    checked={updatePrefs.topics.includes("venue")}
+                    onChange={() => toggleUpdateTopic("venue")}
+                  />
+                  <span>{t.updatesTopicVenue}</span>
+                </label>
+                <label className="updates-option">
+                  <input
+                    type="checkbox"
+                    checked={updatePrefs.topics.includes("timing")}
+                    onChange={() => toggleUpdateTopic("timing")}
+                  />
+                  <span>{t.updatesTopicTiming}</span>
+                </label>
+                <label className="updates-option">
+                  <input
+                    type="checkbox"
+                    checked={updatePrefs.topics.includes("general")}
+                    onChange={() => toggleUpdateTopic("general")}
+                  />
+                  <span>{t.updatesTopicGeneral}</span>
+                </label>
+              </fieldset>
+              <fieldset className="updates-fieldset">
+                <legend>{t.updatesChannelLabel}</legend>
+                <label className="updates-option">
+                  <input
+                    type="checkbox"
+                    checked={updatePrefs.browser}
+                    onChange={(e) =>
+                      setUpdatePrefs((prev) => ({ ...prev, browser: e.target.checked }))
+                    }
+                  />
+                  <span>{t.updatesChannelBrowser}</span>
+                </label>
+                <label className="updates-option">
+                  <input
+                    type="checkbox"
+                    checked={updatePrefs.whatsapp}
+                    onChange={(e) =>
+                      setUpdatePrefs((prev) => ({ ...prev, whatsapp: e.target.checked }))
+                    }
+                  />
+                  <span>{t.updatesChannelWhatsapp}</span>
+                </label>
+              </fieldset>
+              <div className="form-actions">
+                <button type="button" className="btn btn-outline" onClick={handleEnableBrowserAlerts}>
+                  {t.updatesEnableBrowser}
+                </button>
+                <button className="btn" type="submit">
+                  {t.updatesSave}
+                </button>
+                {updatePrefs.whatsapp ? (
+                  <button type="button" className="btn btn-outline" onClick={handleWhatsappUpdates}>
+                    {t.updatesWhatsappCTA}
+                  </button>
+                ) : null}
+              </div>
+              {latestUpdate ? (
+                <p className="notice update-feed-line">
+                  {t.updatesLatestLabel}: {latestUpdate.headline || latestUpdate.details || latestUpdate.version}
+                </p>
+              ) : (
+                <p className="notice update-feed-line">{t.updatesNoFeed}</p>
+              )}
+              {updatesStatus ? <p className="notice">{updatesStatus}</p> : null}
+            </form>
+          </article>
         </section>
       </main>
 

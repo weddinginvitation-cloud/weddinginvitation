@@ -401,14 +401,27 @@ main {
 .procession span:nth-child(5) { animation-delay: 0.4s; }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.27);
-  backdrop-filter: blur(8px);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.86) 0%,
+      rgba(255, 247, 231, 0.78) 100%
+    );
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid color-mix(in oklab, var(--gold), white 35%);
   padding: 1rem;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 body[data-theme="dark"] .glass-card {
-  background: rgba(122, 33, 54, 0.27);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(98, 28, 46, 0.72) 0%,
+      rgba(70, 18, 34, 0.68) 100%
+    );
+  border-color: color-mix(in oklab, var(--gold), transparent 52%);
 }
 
 .glass-card:hover,
@@ -634,6 +647,7 @@ body[data-theme="dark"] .glass-card {
   border-radius: 999px;
   padding: 0.16rem 0.5rem;
   width: fit-content;
+  animation: click-toggle 1.4s ease-in-out infinite;
 }
 
 .photo-card:hover {
@@ -721,6 +735,85 @@ body[data-theme="dark"] .message-wall li {
   margin: 0.4rem 0 0;
   font-size: 0.86rem;
   opacity: 0.85;
+}
+
+.updates-card {
+  margin-top: 1rem;
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--cream), white 14%), var(--card));
+}
+
+.updates-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.updates-headline h3 {
+  margin: 0;
+}
+
+.updates-pill {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: linear-gradient(135deg, #bc1d34, #8b1024);
+  border: 1px solid rgba(255, 230, 173, 0.5);
+  color: #fff7e4;
+}
+
+.updates-subtitle {
+  margin: 0.4rem 0 0.9rem;
+}
+
+.updates-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.updates-fieldset {
+  margin: 0;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 45%);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.updates-fieldset legend {
+  padding: 0 0.3rem;
+  font-size: 0.84rem;
+  opacity: 0.86;
+}
+
+.updates-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+}
+
+.updates-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--maroon);
+}
+
+.update-feed-line {
+  border-top: 1px dashed color-mix(in oklab, var(--gold), transparent 55%);
+  padding-top: 0.6rem;
+}
+
+body[data-theme="dark"] .updates-card {
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--maroon), transparent 8%),
+      color-mix(in oklab, var(--maroon), transparent 22%)
+    );
 }
 
 .text-link {
@@ -1497,6 +1590,18 @@ body[data-theme="dark"] .chat-input input::placeholder {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes click-toggle {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.88;
+  }
+  50% {
+    transform: translateY(-1px) scale(1.04);
+    opacity: 1;
   }
 }
 
