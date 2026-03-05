@@ -1523,9 +1523,6 @@ function App() {
                       {item.label}
                     </button>
                   ))}
-                  <button type="button" className="quick-nav-close" onClick={() => setQuickNavOpen(false)}>
-                    {t.close}
-                  </button>
                 </nav>
               ) : null}
             </div>
