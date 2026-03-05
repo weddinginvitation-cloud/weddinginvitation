@@ -1543,12 +1543,12 @@ function App() {
           </button>
           <button
             type="button"
-            className={`chip chip-icon chip-notify ${notificationPermission === "granted" ? "is-active" : ""}`}
+            className={`notify-bell ${notificationPermission === "granted" ? "is-active" : ""}`}
             onClick={handleEnableBrowserAlerts}
             aria-label={t.updatesEnableBrowser}
             title={t.updatesEnableBrowser}
           >
-            <svg viewBox="0 0 24 24" className="chip-bell-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" className="notify-bell-icon" aria-hidden="true">
               <path
                 d="M12 4a4 4 0 0 0-4 4v2.4c0 .9-.3 1.8-.9 2.5L5.6 14.7A1 1 0 0 0 6.3 16h11.4a1 1 0 0 0 .7-1.7l-1.5-1.8a4 4 0 0 1-.9-2.5V8a4 4 0 0 0-4-4Zm0 16a2.2 2.2 0 0 0 2.1-1.6h-4.2A2.2 2.2 0 0 0 12 20Z"
                 fill="currentColor"
