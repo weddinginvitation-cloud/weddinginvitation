@@ -331,6 +331,8 @@ function App() {
   }, []);
 
   const aqiMeta = useMemo(() => getAqiMeta(weather.aqi || 0), [weather.aqi]);
+  const ceremonySelectValue =
+    rsvp.ceremonies.length === 2 ? "Both Ceremonies" : (rsvp.ceremonies[0] || "Wedding Night");
 
   function handleRsvpSubmit(event) {
     event.preventDefault();
@@ -671,39 +673,25 @@ function App() {
                   <option>4+</option>
                 </select>
               </label>
-              <fieldset>
-                <legend>{t.ceremony}</legend>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={rsvp.ceremonies.includes("Shagun Ceremony")}
-                    onChange={(e) =>
-                      setRsvp((prev) => ({
-                        ...prev,
-                        ceremonies: e.target.checked
-                          ? [...prev.ceremonies, "Shagun Ceremony"]
-                          : prev.ceremonies.filter((item) => item !== "Shagun Ceremony"),
-                      }))
-                    }
-                  />
-                  {t.shagunCeremony}
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={rsvp.ceremonies.includes("Wedding Night")}
-                    onChange={(e) =>
-                      setRsvp((prev) => ({
-                        ...prev,
-                        ceremonies: e.target.checked
-                          ? [...prev.ceremonies, "Wedding Night"]
-                          : prev.ceremonies.filter((item) => item !== "Wedding Night"),
-                      }))
-                    }
-                  />
-                  {t.weddingNight}
-                </label>
-              </fieldset>
+              <label>
+                {t.ceremony}
+                <select
+                  value={ceremonySelectValue}
+                  onChange={(e) =>
+                    setRsvp((prev) => ({
+                      ...prev,
+                      ceremonies:
+                        e.target.value === "Both Ceremonies"
+                          ? ["Shagun Ceremony", "Wedding Night"]
+                          : [e.target.value],
+                    }))
+                  }
+                >
+                  <option value="Shagun Ceremony">{t.shagunCeremony}</option>
+                  <option value="Wedding Night">{t.weddingNight}</option>
+                  <option value="Both Ceremonies">Both Ceremonies</option>
+                </select>
+              </label>
               <div className="form-actions">
                 <button className="btn" type="submit">
                   {t.confirmNow}
