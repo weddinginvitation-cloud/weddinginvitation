@@ -68,7 +68,7 @@ const translations = {
         text: "In the warmth of elders' blessings, two families found one shared rhythm.",
       },
       {
-        title: "The Engagement",
+        title: "The Wedding",
         date: "April 26, 2026",
         text: "Ring ceremony with Maithil geet, marigold fragrance, and promises written in smiles.",
       },
@@ -227,7 +227,7 @@ const translations = {
         text: "बड़ों के आशीर्वाद में दो परिवार एक ही सुर में बंध गए।",
       },
       {
-        title: "सगाई",
+        title: "विवाह",
         date: "26 अप्रैल 2026",
         text: "मैथिल गीत, गेंदा की खुशबू और मुस्कानों में लिखे वादों के साथ अंगूठी समारोह।",
       },
@@ -386,7 +386,7 @@ const translations = {
         text: "बड़-बुजुर्गक आशीर्वाद मे दूनू परिवार एके सुर मे बान्हल गेल।",
       },
       {
-        title: "सगाई",
+        title: "बियाह",
         date: "26 अप्रैल 2026",
         text: "मैथिल गीत, गेंदा के सुगंध आ मुस्की मे लिखल वादा संग अंगूठी समारोह।",
       },
