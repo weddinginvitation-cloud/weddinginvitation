@@ -910,6 +910,37 @@ body[data-theme="dark"] .message-wall li {
   cursor: pointer;
 }
 
+.chat-venue-options {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 0.72rem 0.6rem;
+}
+
+.chat-venue-options button {
+  flex: 1;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 42%);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--cream), transparent 10%);
+  padding: 0.34rem 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.chat-confirm-action {
+  padding: 0 0.72rem 0.6rem;
+}
+
+.chat-confirm-action button {
+  width: 100%;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 35%);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--maroon), transparent 10%);
+  color: #fff;
+  padding: 0.42rem 0.5rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
 .chat-input {
   display: grid;
   grid-template-columns: 1fr auto;

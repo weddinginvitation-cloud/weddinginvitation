@@ -540,6 +540,8 @@ const chatbotText = {
     prompts: ["Venue", "Timing", "Confirmation", "Contact"],
     ConfirmationHint:
       "Please fill the Confirmation form and click Confirm Now to send your details on WhatsApp.",
+    goToConfirmation: "Go to Confirmation",
+    tapToOpenConfirmation: "Tap the button below to open Confirmation section.",
     askVenueType: "Which venue do you want: Shagun or Wedding?",
     askTimingType: "Which timing do you want: Shagun or Wedding?",
     chooseShagunWedding: "Please type Shagun or Wedding.",
@@ -561,6 +563,8 @@ const chatbotText = {
     prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
+    goToConfirmation: "पुष्टि पर जाएँ",
+    tapToOpenConfirmation: "पुष्टि सेक्शन खोलने के लिए नीचे बटन दबाएँ।",
     askVenueType: "आप कौन सा स्थान जानना चाहते हैं: शगुन या विवाह?",
     askTimingType: "आप कौन सा समय जानना चाहते हैं: शगुन या विवाह?",
     chooseShagunWedding: "कृपया शगुन या विवाह लिखें।",
@@ -582,6 +586,8 @@ const chatbotText = {
     prompts: ["स्थान", "समय", "पुष्टि", "संपर्क"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
+    goToConfirmation: "पुष्टि पर जाउ",
+    tapToOpenConfirmation: "पुष्टि सेक्शन खोलबाक लेल नीचाँ बटन दबाउ।",
     askVenueType: "अहाँ ककर स्थान चाहैत छी: शगुन कि बियाह?",
     askTimingType: "अहाँ ककर समय चाहैत छी: शगुन कि बियाह?",
     chooseShagunWedding: "कृपया शगुन वा बियाह लिखू।",
@@ -932,7 +938,9 @@ function App() {
     const selectedLanguage = getLanguageChoice(text);
     let reply = "";
 
-    if (chatPending === "language") {
+    if (chatPending === "confirmation") {
+      reply = `- ${chat.tapToOpenConfirmation}`;
+    } else if (chatPending === "language") {
       if (selectedLanguage) {
         setLanguage(selectedLanguage);
         setChatPending(null);
@@ -986,6 +994,9 @@ function App() {
     } else if (has(["date", "तिथि", "दिनांक"])) {
       reply = `- ${chat.askTimingType}`;
       setChatPending("timing");
+    } else if (has(["confirm", "confirmation", "attendance", "पुष्टि", "उपस्थिति"])) {
+      reply = `- ${chat.tapToOpenConfirmation}`;
+      setChatPending("confirmation");
     } else if (has(["language", "हिंदी", "हिन्दी", "english", "अंग्रेज़ी", "अंग्रेजी", "maithili", "मैथिली", "भाषा"])) {
       reply = `- ${chat.askLanguageChoice}`;
       setChatPending("language");
@@ -1017,6 +1028,17 @@ function App() {
     setLanguage(code);
     setChatPending(null);
     setChatVenueChoice(null);
+  }
+
+  function goToConfirmationSection() {
+    setChatOpen(false);
+    setChatPending(null);
+    const el = document.getElementById("rsvp");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    window.location.hash = "rsvp";
   }
 
   function renderChatText(text) {
@@ -1506,6 +1528,23 @@ function App() {
               </button>
               <button type="button" onClick={() => chooseLanguage("mai")}>
                 {t.languageMaithili}
+              </button>
+            </div>
+          ) : null}
+          {chatPending === "venue" ? (
+            <div className="chat-venue-options">
+              <button type="button" onClick={() => sendChatMessage("Shagun")}>
+                {t.shagunCeremony}
+              </button>
+              <button type="button" onClick={() => sendChatMessage("Wedding")}>
+                {t.weddingNight}
+              </button>
+            </div>
+          ) : null}
+          {chatPending === "confirmation" ? (
+            <div className="chat-confirm-action">
+              <button type="button" onClick={goToConfirmationSection}>
+                {chat.goToConfirmation}
               </button>
             </div>
           ) : null}
