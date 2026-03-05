@@ -153,6 +153,7 @@ const translations = {
       },
     ],
     galleryTitle: "Wedding Gallery",
+    clickToOpen: "Click to open",
     gallery: [
       { key: "grandEntry", title: "Grand Entry", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "Varmala Stage", color: "from-emerald to-gold" },
@@ -327,6 +328,7 @@ const translations = {
       },
     ],
     galleryTitle: "विवाह गैलरी",
+    clickToOpen: "खोलने के लिए क्लिक करें",
     gallery: [
       { key: "grandEntry", title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "वरमाला मंच", color: "from-emerald to-gold" },
@@ -501,6 +503,7 @@ const translations = {
       },
     ],
     galleryTitle: "बियाह गैलरी",
+    clickToOpen: "खोलबाक लेल क्लिक करू",
     gallery: [
       { key: "grandEntry", title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "वरमाला मंच", color: "from-emerald to-gold" },
@@ -885,6 +888,9 @@ function App() {
     )}`;
     window.open(wallWhatsappLink, "_blank", "noopener,noreferrer");
     setMessageInput("");
+    setTimeout(() => {
+      window.location.reload();
+    }, 180);
   }
 
   function getBotReply(raw) {
@@ -1170,7 +1176,6 @@ function App() {
     { id: "baraat", label: t.navBaraat },
     { id: "venue", label: t.navVenue },
     { id: "gallery", label: t.navGallery },
-    { id: "rsvp", label: t.navConfirmation },
   ];
 
   function jumpToSection(id) {
@@ -1184,6 +1189,13 @@ function App() {
   function handlePdfClick(e) {
     e.preventDefault();
     window.alert("TBD");
+  }
+
+  function closeChatAndRefresh() {
+    setChatOpen(false);
+    setTimeout(() => {
+      window.location.reload();
+    }, 140);
   }
 
   return (
@@ -1272,14 +1284,14 @@ function App() {
               </button>
               {quickNavOpen ? (
                 <nav className="quick-nav-panel" aria-label="Quick section links">
-                  <button type="button" onClick={() => jumpToSection("hero")}>
-                    {t.backHome}
-                  </button>
                   {quickSections.map((item) => (
                     <button key={item.id} type="button" onClick={() => jumpToSection(item.id)}>
                       {item.label}
                     </button>
                   ))}
+                  <button type="button" className="quick-nav-close" onClick={() => setQuickNavOpen(false)}>
+                    {t.close}
+                  </button>
                 </nav>
               ) : null}
             </div>
@@ -1487,7 +1499,8 @@ function App() {
                 className={`photo-card ${item.color}`}
                 onClick={() => setSelectedPhoto(item)}
               >
-                <span>{item.title}</span>
+                <span className="photo-card-title">{item.title}</span>
+                <small className="photo-card-hint">{t.clickToOpen}</small>
               </button>
             ))}
           </div>
@@ -1589,7 +1602,13 @@ function App() {
       <button
         type="button"
         className="chat-fab"
-        onClick={() => setChatOpen((v) => !v)}
+        onClick={() => {
+          if (chatOpen) {
+            closeChatAndRefresh();
+            return;
+          }
+          setChatOpen(true);
+        }}
         aria-label={chat.open}
         title={chat.open}
       >
@@ -1609,7 +1628,7 @@ function App() {
               <strong>{chat.title}</strong>
               <span>{chat.subtitle}</span>
             </div>
-            <button type="button" className="chat-close" onClick={() => setChatOpen(false)} aria-label={t.close}>
+            <button type="button" className="chat-close" onClick={closeChatAndRefresh} aria-label={t.close}>
               ×
             </button>
           </header>

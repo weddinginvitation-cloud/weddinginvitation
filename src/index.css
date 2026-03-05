@@ -611,6 +611,51 @@ body[data-theme="dark"] .glass-card {
   box-shadow: var(--shadow);
 }
 
+.photo-card {
+  display: grid;
+  align-content: space-between;
+  gap: 0.35rem;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+}
+
+.photo-card-title {
+  display: block;
+}
+
+.photo-card-hint {
+  display: inline-block;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  opacity: 0.95;
+  background: rgba(28, 10, 8, 0.26);
+  border: 1px solid rgba(255, 239, 206, 0.45);
+  border-radius: 999px;
+  padding: 0.16rem 0.5rem;
+  width: fit-content;
+}
+
+.photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px rgba(70, 25, 20, 0.28);
+}
+
+.photo-card:active {
+  animation: gallery-card-press 0.22s ease;
+}
+
+.photo-card:focus-visible {
+  outline: 2px solid rgba(255, 238, 198, 0.9);
+  outline-offset: 2px;
+}
+
+body[data-theme="dark"] .photo-card-hint {
+  background: rgba(17, 7, 4, 0.4);
+  border-color: rgba(255, 222, 154, 0.45);
+  color: #fff3d6;
+}
+
 .from-mustard { background: linear-gradient(130deg, var(--mustard), var(--lotus)); }
 .from-maroon { background: linear-gradient(130deg, var(--maroon), var(--gold)); }
 .from-emerald { background: linear-gradient(130deg, var(--emerald), var(--gold)); }
@@ -716,22 +761,29 @@ body[data-theme="dark"] .message-wall li {
   min-height: 38px;
   padding: 0.34rem 0.8rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #a92f35, var(--maroon));
-  color: #fff;
+  background: linear-gradient(145deg, #f8e8bf, #efd48a);
+  color: color-mix(in oklab, var(--maroon), black 14%);
   font: inherit;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.1;
-  box-shadow: 0 8px 18px rgba(128, 0, 32, 0.24);
+  box-shadow: 0 8px 18px rgba(88, 48, 8, 0.24);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .quick-nav-toggle:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(128, 0, 32, 0.3);
+  box-shadow: 0 12px 24px rgba(88, 48, 8, 0.32);
   border-color: color-mix(in oklab, var(--gold), transparent 18%);
+}
+
+body[data-theme="dark"] .quick-nav-toggle {
+  background: linear-gradient(145deg, #f2d288, #d7aa42);
+  color: #2d130f;
+  border-color: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.36);
 }
 
 .quick-nav-panel {
@@ -758,7 +810,7 @@ body[data-theme="dark"] .message-wall li {
   text-align: left;
 }
 
-.quick-nav-panel button:first-child {
+.quick-nav-close {
   background: linear-gradient(135deg, #a92f35, var(--maroon));
   color: #fff;
   border-color: color-mix(in oklab, var(--gold), transparent 20%);
@@ -1074,6 +1126,53 @@ body[data-theme="dark"] .message-wall li {
   cursor: pointer;
 }
 
+body[data-theme="dark"] .chat-widget {
+  background: color-mix(in oklab, var(--cream), white 4%);
+  border-color: color-mix(in oklab, var(--gold), transparent 10%);
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="dark"] .chat-messages p {
+  color: #f6e7cd;
+}
+
+body[data-theme="dark"] .chat-bot {
+  background: rgba(250, 232, 194, 0.14);
+}
+
+body[data-theme="dark"] .chat-user {
+  background: rgba(212, 175, 55, 0.34);
+  color: #fff5df;
+}
+
+body[data-theme="dark"] .chat-messages a {
+  color: #ffd77d;
+}
+
+body[data-theme="dark"] .chat-link-btn {
+  background: rgba(255, 229, 164, 0.14);
+  color: #ffe5a8;
+  border-color: rgba(212, 175, 55, 0.58);
+}
+
+body[data-theme="dark"] .chat-prompts button,
+body[data-theme="dark"] .chat-language-options button,
+body[data-theme="dark"] .chat-venue-options button {
+  background: rgba(255, 233, 181, 0.12);
+  color: #f8e4bc;
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+body[data-theme="dark"] .chat-input input {
+  background: rgba(255, 240, 206, 0.12);
+  color: #f6e5c5;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+body[data-theme="dark"] .chat-input input::placeholder {
+  color: rgba(248, 228, 188, 0.75);
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1386,6 +1485,18 @@ body[data-theme="dark"] .message-wall li {
   }
   to {
     transform: translateX(12px);
+  }
+}
+
+@keyframes gallery-card-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.965);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
