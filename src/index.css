@@ -711,37 +711,26 @@ body[data-theme="dark"] .message-wall li {
 }
 
 .quick-nav-toggle {
-  border: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background:
-    linear-gradient(140deg, #f3d48b, #f8edd4) padding-box,
-    linear-gradient(130deg, #7f1024, #d4af37, #b31f36) border-box;
-  border: 2px solid transparent;
-  color: #fbe9c2;
-  font-size: 1.2rem;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 22%);
+  min-width: 126px;
+  min-height: 42px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--cream), white 18%);
+  color: #651025;
+  font-size: 0.88rem;
   font-weight: 700;
-  line-height: 1;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
   font-family: "Manrope", sans-serif;
-  box-shadow:
-    0 10px 22px rgba(128, 0, 32, 0.32),
-    0 0 0 3px rgba(212, 175, 55, 0.18);
+  box-shadow: 0 8px 18px rgba(128, 0, 32, 0.18);
   cursor: pointer;
-  color: #6b0f24;
-  animation: quick-toggle-pop 1.8s ease-in-out infinite;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.quick-nav-fish-img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  display: block;
-}
-
-.quick-nav-fish-emoji {
-  font-size: 1.35rem;
-  line-height: 1;
+.quick-nav-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(128, 0, 32, 0.22);
 }
 
 .quick-nav-panel {
@@ -929,6 +918,22 @@ body[data-theme="dark"] .message-wall li {
   word-break: break-all;
 }
 
+.chat-link-btn {
+  display: inline-block;
+  margin-top: 0.16rem;
+  border: 1px solid color-mix(in oklab, var(--gold), transparent 12%);
+  border-radius: 999px;
+  padding: 0.28rem 0.58rem;
+  background: color-mix(in oklab, var(--cream), white 14%);
+  color: #651025;
+  text-decoration: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  box-shadow:
+    0 0 0 1px rgba(255, 240, 196, 0.35),
+    0 0 18px rgba(212, 175, 55, 0.35);
+}
+
 .chat-typing {
   display: inline-flex;
   align-items: center;
@@ -964,8 +969,12 @@ body[data-theme="dark"] .message-wall li {
   border-radius: 999px;
   padding: 0.2rem 0.48rem;
   font-size: 0.71rem;
-  background: transparent;
+  background: color-mix(in oklab, var(--cream), white 8%);
   cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(255, 236, 188, 0.4),
+    0 0 14px rgba(212, 175, 55, 0.28);
+  animation: chat-option-glow 1.8s ease-in-out infinite;
 }
 
 .chat-language-options {
@@ -982,6 +991,10 @@ body[data-theme="dark"] .message-wall li {
   padding: 0.34rem 0.4rem;
   font-size: 0.75rem;
   cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(255, 236, 188, 0.45),
+    0 0 16px rgba(212, 175, 55, 0.34);
+  animation: chat-option-glow 1.8s ease-in-out infinite;
 }
 
 .chat-venue-options {
@@ -998,6 +1011,10 @@ body[data-theme="dark"] .message-wall li {
   padding: 0.34rem 0.4rem;
   font-size: 0.75rem;
   cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(255, 236, 188, 0.45),
+    0 0 16px rgba(212, 175, 55, 0.34);
+  animation: chat-option-glow 1.8s ease-in-out infinite;
 }
 
 .chat-confirm-action {
@@ -1013,6 +1030,18 @@ body[data-theme="dark"] .message-wall li {
   padding: 0.42rem 0.5rem;
   font-size: 0.78rem;
   cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(255, 240, 196, 0.4),
+    0 0 18px rgba(212, 175, 55, 0.32);
+  animation: chat-option-glow 1.8s ease-in-out infinite;
+}
+
+.chat-prompts button:hover,
+.chat-language-options button:hover,
+.chat-venue-options button:hover,
+.chat-confirm-action button:hover,
+.chat-link-btn:hover {
+  transform: translateY(-1px);
 }
 
 .chat-input {
@@ -1159,14 +1188,10 @@ body[data-theme="dark"] .message-wall li {
   }
 
   .quick-nav-toggle {
-    width: 44px;
-    height: 44px;
-    font-size: 1.05rem;
-  }
-
-  .quick-nav-fish-img {
-    width: 22px;
-    height: 22px;
+    min-width: 110px;
+    min-height: 38px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
   }
 
   .quick-nav-panel {
@@ -1303,6 +1328,20 @@ body[data-theme="dark"] .message-wall li {
   40% {
     transform: translateY(-3px);
     opacity: 1;
+  }
+}
+
+@keyframes chat-option-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 236, 188, 0.4),
+      0 0 12px rgba(212, 175, 55, 0.24);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 236, 188, 0.65),
+      0 0 22px rgba(212, 175, 55, 0.5);
   }
 }
 
