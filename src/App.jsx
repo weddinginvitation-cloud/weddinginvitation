@@ -409,7 +409,7 @@ const translations = {
     whatsappConfirm: "व्हाट्सऐप पुष्टि",
     rsvpThanks: "धन्यवाद। आपका जवाब दर्ज कर लिया गया है।",
     rsvpSubmitFailed: "अभी पुष्टि नहीं हो पाई। कृपया थोड़ी देर बाद फिर कोशिश करें।",
-    downloadPdf: "निमंत्रण PDF डाउनलोड करें",
+    downloadPdf: "निमंत्रण पत्र डाउनलोड करें",
     enablePdf: "PDF डाउनलोड के लिए VITE_INVITATION_PDF_URL सेट करें।",
     viewAlbum: "एल्बम देखें",
     uploadPhoto: "फोटो अपलोड करें",
@@ -609,7 +609,7 @@ const translations = {
     whatsappConfirm: "व्हाट्सऐप पुष्टि",
     rsvpThanks: "धन्यवाद। अहाँक जवाब दर्ज भ' गेल।",
     rsvpSubmitFailed: "एखन पुष्टि नहि भ' सकल। कृपया किछु देर बाद फेर प्रयास करू।",
-    downloadPdf: "निमंत्रण PDF डाउनलोड करू",
+    downloadPdf: "निमंत्रण पत्र डाउनलोड करू",
     enablePdf: "PDF डाउनलोड लेल VITE_INVITATION_PDF_URL सेट करू।",
     viewAlbum: "एल्बम देखू",
     uploadPhoto: "फोटो अपलोड करू",
@@ -1920,8 +1920,11 @@ function App() {
           </button>
           <button
             onClick={() => {
-              setAudioOn((v) => !v);
-              launchFlowerDrop();
+              setAudioOn((v) => {
+                const next = !v;
+                if (next) launchFlowerDrop();
+                return next;
+              });
             }}
             className="topbar-plain-btn chip-audio-text"
             disabled={!shehnaiSrc}
