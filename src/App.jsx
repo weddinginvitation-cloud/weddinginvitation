@@ -1579,12 +1579,10 @@ function App() {
       if (selectedGallery) {
         const selectedCard = t.gallery.find((item) => item.key === selectedGallery);
         const selectedTitle = selectedCard?.title || selectedGallery;
-        const selectedFolder = galleryFolderLinks[selectedGallery];
         reply = [
           chat.galleryInfo,
           `${chat.gallerySelected}: ${selectedTitle}`,
           `https://app.local/gallery-card/${selectedGallery}`,
-          selectedFolder || "",
         ]
           .filter(Boolean)
           .join("\n");
@@ -1841,11 +1839,13 @@ function App() {
                         jumpToSection("shagun");
                       } else if (path === "section/gallery") {
                         jumpToSection("gallery");
+                        closeChat();
                       } else if (path === "section/rsvp") {
                         goToConfirmationSection();
                       } else if (path.startsWith("gallery-card/")) {
                         const key = path.split("/")[1];
                         openGalleryCardByKey(key);
+                        closeChat();
                       }
                     }
                   } catch {
