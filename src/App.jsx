@@ -24,7 +24,6 @@ const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
 const rsvpGoogleFormActionUrl = import.meta.env.VITE_RSVP_GOOGLE_FORM_ACTION_URL || "";
 const rsvpGoogleFormNameEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_NAME_ENTRY || "";
-const rsvpGoogleFormPhoneEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_PHONE_ENTRY || "";
 const rsvpGoogleFormGuestsEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_GUESTS_ENTRY || "";
 const rsvpGoogleFormCeremonyEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_CEREMONY_ENTRY || "";
 const rsvpGoogleFormLanguageEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_LANGUAGE_ENTRY || "";
@@ -857,7 +856,6 @@ function buildCalendarUrl(t) {
 
 const initialRsvp = {
   name: "",
-  phone: "",
   attendees: "2",
   ceremonies: ["wedding"],
 };
@@ -1250,7 +1248,7 @@ function App() {
   async function handleRsvpSubmit(event) {
     event.preventDefault();
 
-    if (!rsvp.name.trim() || !rsvp.phone.trim() || !rsvp.ceremonies.length) {
+    if (!rsvp.name.trim() || !rsvp.ceremonies.length) {
       return;
     }
 
@@ -1269,7 +1267,6 @@ function App() {
 
     const formData = new URLSearchParams();
     if (rsvpGoogleFormNameEntry) formData.append(rsvpGoogleFormNameEntry, rsvp.name.trim());
-    if (rsvpGoogleFormPhoneEntry) formData.append(rsvpGoogleFormPhoneEntry, rsvp.phone.trim());
     if (rsvpGoogleFormGuestsEntry) formData.append(rsvpGoogleFormGuestsEntry, rsvp.attendees);
     if (rsvpGoogleFormCeremonyEntry) {
       formData.append(rsvpGoogleFormCeremonyEntry, selectedCeremonies || t.notSelected);
@@ -2339,15 +2336,6 @@ function App() {
                   required
                   value={rsvp.name}
                   onChange={(e) => setRsvp((prev) => ({ ...prev, name: e.target.value }))}
-                />
-              </label>
-              <label>
-                {t.phone}
-                <input
-                  required
-                  pattern="[0-9+ ]{8,}"
-                  value={rsvp.phone}
-                  onChange={(e) => setRsvp((prev) => ({ ...prev, phone: e.target.value }))}
                 />
               </label>
               <label>
