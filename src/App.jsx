@@ -190,6 +190,7 @@ const translations = {
     ],
     galleryTitle: "Wedding Gallery",
     clickToOpen: "Click to open",
+    clickHere: "Click here",
     gallery: [
       { key: "grandEntry", title: "Grand Entry", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "Varmala Stage", color: "from-emerald to-gold" },
@@ -390,6 +391,7 @@ const translations = {
     ],
     galleryTitle: "विवाह गैलरी",
     clickToOpen: "खोलने के लिए क्लिक करें",
+    clickHere: "यहां क्लिक करें",
     gallery: [
       { key: "grandEntry", title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "वरमाला मंच", color: "from-emerald to-gold" },
@@ -590,6 +592,7 @@ const translations = {
     ],
     galleryTitle: "बियाह गैलरी",
     clickToOpen: "खोलबाक लेल क्लिक करू",
+    clickHere: "एतय क्लिक करू",
     gallery: [
       { key: "grandEntry", title: "भव्य प्रवेश", color: "from-maroon to-gold" },
       { key: "varmalaStage", title: "वरमाला मंच", color: "from-emerald to-gold" },
@@ -905,6 +908,7 @@ function App() {
   const flowerDropIdRef = useRef(0);
   const flowerDropTimersRef = useRef([]);
   const lastFlowerDropAtRef = useRef(0);
+  const themeTransitionTimerRef = useRef(null);
 
   const clearChatResponseTimers = useCallback(() => {
     chatResponseTimersRef.current.forEach((timerId) => clearTimeout(timerId));
@@ -954,6 +958,20 @@ function App() {
 
   useEffect(() => {
     document.body.dataset.theme = darkMode ? "dark" : "light";
+    document.body.classList.add("theme-transitioning");
+    if (themeTransitionTimerRef.current) {
+      clearTimeout(themeTransitionTimerRef.current);
+    }
+    themeTransitionTimerRef.current = setTimeout(() => {
+      document.body.classList.remove("theme-transitioning");
+      themeTransitionTimerRef.current = null;
+    }, 620);
+    return () => {
+      if (themeTransitionTimerRef.current) {
+        clearTimeout(themeTransitionTimerRef.current);
+        themeTransitionTimerRef.current = null;
+      }
+    };
   }, [darkMode]);
 
   useEffect(() => {
@@ -1542,8 +1560,8 @@ function App() {
         reply = [
           chat.galleryInfo,
           `${chat.gallerySelected}: ${selectedTitle}`,
-          `${chat.openGalleryCard}: https://app.local/gallery-card/${selectedGallery}`,
-          selectedFolder ? `${chat.openDriveFolder}: ${selectedFolder}` : "",
+          `https://app.local/gallery-card/${selectedGallery}`,
+          selectedFolder || "",
         ]
           .filter(Boolean)
           .join("\n");
@@ -1568,9 +1586,7 @@ function App() {
       const galleryOptions = t.gallery.map((item, index) => `${index + 1}. ${item.title}`).join("\n");
       reply = [
         chat.galleryInfo,
-        `${t.navVenue}: https://app.local/section/venue`,
-        `${t.timeLabel}: https://app.local/section/timing`,
-        `${chat.openGallerySection}: https://app.local/section/gallery`,
+        `https://app.local/section/gallery`,
         chat.galleryAskChoice,
         galleryOptions,
       ].join("\n");
@@ -1645,9 +1661,7 @@ function App() {
       const galleryOptions = t.gallery.map((item, itemIndex) => `${itemIndex + 1}. ${item.title}`).join("\n");
       reply = [
         chat.galleryInfo,
-        `${t.navVenue}: https://app.local/section/venue`,
-        `${t.timeLabel}: https://app.local/section/timing`,
-        `${chat.openGallerySection}: https://app.local/section/gallery`,
+        `https://app.local/section/gallery`,
         chat.galleryAskChoice,
         galleryOptions,
       ].join("\n");
@@ -1740,6 +1754,7 @@ function App() {
 
             let label = part;
             let isMapsLink = false;
+            let isActionLink = false;
 
               try {
                 const u = new URL(part);
@@ -1751,18 +1766,24 @@ function App() {
                   (host.includes("google.") && u.pathname.toLowerCase().includes("/maps"));
                 if (isMapsLink) {
                   label = t.openMaps;
+                  isActionLink = true;
                 } else if (host === "app.local") {
                   if (path.startsWith("section/")) {
                     const sectionKey = path.split("/")[1];
                     if (sectionKey === "venue") label = t.navVenue;
                     if (sectionKey === "timing") label = t.timeLabel;
-                    if (sectionKey === "gallery") label = t.navGallery;
+                    if (sectionKey === "gallery") {
+                      label = t.clickHere;
+                      isActionLink = true;
+                    }
                     if (sectionKey === "rsvp") label = t.rsvpTitle;
                   } else if (path.startsWith("gallery-card/")) {
-                    const galleryKey = path.split("/")[1];
-                    const galleryItem = t.gallery.find((item) => item.key === galleryKey);
-                    label = galleryItem ? galleryItem.title : t.galleryTitle;
+                    label = t.clickHere;
+                    isActionLink = true;
                   }
+                } else if (host === "drive.google.com" || host.endsWith(".drive.google.com")) {
+                  label = t.clickHere;
+                  isActionLink = true;
                 }
               } catch {
                 // ignore URL parse error and keep raw label
@@ -1774,9 +1795,9 @@ function App() {
                 href={part}
                 target="_blank"
                 rel="noreferrer"
-                className={isMapsLink ? "chat-link-btn" : undefined}
-                aria-label={isMapsLink ? t.openMaps : undefined}
-                title={isMapsLink ? t.openMaps : undefined}
+                className={isActionLink ? "chat-link-btn" : undefined}
+                aria-label={isActionLink ? label : undefined}
+                title={isActionLink ? label : undefined}
                 onClick={(e) => {
                   try {
                     const u = new URL(part);
