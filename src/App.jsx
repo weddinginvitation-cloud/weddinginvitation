@@ -715,7 +715,7 @@ const chatbotText = {
     openGalleryCard: "Open This Gallery Card",
     openDriveFolder: "Open Google Drive Folder",
     websiteInfo:
-      "This website is a multilingual digital wedding invitation and guest assistant for Saurabh and Soni's wedding.\nKey features:\n1) Event details for Shagun and Wedding (venue, date, and timings)\n2) Interactive venue map links\n3) Live weather and AQI updates\n4) Google Drive-based gallery collections (view and upload photos)\n5) Confirmation (RSVP) with direct Google Form submission\n6) Guest message wall for blessings\n7) Language support: Hindi, Maithili, and English\n8) Quick chatbot support for venue, timing, gallery, contact, and confirmation",
+      "This website is a multilingual digital wedding invitation and guest assistant for Saurabh and Soni's wedding.\nKey features:\n1) Event details for Shagun and Wedding (venue, date, and timings)\n2) Interactive venue map links\n3) Live weather and AQI updates\n4) Google Drive-based gallery collections (view and upload photos)\n5) Confirmation (RSVP)\n6) Guest message wall for blessings\n7) Language support: Hindi, Maithili, and English\n8) Quick chatbot support for venue, timing, gallery, contact, and confirmation",
     voiceAsk: "Use voice query",
     voiceStop: "Stop voice",
     voiceUnsupported: "Voice input is not supported in this browser.",
@@ -755,7 +755,7 @@ const chatbotText = {
     openGalleryCard: "यह गैलरी कार्ड खोलें",
     openDriveFolder: "Google Drive फ़ोल्डर खोलें",
     websiteInfo:
-      "यह वेबसाइट सौरभ और सोनी के विवाह के लिए एक बहुभाषी डिजिटल निमंत्रण और गेस्ट असिस्टेंट है।\nमुख्य सुविधाएँ:\n1) शगुन और विवाह की पूरी जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम और AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखें और अपलोड करें)\n5) Google Form के माध्यम से सीधी पुष्टि (RSVP)\n6) आशीर्वाद के लिए गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेज़ी\n8) स्थान, समय, गैलरी, संपर्क और पुष्टि के लिए चैटबॉट सहायता",
+      "यह वेबसाइट सौरभ और सोनी के विवाह के लिए एक बहुभाषी डिजिटल निमंत्रण और गेस्ट असिस्टेंट है।\nमुख्य सुविधाएँ:\n1) शगुन और विवाह की पूरी जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम और AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखें और अपलोड करें)\n5) पुष्टि (RSVP)\n6) आशीर्वाद के लिए गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेज़ी\n8) स्थान, समय, गैलरी, संपर्क और पुष्टि के लिए चैटबॉट सहायता",
     voiceAsk: "वॉइस से पूछें",
     voiceStop: "वॉइस रोकें",
     voiceUnsupported: "इस ब्राउज़र में वॉइस इनपुट उपलब्ध नहीं है।",
@@ -795,7 +795,7 @@ const chatbotText = {
     openGalleryCard: "ई गैलरी कार्ड खोलू",
     openDriveFolder: "Google Drive folder खोलू",
     websiteInfo:
-      "ई वेबसाइट सौरभ आ सोनीक बियाह लेल बहुभाषी डिजिटल निमंत्रण आ गेस्ट सहायक अछि।\nमुख्य सुविधा:\n1) शगुन आ बियाहक पूरा जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम आ AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखू आ अपलोड करू)\n5) Google Form संग सीधा पुष्टि (RSVP)\n6) आशीर्वाद लेल गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेजी\n8) स्थान, समय, गैलरी, संपर्क आ पुष्टि लेल चैटबॉट सहायता",
+      "ई वेबसाइट सौरभ आ सोनीक बियाह लेल बहुभाषी डिजिटल निमंत्रण आ गेस्ट सहायक अछि।\nमुख्य सुविधा:\n1) शगुन आ बियाहक पूरा जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम आ AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखू आ अपलोड करू)\n5) पुष्टि (RSVP)\n6) आशीर्वाद लेल गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेजी\n8) स्थान, समय, गैलरी, संपर्क आ पुष्टि लेल चैटबॉट सहायता",
     voiceAsk: "आवाज़ सँ पुछू",
     voiceStop: "आवाज़ रोकू",
     voiceUnsupported: "ई ब्राउज़र मे voice input उपलब्ध नहि अछि।",
