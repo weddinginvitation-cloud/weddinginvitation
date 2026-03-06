@@ -686,13 +686,13 @@ const chatbotText = {
     open: "Ask Me",
     title: "Wedding Assistant",
     subtitle: "Instant answers for guests",
-    placeholder: "Ask about venue, timing, gallery, website, confirmation...",
+    placeholder: "Ask about venue, timing, gallery, website info, confirmation...",
     send: "Send",
     greeting:
       "Hello. I can help with venue details, timings, gallery access, confirmation, weather, contact, and language options.",
     fallback:
       "I’m sorry, I don’t have an answer for that. I am currently only trained on the details for Saurabh and Soni’s wedding.\nWould you like to check the venue location or provide your Confirmation for the event?",
-    prompts: ["Venue", "Timing", "Gallery", "Confirmation", "Contact", "Website"],
+    prompts: ["Venue", "Timing", "Gallery", "Confirmation", "Contact", "Website Info"],
     ConfirmationHint:
       "Please fill the Confirmation form and click Confirm Now to submit your response.",
     goToConfirmation: "Go to Confirmation",
@@ -726,13 +726,13 @@ const chatbotText = {
     open: "मुझसे पूछें",
     title: "विवाह सहायक",
     subtitle: "मेहमानों के लिए तुरंत जानकारी",
-    placeholder: "स्थान, समय, गैलरी, वेबसाइट, पुष्टि के बारे में पूछें...",
+    placeholder: "स्थान, समय, गैलरी, वेबसाइट जानकारी, पुष्टि के बारे में पूछें...",
     send: "भेजें",
     greeting:
       "नमस्ते। मैं स्थान, समय, गैलरी एक्सेस, पुष्टि, मौसम, संपर्क और भाषा विकल्प की जानकारी स्पष्ट रूप से दे सकता हूँ।",
     fallback:
       "क्षमा करें, मुझे इस बारे में जानकारी नहीं है। अभी मेरा पूरा ध्यान सौरभ और सोनी की शादी की तैयारियों पर है।\nक्या मैं आपकी मदद वेन्यू (Venue) बताने में या आपकी Confirmation (स्वीकृति) दर्ज करने में कर सकता हूँ?",
-    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
+    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट जानकारी"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरें और जवाब दर्ज करने के लिए Confirm Now दबाएँ।",
     goToConfirmation: "पुष्टि पर जाएँ",
@@ -766,13 +766,13 @@ const chatbotText = {
     open: "हमसँ पुछू",
     title: "बियाह सहायक",
     subtitle: "मेहमान लेल तुरत जानकारी",
-    placeholder: "स्थान, समय, गैलरी, वेबसाइट, पुष्टि बारेमे पुछू...",
+    placeholder: "स्थान, समय, गैलरी, वेबसाइट जानकारी, पुष्टि बारेमे पुछू...",
     send: "भेजू",
     greeting:
       "नमस्कार। हम स्थान, समय, गैलरी एक्सेस, पुष्टि, मौसम, संपर्क आ भाषा विकल्पक जानकारी साफ रूप सँ देबामे मदद कऽ सकैत छी।",
     fallback:
       "क्षम्य होब, हमरा एहि बारे में नहि पता अछि। हमर काज अछि अहाँ सभ कें सौरभ आ सोनी क विवाहक जानकारी देब।\nकी अहाँ अपन Confirmation (स्वीकृति) देबय चाहब, या कार्यक्रमक समय जानय चाहब?",
-    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
+    prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट जानकारी"],
     ConfirmationHint:
       "कृपया पुष्टि फॉर्म भरू आ जवाब जमा करबाक लेल Confirm Now दबाउ।",
     goToConfirmation: "पुष्टि पर जाउ",
