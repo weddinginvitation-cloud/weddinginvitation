@@ -20,9 +20,14 @@ const invitationPdf = /^https?:\/\//i.test(invitationPdfRaw)
   ? invitationPdfRaw
   : `${import.meta.env.BASE_URL}${invitationPdfRaw.replace(/^\/+/, "")}`;
 const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "+91 6207398499";
-const confirmRsvpWhatsapp = "916207398499";
 const wishesWhatsappNumber =
   import.meta.env.VITE_WISHES_WHATSAPP_NUMBER || "+91 7992371912";
+const rsvpGoogleFormActionUrl = import.meta.env.VITE_RSVP_GOOGLE_FORM_ACTION_URL || "";
+const rsvpGoogleFormNameEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_NAME_ENTRY || "";
+const rsvpGoogleFormPhoneEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_PHONE_ENTRY || "";
+const rsvpGoogleFormGuestsEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_GUESTS_ENTRY || "";
+const rsvpGoogleFormCeremonyEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_CEREMONY_ENTRY || "";
+const rsvpGoogleFormLanguageEntry = import.meta.env.VITE_RSVP_GOOGLE_FORM_LANGUAGE_ENTRY || "";
 const updatesFeedUrl = `${import.meta.env.BASE_URL}update-feed.json`;
 const weddingMapLink = "https://maps.google.com/?q=Madhubani%20Bihar";
 const shagunMapLink = "https://maps.google.com/?q=Putai%20Bihar";
@@ -203,6 +208,7 @@ const translations = {
     confirmNow: "Confirm Now",
     whatsappConfirm: "WhatsApp Confirm",
     rsvpThanks: "Thank you. Your response has been recorded.",
+    rsvpSubmitFailed: "Unable to submit right now. Please try again in a moment.",
     downloadPdf: "Download Invitation PDF",
     enablePdf: "Set VITE_INVITATION_PDF_URL to enable PDF download.",
     viewAlbum: "View Album",
@@ -402,6 +408,7 @@ const translations = {
     confirmNow: "अभी पुष्टि करें",
     whatsappConfirm: "व्हाट्सऐप पुष्टि",
     rsvpThanks: "धन्यवाद। आपका जवाब दर्ज कर लिया गया है।",
+    rsvpSubmitFailed: "अभी पुष्टि नहीं हो पाई। कृपया थोड़ी देर बाद फिर कोशिश करें।",
     downloadPdf: "निमंत्रण PDF डाउनलोड करें",
     enablePdf: "PDF डाउनलोड के लिए VITE_INVITATION_PDF_URL सेट करें।",
     viewAlbum: "एल्बम देखें",
@@ -601,6 +608,7 @@ const translations = {
     confirmNow: "एखन पुष्टि करू",
     whatsappConfirm: "व्हाट्सऐप पुष्टि",
     rsvpThanks: "धन्यवाद। अहाँक जवाब दर्ज भ' गेल।",
+    rsvpSubmitFailed: "एखन पुष्टि नहि भ' सकल। कृपया किछु देर बाद फेर प्रयास करू।",
     downloadPdf: "निमंत्रण PDF डाउनलोड करू",
     enablePdf: "PDF डाउनलोड लेल VITE_INVITATION_PDF_URL सेट करू।",
     viewAlbum: "एल्बम देखू",
@@ -683,7 +691,7 @@ const chatbotText = {
       "I’m sorry, I don’t have an answer for that. I am currently only trained on the details for Saurabh and Soni’s wedding.\nWould you like to check the venue location or provide your Confirmation for the event?",
     prompts: ["Venue", "Timing", "Gallery", "Confirmation", "Contact", "Website"],
     ConfirmationHint:
-      "Please fill the Confirmation form and click Confirm Now to send your details on WhatsApp.",
+      "Please fill the Confirmation form and click Confirm Now to submit your response.",
     goToConfirmation: "Go to Confirmation",
     tapToOpenConfirmation: "Tap the button below to open Confirmation section.",
     askVenueType: "Which venue do you want: Shagun or Wedding?",
@@ -704,7 +712,7 @@ const chatbotText = {
     openGalleryCard: "Open This Gallery Card",
     openDriveFolder: "Open Google Drive Folder",
     websiteInfo:
-      "This website is a multilingual digital wedding invitation and guest assistant for Saurabh and Soni's wedding.\nKey features:\n1) Event details for Shagun and Wedding (venue, date, and timings)\n2) Interactive venue map links\n3) Live weather and AQI updates\n4) Google Drive-based gallery collections (view and upload photos)\n5) Confirmation (RSVP) with WhatsApp integration\n6) Guest message wall for blessings\n7) Language support: Hindi, Maithili, and English\n8) Quick chatbot support for venue, timing, gallery, contact, and confirmation",
+      "This website is a multilingual digital wedding invitation and guest assistant for Saurabh and Soni's wedding.\nKey features:\n1) Event details for Shagun and Wedding (venue, date, and timings)\n2) Interactive venue map links\n3) Live weather and AQI updates\n4) Google Drive-based gallery collections (view and upload photos)\n5) Confirmation (RSVP) with direct Google Form submission\n6) Guest message wall for blessings\n7) Language support: Hindi, Maithili, and English\n8) Quick chatbot support for venue, timing, gallery, contact, and confirmation",
     voiceAsk: "Use voice query",
     voiceStop: "Stop voice",
     voiceUnsupported: "Voice input is not supported in this browser.",
@@ -723,7 +731,7 @@ const chatbotText = {
       "क्षमा करें, मुझे इस बारे में जानकारी नहीं है। अभी मेरा पूरा ध्यान सौरभ और सोनी की शादी की तैयारियों पर है।\nक्या मैं आपकी मदद वेन्यू (Venue) बताने में या आपकी Confirmation (स्वीकृति) दर्ज करने में कर सकता हूँ?",
     prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
     ConfirmationHint:
-      "कृपया पुष्टि फॉर्म भरें और WhatsApp पर विवरण भेजने के लिए Confirm Now दबाएँ।",
+      "कृपया पुष्टि फॉर्म भरें और जवाब दर्ज करने के लिए Confirm Now दबाएँ।",
     goToConfirmation: "पुष्टि पर जाएँ",
     tapToOpenConfirmation: "पुष्टि सेक्शन खोलने के लिए नीचे बटन दबाएँ।",
     askVenueType: "आप कौन सा स्थान जानना चाहते हैं: शगुन या विवाह?",
@@ -744,7 +752,7 @@ const chatbotText = {
     openGalleryCard: "यह गैलरी कार्ड खोलें",
     openDriveFolder: "Google Drive फ़ोल्डर खोलें",
     websiteInfo:
-      "यह वेबसाइट सौरभ और सोनी के विवाह के लिए एक बहुभाषी डिजिटल निमंत्रण और गेस्ट असिस्टेंट है।\nमुख्य सुविधाएँ:\n1) शगुन और विवाह की पूरी जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम और AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखें और अपलोड करें)\n5) WhatsApp इंटीग्रेशन के साथ पुष्टि (RSVP)\n6) आशीर्वाद के लिए गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेज़ी\n8) स्थान, समय, गैलरी, संपर्क और पुष्टि के लिए चैटबॉट सहायता",
+      "यह वेबसाइट सौरभ और सोनी के विवाह के लिए एक बहुभाषी डिजिटल निमंत्रण और गेस्ट असिस्टेंट है।\nमुख्य सुविधाएँ:\n1) शगुन और विवाह की पूरी जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम और AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखें और अपलोड करें)\n5) Google Form के माध्यम से सीधी पुष्टि (RSVP)\n6) आशीर्वाद के लिए गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेज़ी\n8) स्थान, समय, गैलरी, संपर्क और पुष्टि के लिए चैटबॉट सहायता",
     voiceAsk: "वॉइस से पूछें",
     voiceStop: "वॉइस रोकें",
     voiceUnsupported: "इस ब्राउज़र में वॉइस इनपुट उपलब्ध नहीं है।",
@@ -763,7 +771,7 @@ const chatbotText = {
       "क्षम्य होब, हमरा एहि बारे में नहि पता अछि। हमर काज अछि अहाँ सभ कें सौरभ आ सोनी क विवाहक जानकारी देब।\nकी अहाँ अपन Confirmation (स्वीकृति) देबय चाहब, या कार्यक्रमक समय जानय चाहब?",
     prompts: ["स्थान", "समय", "गैलरी", "पुष्टि", "संपर्क", "वेबसाइट"],
     ConfirmationHint:
-      "कृपया पुष्टि फॉर्म भरू आ WhatsApp पर विवरण भेजबाक लेल Confirm Now दबाउ।",
+      "कृपया पुष्टि फॉर्म भरू आ जवाब जमा करबाक लेल Confirm Now दबाउ।",
     goToConfirmation: "पुष्टि पर जाउ",
     tapToOpenConfirmation: "पुष्टि सेक्शन खोलबाक लेल नीचाँ बटन दबाउ।",
     askVenueType: "अहाँ ककर स्थान चाहैत छी: शगुन कि बियाह?",
@@ -784,7 +792,7 @@ const chatbotText = {
     openGalleryCard: "ई गैलरी कार्ड खोलू",
     openDriveFolder: "Google Drive folder खोलू",
     websiteInfo:
-      "ई वेबसाइट सौरभ आ सोनीक बियाह लेल बहुभाषी डिजिटल निमंत्रण आ गेस्ट सहायक अछि।\nमुख्य सुविधा:\n1) शगुन आ बियाहक पूरा जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम आ AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखू आ अपलोड करू)\n5) WhatsApp संग पुष्टि (RSVP)\n6) आशीर्वाद लेल गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेजी\n8) स्थान, समय, गैलरी, संपर्क आ पुष्टि लेल चैटबॉट सहायता",
+      "ई वेबसाइट सौरभ आ सोनीक बियाह लेल बहुभाषी डिजिटल निमंत्रण आ गेस्ट सहायक अछि।\nमुख्य सुविधा:\n1) शगुन आ बियाहक पूरा जानकारी (स्थान, तिथि, समय)\n2) इंटरएक्टिव Google Map लोकेशन लिंक\n3) लाइव मौसम आ AQI अपडेट\n4) Google Drive आधारित गैलरी (फोटो देखू आ अपलोड करू)\n5) Google Form संग सीधा पुष्टि (RSVP)\n6) आशीर्वाद लेल गेस्ट मैसेज वॉल\n7) भाषा विकल्प: हिंदी, मैथिली, अंग्रेजी\n8) स्थान, समय, गैलरी, संपर्क आ पुष्टि लेल चैटबॉट सहायता",
     voiceAsk: "आवाज़ सँ पुछू",
     voiceStop: "आवाज़ रोकू",
     voiceUnsupported: "ई ब्राउज़र मे voice input उपलब्ध नहि अछि।",
@@ -863,6 +871,7 @@ function App() {
   const [weather, setWeather] = useState(initialWeather);
   const [rsvp, setRsvp] = useState(initialRsvp);
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
+  const [rsvpError, setRsvpError] = useState("");
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
@@ -1185,13 +1194,6 @@ function App() {
   const ceremonySelectValue =
     rsvp.ceremonies.length === 2 ? "both" : (rsvp.ceremonies[0] || "wedding");
 
-  const selectedCeremonyText =
-    ceremonySelectValue === "both"
-      ? t.bothCeremonies
-      : ceremonySelectValue === "shagun"
-        ? t.shagunCeremony
-        : t.weddingNight;
-
   const selectedUpdateTopics = updatePrefs.topics
     .map((topic) => {
       if (topic === "venue") return t.updatesTopicVenue;
@@ -1200,7 +1202,7 @@ function App() {
     })
     .join(", ");
 
-  function handleRsvpSubmit(event) {
+  async function handleRsvpSubmit(event) {
     event.preventDefault();
 
     if (!rsvp.name.trim() || !rsvp.phone.trim() || !rsvp.ceremonies.length) {
@@ -1214,22 +1216,44 @@ function App() {
         return item;
       })
       .join(", ");
-    const submitMessage = [
-      `${t.confirmMessagePrefix}: ${t.confirmMessageBody}`,
-      `${t.fullName}: ${rsvp.name}`,
-      `${t.phone}: ${rsvp.phone}`,
-      `${t.guests}: ${rsvp.attendees}`,
-      `${t.ceremony}: ${selectedCeremonies || t.notSelected}`,
-      `${t.languageNote}: ${language.toUpperCase()}`,
-    ].join("\n");
-    window.open(
-      `https://wa.me/${confirmRsvpWhatsapp}?text=${encodeURIComponent(submitMessage)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    if (!rsvpGoogleFormActionUrl) {
+      setRsvpSubmitted(false);
+      setRsvpError(t.rsvpSubmitFailed);
+      return;
+    }
 
-    setRsvpSubmitted(true);
-    setRsvp(initialRsvp);
+    const formData = new URLSearchParams();
+    if (rsvpGoogleFormNameEntry) formData.append(rsvpGoogleFormNameEntry, rsvp.name.trim());
+    if (rsvpGoogleFormPhoneEntry) formData.append(rsvpGoogleFormPhoneEntry, rsvp.phone.trim());
+    if (rsvpGoogleFormGuestsEntry) formData.append(rsvpGoogleFormGuestsEntry, rsvp.attendees);
+    if (rsvpGoogleFormCeremonyEntry) {
+      formData.append(rsvpGoogleFormCeremonyEntry, selectedCeremonies || t.notSelected);
+    }
+    if (rsvpGoogleFormLanguageEntry) formData.append(rsvpGoogleFormLanguageEntry, language.toUpperCase());
+
+    if (!formData.toString()) {
+      setRsvpSubmitted(false);
+      setRsvpError(t.rsvpSubmitFailed);
+      return;
+    }
+
+    try {
+      await fetch(rsvpGoogleFormActionUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: formData.toString(),
+        keepalive: true,
+      });
+      setRsvpError("");
+      setRsvpSubmitted(true);
+      setRsvp(initialRsvp);
+    } catch {
+      setRsvpSubmitted(false);
+      setRsvpError(t.rsvpSubmitFailed);
+    }
   }
 
   function handleAddMessage() {
@@ -1807,10 +1831,6 @@ function App() {
     });
   }
 
-  const whatsappLink = `https://wa.me/${whatsappNumberLink}?text=${encodeURIComponent(
-    `${t.confirmMessagePrefix}: ${t.confirmMessageBody} ${t.languageNote}: ${language.toUpperCase()}. ${t.ceremonyNote}: ${selectedCeremonyText || t.notSelected}`
-  )}`;
-
   const countdownUnits = [t.days, t.hours, t.minutes, t.seconds];
   const isFinalDay = !countdown.ended && countdown.days === 0;
   const selectedFolderLink = selectedPhoto ? galleryFolderLinks[selectedPhoto.key] : "";
@@ -2252,11 +2272,9 @@ function App() {
                 <button className="btn" type="submit">
                   {t.confirmNow}
                 </button>
-                <a className="btn btn-outline" href={whatsappLink} target="_blank" rel="noreferrer">
-                  {t.whatsappConfirm}
-                </a>
               </div>
               {rsvpSubmitted ? <p className="notice">{t.rsvpThanks}</p> : null}
+              {rsvpError ? <p className="notice">{rsvpError}</p> : null}
               <a className="btn btn-outline pdf-link" href={invitationPdf || "#"} onClick={handlePdfClick}>
                 {t.downloadPdf}
               </a>
