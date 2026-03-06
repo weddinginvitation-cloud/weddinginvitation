@@ -207,7 +207,7 @@ const translations = {
     ],
     rsvpTitle: "Confirmation and Blessings",
     fullName: "Full Name",
-    travelFrom: "Traveling from: [City/State]",
+    travelFrom: "Travelling from: [City/State]",
     phone: "Phone Number",
     guests: "Number of Guests",
     ceremony: "Ceremony",
