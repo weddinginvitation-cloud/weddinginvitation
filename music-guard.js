@@ -1,5 +1,10 @@
 (() => {
-  const ALLOWED_LANGS = new Set(["hi", "en"]);
+  const TRACKS_BY_LANG = {
+    hi: "melody.webm",
+    en: "melody.webm",
+    mai: "Sehnai_Dhun_Mangal_Dhun_Music_Mithila_Ke_Lok_Baja_Rasan_Chauki_256kbps.webm",
+  };
+  const BASE_PATH = "/weddinginvitation/music/";
   const FADE_START_SEC = 49;
   const STOP_SEC = 60;
   const CHECK_INTERVAL_MS = 200;
@@ -8,13 +13,47 @@
   let languageSelect = null;
   let fadeTimer = null;
   let baseVolume = 1;
-  let playbackAllowed = false;
+  let switchingSource = false;
 
-  function allowedLanguage() {
-    if (!languageSelect) {
-      return true;
+  function desiredTrack() {
+    if (!languageSelect) return null;
+    return TRACKS_BY_LANG[languageSelect.value] || null;
+  }
+
+  function desiredSrc() {
+    const track = desiredTrack();
+    if (!track) return null;
+    return BASE_PATH + encodeURI(track);
+  }
+
+  function hasDesiredSrc() {
+    if (!audioEl) return true;
+    const desired = desiredSrc();
+    if (!desired) return true;
+    const current = audioEl.getAttribute("src") || "";
+    return current.endsWith(desired);
+  }
+
+  function setSrcForLanguage(shouldPlay) {
+    if (!audioEl) return;
+    const desired = desiredSrc();
+    if (!desired || hasDesiredSrc()) return;
+    switchingSource = true;
+    const wasMuted = audioEl.muted;
+    audioEl.pause();
+    audioEl.src = desired;
+    audioEl.load();
+    audioEl.muted = wasMuted;
+    if (shouldPlay) {
+      audioEl
+        .play()
+        .catch(() => {})
+        .finally(() => {
+          switchingSource = false;
+        });
+      return;
     }
-    return ALLOWED_LANGS.has(languageSelect.value);
+    switchingSource = false;
   }
 
   function resetAudioState() {
@@ -27,7 +66,6 @@
     audioEl.pause();
     audioEl.currentTime = 0;
     resetAudioState();
-    playbackAllowed = false;
   }
 
   function startFadeWatcher() {
@@ -56,13 +94,13 @@
   }
 
   function handlePlay() {
-    if (!allowedLanguage()) {
+    if (!desiredTrack()) {
       stopWithReset();
       return;
     }
+    setSrcForLanguage(true);
     audioEl.loop = false;
     baseVolume = audioEl.volume || 1;
-    playbackAllowed = true;
     startFadeWatcher();
   }
 
@@ -72,7 +110,7 @@
 
   function handleLanguageChange() {
     // Do not interrupt a running track if the user switches language.
-    // Language gate applies only at play-start.
+    // Source will be swapped on the next play.
   }
 
   function bindElements() {
@@ -98,7 +136,9 @@
     }
 
     if (audioEl && !audioEl.paused) {
-      handlePlay();
+      if (!switchingSource) {
+        handlePlay();
+      }
     }
   }
 
