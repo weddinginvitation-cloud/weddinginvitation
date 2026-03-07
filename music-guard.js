@@ -122,9 +122,16 @@
     // Do not interrupt a running track. If paused, swap source now so
     // first play works with the right file.
     if (!audioEl) return;
+    if (!desiredTrack()) {
+      stopWithReset();
+      return;
+    }
     if (audioEl.paused) {
       setSrcForLanguage(false);
+      return;
     }
+    // User action: switch immediately to the selected language track.
+    setSrcForLanguage(true);
   }
 
   function syncToggleToPaused() {
