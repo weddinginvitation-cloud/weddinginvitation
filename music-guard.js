@@ -8,6 +8,7 @@
   let languageSelect = null;
   let fadeTimer = null;
   let baseVolume = 1;
+  let playbackAllowed = false;
 
   function allowedLanguage() {
     if (!languageSelect) {
@@ -26,6 +27,7 @@
     audioEl.pause();
     audioEl.currentTime = 0;
     resetAudioState();
+    playbackAllowed = false;
   }
 
   function startFadeWatcher() {
@@ -40,12 +42,15 @@
         return;
       }
       if (t >= FADE_START_SEC) {
+        if (audioEl.muted) return;
         const remaining = STOP_SEC - t;
         const fadeWindow = STOP_SEC - FADE_START_SEC;
         const ratio = Math.max(0, remaining / fadeWindow);
         audioEl.volume = baseVolume * ratio;
       } else {
-        audioEl.volume = baseVolume;
+        if (!audioEl.muted) {
+          audioEl.volume = baseVolume;
+        }
       }
     }, CHECK_INTERVAL_MS);
   }
@@ -57,6 +62,7 @@
     }
     audioEl.loop = false;
     baseVolume = audioEl.volume || 1;
+    playbackAllowed = true;
     startFadeWatcher();
   }
 
@@ -65,9 +71,8 @@
   }
 
   function handleLanguageChange() {
-    if (!allowedLanguage()) {
-      stopWithReset();
-    }
+    // Do not interrupt a running track if the user switches language.
+    // Language gate applies only at play-start.
   }
 
   function bindElements() {
@@ -92,8 +97,8 @@
       languageSelect.addEventListener("change", handleLanguageChange);
     }
 
-    if (audioEl && languageSelect) {
-      handleLanguageChange();
+    if (audioEl && !audioEl.paused) {
+      handlePlay();
     }
   }
 
