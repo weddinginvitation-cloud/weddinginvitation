@@ -98,7 +98,8 @@
       stopWithReset();
       return;
     }
-    setSrcForLanguage(true);
+    // Source is set while paused (on language change/bind). Avoid replay here
+    // to respect browser gesture rules.
     audioEl.loop = false;
     baseVolume = audioEl.volume || 1;
     startFadeWatcher();
@@ -109,8 +110,12 @@
   }
 
   function handleLanguageChange() {
-    // Do not interrupt a running track if the user switches language.
-    // Source will be swapped on the next play.
+    // Do not interrupt a running track. If paused, swap source now so
+    // first play works with the right file.
+    if (!audioEl) return;
+    if (audioEl.paused) {
+      setSrcForLanguage(false);
+    }
   }
 
   function bindElements() {
@@ -139,6 +144,10 @@
       if (!switchingSource) {
         handlePlay();
       }
+    }
+
+    if (audioEl && audioEl.paused) {
+      setSrcForLanguage(false);
     }
   }
 
