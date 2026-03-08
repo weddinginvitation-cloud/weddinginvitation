@@ -31,6 +31,8 @@
 
   let activeEl = null;
   let lastVibrateAt = 0;
+  let lastPointerVibrateAt = 0;
+  let lastPointerType = null;
 
   function isDisabled(el) {
     if (!el) return true;
@@ -45,6 +47,30 @@
 
     if (!("vibrate" in navigator)) return;
     navigator.vibrate(15);
+  }
+
+  function resolveTarget(event) {
+    if (!event) return null;
+    const path = typeof event.composedPath === "function" ? event.composedPath() : null;
+    if (path && path.length) {
+      for (const node of path) {
+        if (node instanceof Element) {
+          const found = node.closest(SELECTOR);
+          if (found) return found;
+        }
+      }
+    }
+
+    const rawTarget = event.target;
+    if (rawTarget instanceof Element) {
+      return rawTarget.closest(SELECTOR);
+    }
+
+    if (rawTarget && rawTarget.parentElement) {
+      return rawTarget.parentElement.closest(SELECTOR);
+    }
+
+    return null;
   }
 
   function markPressables(root) {
@@ -73,9 +99,14 @@
   }
 
   function handlePointerDown(event) {
-    const target = event.target.closest(SELECTOR);
+    const target = resolveTarget(event);
     if (!target || isDisabled(target)) return;
     press(target);
+    if (event.pointerType === "touch" || event.pointerType === "pen") {
+      lastPointerVibrateAt = Date.now();
+      lastPointerType = event.pointerType;
+      vibrateClick();
+    }
   }
 
   function handlePointerUp() {
@@ -94,21 +125,28 @@
 
   function handleKeyDown(event) {
     if (event.key !== "Enter" && event.key !== " ") return;
-    const target = event.target.closest(SELECTOR);
+    const target = resolveTarget(event);
     if (!target || isDisabled(target)) return;
     press(target);
   }
 
   function handleKeyUp(event) {
     if (event.key !== "Enter" && event.key !== " ") return;
-    const target = event.target.closest(SELECTOR);
+    const target = resolveTarget(event);
     if (!target || isDisabled(target)) return;
     release(target);
+    vibrateClick();
   }
 
   function handleClick(event) {
-    const target = event.target.closest(SELECTOR);
+    const target = resolveTarget(event);
     if (!target || isDisabled(target)) return;
+    if (
+      lastPointerType === "touch" &&
+      Date.now() - lastPointerVibrateAt < 700
+    ) {
+      return;
+    }
     vibrateClick();
   }
 
