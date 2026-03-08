@@ -9,3 +9,6 @@
 @keyframes press-release{0%{transform:translateY(1px) scale(var(--press-scale))}100%{transform:translateY(0) scale(1)}}
 button,a,[role=button],input[type=button],input[type=submit]{-webkit-tap-highlight-color:transparent}
 
+/* Global tap highlight reset + touch focus polish */
+*{-webkit-tap-highlight-color:transparent}
+.pressable:focus:not(:focus-visible){outline:none}

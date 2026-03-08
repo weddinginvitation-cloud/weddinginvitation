@@ -37,15 +37,7 @@
     if (!el) return true;
     if (el.hasAttribute("disabled")) return true;
     return el.getAttribute("aria-disabled") === "true";
-  }
-
-  function prefersSound() {
-    const icon = document.querySelector(".music-mode-icon");
-    if (!icon) return true;
-    return icon.classList.contains("is-on");
-  }
-
-  function playClick() {
+  }  function playClick() {
     const now = Date.now();
     if (now - lastSoundAt < 40) return;
     lastSoundAt = now;
@@ -139,9 +131,7 @@
 
   function handleClick(event) {
     const target = event.target.closest(SELECTOR);
-    if (!target || isDisabled(target)) return;
-    if (!prefersSound()) return;
-    playClick();
+    if (!target || isDisabled(target)) return;    playClick();
   }
 
   document.addEventListener("pointerdown", handlePointerDown, { passive: true });
@@ -160,4 +150,6 @@
     markPressables(document);
   }
 })();
+
+
 
