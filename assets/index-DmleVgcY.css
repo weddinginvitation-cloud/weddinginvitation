@@ -12,3 +12,8 @@ button,a,[role=button],input[type=button],input[type=submit]{-webkit-tap-highlig
 /* Global tap highlight reset + touch focus polish */
 *{-webkit-tap-highlight-color:transparent}
 .pressable:focus:not(:focus-visible){outline:none}
+
+/* hide story section and its quick-nav button */
+.story{display:none !important}
+.quick-nav-panel button:first-child{display:none !important}
+
