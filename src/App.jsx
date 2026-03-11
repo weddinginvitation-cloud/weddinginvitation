@@ -141,7 +141,7 @@ const translations = {
     shagunDate: "April 24, 2026",
     shagunTime: "6:30 PM onwards",
     shagunVenue: "Putai, Bihar",
-    shagunDress: "to be updated",
+    
     shagunDescription:
       "In Mithilanchal tradition, Shagun marks the graceful beginning of sacred wedding rites, where blessings, gifts, and goodwill flow between families.",
     baraatTitle: "Baraat Experience",
@@ -348,7 +348,7 @@ const translations = {
     shagunDate: "24 अप्रैल 2026",
     shagunTime: "शाम 6:30 बजे से",
     shagunVenue: "पुतई, बिहार",
-    shagunDress: "अपडेट होना बाकी",
+    
     shagunDescription:
       "मिथिलांचल परंपरा में शगुन, विवाह संस्कारों की शुभ शुरुआत है, जहां आशीर्वाद, उपहार और अपनापन दोनों परिवारों में बहता है।",
     baraatTitle: "बारात अनुभव",
@@ -555,7 +555,7 @@ const translations = {
     shagunDate: "24 अप्रैल 2026",
     shagunTime: "साँझ 6:30 बजे सँ",
     shagunVenue: "पुतई, बिहार",
-    shagunDress: "अपडेट बाकी अछि",
+    
     shagunDescription:
       "मिथिलांचल परंपरा मे शगुन, बियाहक पवित्र विधिक सुग्घर शुरुआत मानल जाइत अछि, जत' आशीर्वाद आ अपनापन दूनू परिवार मे बहेत अछि।",
     baraatTitle: "बारात अनुभव",
