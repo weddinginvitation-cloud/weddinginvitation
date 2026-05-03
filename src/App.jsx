@@ -1,6 +1,13 @@
-const albumUrl = "https://drive.google.com/drive/folders/19TjjIsKZkT5rnssreugnOnBPnM8pQJhI";
-
-const albums = ["Shagun Ceremony", "Wedding Ceremony"];
+const albums = [
+  {
+    title: "Shagun Ceremony",
+    url: "https://drive.google.com/drive/folders/19TjjIsKZkT5rnssreugnOnBPnM8pQJhI",
+  },
+  {
+    title: "Wedding Ceremony",
+    url: "https://drive.google.com/drive/folders/1RC3PxDFvFDu-aIx6DAeKacUZFaz9m232?usp=drive_link",
+  },
+];
 
 function App() {
   return (
@@ -14,10 +21,10 @@ function App() {
 
       <section className="gallery-section" aria-label="Wedding albums">
         <div className="album-grid">
-          {albums.map((title) => (
-            <article className="glass-card" key={title}>
-              <h2>{title}</h2>
-              <a className="open-button" href={albumUrl} target="_blank" rel="noreferrer">
+          {albums.map((album) => (
+            <article className="glass-card" key={album.title}>
+              <h2>{album.title}</h2>
+              <a className="open-button" href={album.url} target="_blank" rel="noreferrer">
                 Open
               </a>
             </article>
