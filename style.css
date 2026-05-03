@@ -1,11 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap");
 
 :root {
-  --cream: #fff6ea;
-  --ink: #3a241f;
-  --accent: #8a1f2d;
-  --accent-soft: #e5b567;
-  --border: rgba(120, 98, 78, 0.18);
+  --paper: #fff8ee;
+  --ink: #31211d;
+  --muted: #71564e;
+  --maroon: #8a1f2d;
+  --rose: #c94b62;
+  --gold: #d8a84e;
+  --leaf: #426b4f;
+  --border: rgba(73, 47, 38, 0.16);
+  --shadow: 0 22px 55px rgba(65, 37, 27, 0.16);
 }
 
 * {
@@ -22,9 +26,14 @@ body {
   font-family: "Manrope", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 10% 10%, rgba(229, 181, 103, 0.18), transparent 40%),
-    radial-gradient(circle at 90% 20%, rgba(255, 111, 145, 0.14), transparent 45%),
-    var(--cream);
+    linear-gradient(135deg, rgba(255, 248, 238, 0.96), rgba(252, 236, 220, 0.9)),
+    radial-gradient(circle at 12% 18%, rgba(216, 168, 78, 0.28), transparent 30%),
+    radial-gradient(circle at 86% 22%, rgba(201, 75, 98, 0.2), transparent 34%),
+    #fff8ee;
+}
+
+a {
+  color: inherit;
 }
 
 .gallery-page {
@@ -33,81 +42,219 @@ body {
 
 .gallery-hero {
   position: relative;
-  min-height: 42vh;
-  padding: 5rem 1rem 4rem;
+  min-height: 66vh;
+  padding: 2rem 1rem 4rem;
   display: grid;
   place-items: center;
   text-align: center;
   color: #fff;
   overflow: hidden;
   background:
-    linear-gradient(rgba(58, 36, 31, 0.28), rgba(58, 36, 31, 0.5)),
-    url("images/pk.PNG") center / min(520px, 82vw) no-repeat,
-    linear-gradient(135deg, #8a1f2d, #e5b567);
+    linear-gradient(rgba(35, 18, 15, 0.22), rgba(35, 18, 15, 0.58)),
+    url("images/pk.PNG") center / min(620px, 84vw) no-repeat,
+    linear-gradient(135deg, #7d1b2a 0%, #c94b62 52%, #d8a84e 100%);
+}
+
+.gallery-hero::before,
+.gallery-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto;
+  width: 18rem;
+  height: 18rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.gallery-hero::before {
+  top: -9rem;
+  left: -7rem;
+}
+
+.gallery-hero::after {
+  right: -8rem;
+  bottom: -9rem;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  padding-top: 11rem;
 }
 
 .brand {
-  margin: 0 0 0.8rem;
+  margin: 0 0 0.7rem;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .gallery-hero h1 {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2.8rem, 9vw, 5.8rem);
-  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 0.92;
+  text-shadow: 0 12px 26px rgba(0, 0, 0, 0.36);
+}
+
+.hero-copy {
+  max-width: 520px;
+  margin: 1rem auto 1.5rem;
+  font-size: clamp(1rem, 2.8vw, 1.18rem);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.26);
+}
+
+.btn,
+.album-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btn {
+  color: var(--maroon);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 38px rgba(40, 22, 19, 0.24);
 }
 
 .section {
-  max-width: 1000px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 2.5rem 1rem;
+  padding: 3rem 1rem 4rem;
+}
+
+.section-heading {
+  margin: 0 auto 1.4rem;
+  max-width: 640px;
+  text-align: center;
+}
+
+.section-heading p {
+  margin: 0 0 0.35rem;
+  color: var(--leaf);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1;
+  color: var(--maroon);
 }
 
 .card-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1.2rem;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 10px 24px rgba(60, 40, 24, 0.1);
+  padding: 0.85rem 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow);
 }
 
-.card h2 {
-  margin: 0 0 0.7rem;
+.card-image {
+  min-height: 250px;
+  border-radius: 6px;
+  background:
+    linear-gradient(rgba(49, 33, 29, 0.06), rgba(49, 33, 29, 0.34)),
+    url("images/pk.PNG") center 38% / cover no-repeat,
+    #f1dfc9;
+}
+
+.card-image-alt {
+  background:
+    linear-gradient(rgba(49, 33, 29, 0.02), rgba(49, 33, 29, 0.38)),
+    url("images/pk.PNG") center 62% / cover no-repeat,
+    #f1dfc9;
+}
+
+.card-kicker {
+  margin: 1rem 0 0.2rem;
+  color: var(--leaf);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin: 0 0 0.8rem;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.8rem;
-  color: var(--accent);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  line-height: 1;
+  color: var(--maroon);
 }
 
-.link {
-  color: var(--accent);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
+.album-link {
+  width: 100%;
+  color: #fff;
+  background: linear-gradient(135deg, var(--maroon), var(--rose));
+  box-shadow: 0 12px 24px rgba(138, 31, 45, 0.18);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .gallery-hero {
-    min-height: 36vh;
-    padding: 4rem 1rem 3.2rem;
-    background-size: cover, min(360px, 88vw), cover;
+    min-height: 58vh;
+    padding: 1.4rem 1rem 3rem;
+    background-size: cover, min(430px, 92vw), cover;
+  }
+
+  .hero-content {
+    padding-top: 8.5rem;
   }
 
   .brand {
-    font-size: 0.95rem;
-    letter-spacing: 0.06em;
+    font-size: 0.86rem;
+    letter-spacing: 0.12em;
   }
 
   .section {
-    padding: 2rem 1rem;
+    padding: 2.4rem 1rem 3rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-image {
+    min-height: 210px;
+  }
+}
+
+@media (max-width: 420px) {
+  .gallery-hero {
+    min-height: 54vh;
+  }
+
+  .hero-content {
+    padding-top: 7rem;
+  }
+
+  .card {
+    padding: 0.7rem 0.7rem 0.9rem;
+  }
+
+  .card-image {
+    min-height: 185px;
   }
 }
