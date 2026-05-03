@@ -141,33 +141,17 @@ a {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.62);
   border-radius: 8px;
-  padding: 0.65rem;
-  background: rgba(255, 255, 255, 0.24);
+  padding: 1.05rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18)),
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.34), transparent 28%);
   box-shadow: 0 12px 28px rgba(65, 37, 27, 0.08);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
 
-.card-image {
-  min-height: 126px;
-  border-radius: 6px;
-  background:
-    url("images/pk.PNG") center / min(132px, 58%) no-repeat,
-    radial-gradient(circle, rgba(216, 168, 78, 0.16) 1px, transparent 1.6px),
-    rgba(255, 255, 255, 0.2);
-  background-size: min(132px, 58%), 18px 18px, auto;
-}
-
-.card-image-alt {
-  background:
-    url("images/pk.PNG") center / min(132px, 58%) no-repeat,
-    radial-gradient(circle, rgba(138, 31, 45, 0.13) 1px, transparent 1.6px),
-    rgba(255, 255, 255, 0.2);
-  background-size: min(132px, 58%), 18px 18px, auto;
-}
-
 .card h3 {
-  margin: 0.75rem 0 0.65rem;
+  margin: 0 0 0.85rem;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1.55rem, 3vw, 2rem);
   line-height: 1;
@@ -224,9 +208,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .card-image {
-    min-height: 120px;
-  }
 }
 
 @media (max-width: 420px) {
@@ -239,10 +220,6 @@ a {
   }
 
   .card {
-    padding: 0.58rem;
-  }
-
-  .card-image {
-    min-height: 108px;
+    padding: 0.9rem;
   }
 }
